@@ -1,0 +1,34 @@
+{
+  "name": "sdgoij/encog",
+  "description": "Encog Machine Learning Framework",
+  "license": "Apache-2",
+  "keywords": [
+    "machine learning",
+    "stuff"
+  ],
+  "homepage": "http://github.com/sdgoij/encog-php-core",
+  "authors": [
+    {
+      "name": "Tim Jurcka",
+      "email": "sdgoij@gmail.com",
+      "homepage": "http://github.com/sdgoij/"
+    }
+  ],
+  "require": {
+    "php": ">= 7.0.0",
+    "symfony/console": "^3.0",
+    "krakjoe/pthreads-polyfill": "^1.1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "5.*"
+  },
+  "suggest": {
+    "ext-pthreads": "Allows multi threaded training"
+  },
+  "autoload": {
+    "psr-4": {
+      "encog\\": "src/",
+      "encog\\test\\": "tests/"
+    }
+  }
+}
