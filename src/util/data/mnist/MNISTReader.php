@@ -31,14 +31,12 @@ class MNISTReader implements Countable, IteratorAggregate {
 		if (!file_exists($images)) {
 			throw new MNISTError("File '$images' not found!");
 		}
-		$this->images = fopen($images, "rb");
-		$this->labels = fopen($labels, "rb");
+		$this->images = (binary)file_get_contents("compress.zlib://$images");
+		$this->labels = (binary)file_get_contents("compress.zlib://$labels");
+		$this->index = 0;
 
-		$imageFileHeaders = $this->headers($this->images, 16);
-		$labelFileHeaders = $this->headers($this->labels, 8);
-
-		$this->imageFileName = $images;
-		$this->labelFileName = $labels;
+		$imageFileHeaders = $this->headers(substr($this->images, 0, 16));
+		$labelFileHeaders = $this->headers(substr($this->labels, 0, 8));
 
 		if (2051 != $imageFileHeaders[0]) {
 			throw new MNISTError("Image file has wrong magic number: {$imageFileHeaders[0]} (should be 2051)");
@@ -65,51 +63,28 @@ class MNISTReader implements Countable, IteratorAggregate {
 		}
 	}
 
-	public function __destruct() {
-		$this->close();
-	}
-
-	public function __clone() {
-		$this->images = fopen($this->imageFileName, "rb");
-		$this->labels = fopen($this->labelFileName, "rb");
-		$this->current = null;
-	}
-
-	public function close() {
-		if ($this->images) {
-			fclose($this->images);
-			$this->images = null;
-		}
-		if ($this->labels) {
-			fclose($this->labels);
-			$this->labels = null;
-		}
-	}
-
 	public function current(): array {
 		if (!$this->current) {
-			$this->current = $this->next();
+			$imageData = substr($this->images, 16+$this->imageRecordSize*$this->index, $this->imageRecordSize);
+			$this->current = [
+				array_values(unpack("C{$this->imageRecordSize}", $imageData)),
+				unpack("C", substr($this->labels, 8+1*$this->index, 1))[1],
+			];
 		}
 		return $this->current;
 	}
 
-	public function next(): array {
-		if (!feof($this->images) && $rawLabelData = fread($this->labels, 1)) {
-			return [
-				array_values(unpack("C{$this->imageRecordSize}", fread($this->images, $this->imageRecordSize))),
-				unpack("C", $rawLabelData)[1],
-			];
-		}
-		return [];
+	public function next(): bool {
+		$this->current = null;
+		return $this->index++ < $this->size;
 	}
 
 	public function seek(int $index) {
 		if ($index < 0 || $index >= $this->size) {
 			throw new MNISTError("Index is out of bounds.");
 		}
-		fseek($this->images, 16+$index*$this->imageRecordSize);
-		fseek($this->labels, 8+$index);
 		$this->current = null;
+		$this->index = $index;
 	}
 
 	public function getImageRecordSize(): int {
@@ -117,22 +92,22 @@ class MNISTReader implements Countable, IteratorAggregate {
 	}
 
 	public function getIterator() {
-		while ($data = $this->next()) {
-			yield $data;
-		}
+		do {
+			yield $this->current();
+		} while ($this->next());
+		$this->index = 0;
 	}
 
 	public function count() {
 		return $this->size;
 	}
 
-	private function headers($stream, int $size): array {
-		return array_values(unpack("N".$size/4, fread($stream, $size)));
+	private function headers($data): array {
+		return array_values(unpack("N".strlen($data)/4, $data));
 	}
 
-	private $imageFileName;
-	private $labelFileName;
 	private $current;
+	private $index;
 	private $imageRecordSize;
 	private $labels;
 	private $images;

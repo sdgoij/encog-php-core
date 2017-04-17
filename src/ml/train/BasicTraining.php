@@ -63,7 +63,7 @@ abstract class BasicTraining implements MLTrain {
 		return $this->iteration;
 	}
 
-	public function &getStrategies(): array {
+	public function getStrategies(): array {
 		return $this->strategies;
 	}
 

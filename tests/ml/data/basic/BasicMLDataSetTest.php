@@ -24,6 +24,7 @@ use RangeException;
 
 class BasicMLDataSetTest extends TestCase {
 	public function testCreateDataSet() {
+		/** @var BasicMLDataPair[] $expect */
 		$expect = [new BasicMLDataPair(new BasicMLData([1,2,3]), new BasicMLData([3,2,1]))];
 		$data1 = new BasicMLDataSet([$expect[0]->getInputArray()], [$expect[0]->getIdealArray()]);
 		$data2 = new BasicMLDataSet([$expect[0]->getInputArray()], [$expect[0]->getIdeal()]);
@@ -120,7 +121,7 @@ class BasicMLDataSetTest extends TestCase {
 		$data->getRecord(0, $pair);
 
 		$this->assertEquals($expect, $pair);
-		$this->setExpectedException(RangeException::class);
+		$this->expectException(RangeException::class);
 		$data->getRecord(1, $pair);
 	}
 
@@ -129,7 +130,7 @@ class BasicMLDataSetTest extends TestCase {
 		$data = new BasicMLDataSet([[1]], [[2]]);
 
 		$this->assertEquals($expect, $data->get(0));
-		$this->setExpectedException(RangeException::class);
+		$this->expectException(RangeException::class);
 		$data->get(1);
 	}
 

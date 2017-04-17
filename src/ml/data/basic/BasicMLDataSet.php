@@ -18,11 +18,11 @@ namespace encog\ml\data\basic;
 
 use ArrayIterator;
 use Iterator;
-use RangeException;
-
 use encog\ml\data\MLData;
 use encog\ml\data\MLDataPair;
 use encog\ml\data\MLDataSet;
+use RangeException;
+use Traversable;
 
 /**
  * Stores data in an array. This class is memory based, so large enough datasets
@@ -30,10 +30,8 @@ use encog\ml\data\MLDataSet;
  */
 class BasicMLDataSet implements MLDataSet {
 	public function __construct($input = null, $ideal = null) {
-		if (!$ideal && $input instanceof MLDataSet) {
-			// TODO Copy existing MLDataSet to memory.. until it runs out?
-		} else if (!$ideal && is_array($input) && count($input) &&
-			$input[0] instanceof MLDataPair) {
+		if (!$ideal && is_array($input) && count($input) &&
+				$input[0] instanceof MLDataPair) {
 			$this->data = $input;
 		} else {
 			if ($ideal !== null) {
@@ -42,9 +40,13 @@ class BasicMLDataSet implements MLDataSet {
 					$inputData = is_array($v) ? new BasicMLData($v) : $v;
 					$this->add($inputData, $idealData);
 				}
-			} else if ($input) {
+			} else if (is_array($input) || $input instanceof Traversable) {
 				foreach ($input as $v) {
-					$this->add(is_array($v) ? new BasicMLData($v) : $v);
+					if (!$v instanceof MLDataPair) {
+						$this->add(is_array($v) ? new BasicMLData($v) : $v);
+					} else {
+						$this->addPair($v);
+					}
 				}
 			}
 		}

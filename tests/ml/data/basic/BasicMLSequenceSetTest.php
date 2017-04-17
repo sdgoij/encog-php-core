@@ -140,7 +140,8 @@ class BasicMLSequenceSetTest extends TestCase {
 		$this->assertEquals($pairs[1], $pair3);
 		$this->assertEquals($pairs[0], $pair4);
 
-		$this->setExpectedException(MLDataError::class, "Record out of range: 4");
+		$this->expectExceptionMessage("Record out of range: 4");
+		$this->expectException(MLDataError::class);
 		$seq->getRecord(4, BasicMLDataPair::createPair(1,0));
 	}
 
@@ -157,7 +158,8 @@ class BasicMLSequenceSetTest extends TestCase {
 		$this->assertEquals($pairs[1], $seq->get(2));
 		$this->assertEquals($pairs[0], $seq->get(3));
 
-		$this->setExpectedException(MLDataError::class, "Record out of range: 4");
+		$this->expectExceptionMessage("Record out of range: 4");
+		$this->expectException(MLDataError::class);
 		$seq->get(4);
 	}
 

@@ -95,8 +95,6 @@ class GradientWorker implements EngineTask {
 	/** @var SplFixedArray */
 	private $layerDropoutRates;
 
-	public function isGarbage(): bool { return $this->done ?? false; }
-
 	public function __construct(
 			FlatNetwork $network,
 			GradientWorkerOwner $owner,
@@ -168,15 +166,17 @@ class GradientWorker implements EngineTask {
 	}
 
 	public function processLevel(int $currentLevel) {
-		$fromLayerIndex = $this->layerIndex[$currentLevel+1];
+		$nextLevel = $currentLevel+1;
+		$fromLayerIndex = $this->layerIndex[$nextLevel];
 		$toLayerIndex = $this->layerIndex[$currentLevel];
-		$fromLayerSize = $this->layerCounts[$currentLevel+1];
+		$fromLayerSize = $this->layerCounts[$nextLevel];
 		$toLayerSize = $this->layerFeedCounts[$currentLevel];
+		$maxLayerIndex = $toLayerIndex+$toLayerSize;
 		$dropoutRate = $this->layerDropoutRates->getSize() > $currentLevel
 			? $this->layerDropoutRates[$currentLevel] : 0.0;
 		$index = $this->weightIndex[$currentLevel];
 		$activation = $this->network->getActivationFunctions()[$currentLevel];
-		$flatSpot = $this->flatSpot[$currentLevel+1] ?? 0;
+		$flatSpot = $this->flatSpot[$nextLevel] ?? 0;
 		$layerDelta = $this->layerDelta;
 		$weights = $this->weights;
 		$gradients = $this->gradients;
@@ -187,7 +187,7 @@ class GradientWorker implements EngineTask {
 			$sum = 0;
 			$wi = $index+$y;
 			if ($dropoutRate == 0 || $this->dropoutRandomSource->nextDouble() > $dropoutRate) {
-				for ($xi = $toLayerIndex; $xi < $toLayerIndex+$toLayerSize; $wi += $fromLayerSize, $xi++) {
+				for ($xi = $toLayerIndex; $xi < $maxLayerIndex; $wi += $fromLayerSize, $xi++) {
 					$gradients[$wi] = $gradients[$wi] + $output * $layerDelta[$xi];
 					$sum += $weights[$wi] * $layerDelta[$xi];
 				}
@@ -204,8 +204,6 @@ class GradientWorker implements EngineTask {
 	public function run() {
 		try {
 			$this->errCalc->reset();
-			// FIXME Cloning the training data set??
-			$this->training = clone $this->training;
 			for ($i = $this->low; $i <= $this->high; $i++) {
 				$this->training->getRecord($i, $this->pair);
 				$this->process($this->pair);
@@ -213,9 +211,8 @@ class GradientWorker implements EngineTask {
 			$this->owner->report($this->gradients->toArray(), $this->errCalc->calculate());
 			self::fill($this->gradients, 0.0);
 		} catch (Throwable $e) {
-			$this->owner->report([], 0, $e);
+			$this->owner->report([], 0.0, $e);
 		}
-		$this->done = true;
 	}
 
 	public function runOne(int $index) {

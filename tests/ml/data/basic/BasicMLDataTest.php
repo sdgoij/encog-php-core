@@ -55,7 +55,7 @@ class BasicMLDataTest extends TestCase {
 		$data->add(2, 1);
 
 		$this->assertEquals([1,2,3], $data->getData()->toArray());
-		$this->setExpectedException(RangeException::class);
+		$this->expectException(RangeException::class);
 		$data->add(3, 1);
 	}
 
@@ -104,7 +104,7 @@ class BasicMLDataTest extends TestCase {
 
 		$this->assertNotEquals($d1, $d1->plus($d2));
 		$this->assertEquals(new BasicMLData([4,4,4]), $d1->plus($d2));
-		$this->setExpectedException(InvalidArgumentException::class);
+		$this->expectException(InvalidArgumentException::class);
 		$d1->plus(new BasicMLData([1]));
 	}
 
@@ -114,7 +114,7 @@ class BasicMLDataTest extends TestCase {
 
 		$this->assertNotEquals($d1, $d1->minus($d2));
 		$this->assertEquals(new BasicMLData([1,2,3]), $d1->minus($d2));
-		$this->setExpectedException(InvalidArgumentException::class);
+		$this->expectException(InvalidArgumentException::class);
 		$d1->minus(new BasicMLData([1]));
 	}
 

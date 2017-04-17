@@ -230,7 +230,7 @@ class BasicNetwork extends BasicML implements ContainsFlat, MLContext, MLRegress
 	}
 
 	public function computeArray(array $input, array &$output) {
-		$output = $this->compute(new BasicMLData($input))->getData();
+		$output = $this->compute(new BasicMLData($input))->getData()->toArray();
 	}
 
 	public function getFactoryType(): string {

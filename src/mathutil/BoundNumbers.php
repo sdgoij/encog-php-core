@@ -21,8 +21,8 @@ namespace encog\mathutil;
  * small.
  */
 final class BoundNumbers {
-	const TOO_SMALL = -1.0E20;
-	const TOO_BIG = 1.0E20;
+	const TOO_SMALL = -1.0E18;
+	const TOO_BIG = 1.0E18;
 
 	public static function bound(float $value): float {
 		if ($value < self::TOO_SMALL) {

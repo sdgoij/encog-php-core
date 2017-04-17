@@ -101,8 +101,8 @@ final class Encog {
 		$this->registerPlugin(new SystemActivationPlugin());
 		$this->registerPlugin(new SystemMethodsPlugin());
 		$this->properties = [
-				self::ENCOG_FILE_VERSION => self::FILE_VERSION,
-				self::ENCOG_VERSION => self::VERSION,
+			self::ENCOG_FILE_VERSION => self::FILE_VERSION,
+			self::ENCOG_VERSION => self::VERSION,
 		];
 	}
 

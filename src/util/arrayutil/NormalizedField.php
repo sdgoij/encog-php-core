@@ -97,8 +97,11 @@ class NormalizedField {
 		if ($value < $this->actualLow) {
 			return $this->normalizedLow;
 		}
-		return (($value - $this->actualLow) / ($this->actualHigh - $this->actualLow))
-			* ($this->normalizedHigh - $this->normalizedLow) + $this->normalizedLow;
+		if ($this->actualHigh-$this->actualLow > 0) {
+			return (($value - $this->actualLow) / ($this->actualHigh - $this->actualLow))
+				* ($this->normalizedHigh - $this->normalizedLow) + $this->normalizedLow;
+		}
+		return 0.0;
 	}
 
 	public function isClassify(): bool {

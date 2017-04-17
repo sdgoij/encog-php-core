@@ -21,6 +21,10 @@ class CSVFormat {
 		return localeconv()['decimal_point'];
 	}
 
+	public static function newDecimalPoint(): CSVFormat {
+		return new self(".", ",");
+	}
+
 	public function __construct(string $decimal = ".", string $separator = ",") {
 		$this->separator = $separator;
 		$this->decimal = $decimal;
@@ -70,9 +74,16 @@ class CSVFormat {
 		return $this->getNumberFormatter()->parse(trim($str))->floatValue();
 	}
 
+	/** @var CSVFormat $decimalPoint */
 	public static $decimalPoint;
+
+	/** @var CSVFormat $decimalComma*/
 	public static $decimalComma;
+
+	/** @var CSVFormat $english */
 	public static $english;
+
+	/** @var CSVFormat $egFormat */
 	public static $egFormat;
 
 	private $separator;

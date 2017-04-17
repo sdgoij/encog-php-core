@@ -65,6 +65,7 @@ class MNISTDataSet implements MLDataSet {
 		$this->reader->seek($index);
 		$record = $this->reader->current();
 		$pair->setInputArray($this->normalizer->process($record[0]));
+		$pair->setIdealArray(array_fill(0, $this->getIdealSize(), 0.0));
 		$pair->getIdeal()->setDataAt($record[1], 1.0);
 	}
 
@@ -80,9 +81,7 @@ class MNISTDataSet implements MLDataSet {
 		throw new MLDataError("Direct adds to the MNIST dataset are not supported.");
 	}
 
-	public function close() {
-		$this->reader->close();
-	}
+	public function close() {}
 
 	public function size(): int {
 		return $this->getRecordCount();

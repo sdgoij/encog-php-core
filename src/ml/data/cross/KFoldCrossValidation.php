@@ -80,7 +80,7 @@ class KFoldCrossValidation {
 	}
 
 	private function shuffleList(array &$list) {
-		for ($i = count($list); $i >= 0; $i--) {
+		for ($i = count($list)-1; $i >= 0; $i--) {
 			$n = $this->random->nextInt($i+1);
 			$temp = $list[$n];
 			$list[$i] = $list[$n];

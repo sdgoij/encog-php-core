@@ -16,11 +16,6 @@
  */
 namespace encog\neural\networks\training\propagation;
 
-use Collectable;
-use Pool;
-use Threaded;
-use Throwable;
-
 use encog\EncogError;
 use encog\engine\network\activation\ActivationSigmoid;
 use encog\ml\data\MLDataSet;
@@ -38,6 +33,7 @@ use encog\util\concurrency\MultiThreadable;
 use encog\util\EncogValidate;
 use encog\util\logging\EncogLogging;
 use encog\util\Random;
+use Throwable;
 
 /**
  * Implements basic functionality that is needed by each of the propagation
@@ -191,40 +187,7 @@ abstract class Propagation extends BasicTraining implements MLTrain, BatchSize,
 		$this->totalError = 0.0;
 
 		if ($numWorkers > 1) {
-			$result = new ThreadedWorkerOwner($this);
-			$pool = new Pool($numWorkers);
-
-			foreach ($this->workers as $worker) {
-				$worker->setOwner($result);
-
-				$pool->submit(
-					new class($worker) extends Threaded {
-						public function __construct(GradientWorker $worker) {
-							$this->gradientWorker = $worker;
-						}
-						public function run() {
-							//echo "RUNNIN\n";
-							$this->gradientWorker->run();
-							$this->done = true;
-							//echo "DONE!\n";
-						}
-						public function isGarbage(): bool {
-							return $this->done ?? false;
-						}
-					}
-				);
-				//echo "WORKER\n";
-			}
-
-			//var_dump($pool->collect());
-
-			while ($pool->collect(function(Threaded $task): bool {
-				//var_dump($task->isGarbage());
-				return $task->isGarbage();
-			})) continue;
-
-			$this->report(...$result->v());
-			$pool->shutdown();
+			// TODO Make GradientWorkers run in separate threads, using "pthreads" extension.
 		} else {
 			$this->workers[0]->run();
 		}

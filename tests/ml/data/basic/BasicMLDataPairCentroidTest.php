@@ -32,12 +32,12 @@ class BasicMLDataPairCentroidTest extends TestCase {
 	}
 
 	public function testAdd() {
-		$this->setExpectedException(InvalidArgumentException::class);
+		$this->expectException(InvalidArgumentException::class);
 		(new BasicMLDataPairCentroid(new BasicMLDataPair(new BasicMLData([1,2,3]))))->add(1);
 	}
 
 	public function testRemove() {
-		$this->setExpectedException(InvalidArgumentException::class);
+		$this->expectException(InvalidArgumentException::class);
 		(new BasicMLDataPairCentroid(new BasicMLDataPair(new BasicMLData([1,2,3]))))->remove(1);
 	}
 
