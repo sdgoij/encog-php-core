@@ -1,7 +1,5 @@
 <?php
 /**
- * Copyright 2015-2016 Tim Jurcka <sdgoij@gmail.com>
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -20,7 +18,7 @@ use encog\neural\networks\training\propagation\resilient\ResilientPropagation;
 use encog\test\neural\networks\XORUtil;
 use encog\util\Random;
 
-require dirname(__DIR__) . "/vendor/autoload.php";
+require __DIR__ . "/../../vendor/autoload.php";
 
 $dataset = XORUtil::createDataSet();
 $network = XORUtil::createUnTrainedNetwork();
