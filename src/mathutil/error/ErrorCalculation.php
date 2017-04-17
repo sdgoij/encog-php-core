@@ -14,8 +14,6 @@
  */
 namespace encog\mathutil\error;
 
-require_once __DIR__ . "/ErrorCalculationMode.php";
-
 /**
  * Calculate the error of a neural network. Encog currently supports three error
  * calculation modes. See ErrorCalculationMode for more info.
