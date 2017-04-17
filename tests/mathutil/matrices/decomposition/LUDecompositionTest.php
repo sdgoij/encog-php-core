@@ -69,8 +69,14 @@ class LUDecompositionTest extends TestCase {
 		$LU->solve(Matrix::createZero(3,2));
 	}
 
+	public function testSolveSingular() {
+		$this->expectException(InvalidArgumentException::class);
+		$this->expectExceptionMessage("Matrix is singular.");
+		$m = Matrix::createZero(2, 2);
+		(new LUDecomposition($m))->solve($m);
+	}
+
 	public function testSolveArray() {
-		$this->markTestSkipped("TODO Fix LUDecomposition::solveArray()");
 		$LU = new LUDecomposition(new Matrix([[1,2], [3,4]]));
 		$this->assertEquals([0,0.5], $LU->solveArray([1,2]));
 

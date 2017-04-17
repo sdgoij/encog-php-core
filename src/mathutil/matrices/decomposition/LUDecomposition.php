@@ -194,7 +194,7 @@ class LUDecomposition {
 			}
 		}
 		for ($i = $rows-1; $i >= 0; $i--) {
-			for ($j = $cols-1; $j >= 0; $j--) {
+			for ($j = $cols-1; $j > $i; $j--) {
 				$r[$i] -= $this->LU[$i][$j] * $r[$j];
 			}
 			$r[$i] /= $this->LU[$i][$i];
