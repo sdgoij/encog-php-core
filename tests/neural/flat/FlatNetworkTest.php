@@ -144,4 +144,62 @@ class FlatNetworkTest extends TestCase {
 		$flat->compute([M_PI,M_PI], $output);
 		$this->assertEquals([0.5], $output->toArray());
 	}
+
+	public function testGetWeight() {
+		$flat = new FlatNetwork(2, 3, 0, 1);
+
+		$this->assertEmpty($flat->getWeight(0, 0, 0));
+		$this->assertEmpty($flat->getWeight(0, 0, 1));
+		$this->assertEmpty($flat->getWeight(0, 0, 2));
+
+		$this->assertEmpty($flat->getWeight(0, 1, 0));
+		$this->assertEmpty($flat->getWeight(0, 1, 1));
+		$this->assertEmpty($flat->getWeight(0, 1, 2));
+
+		$this->assertEmpty($flat->getWeight(1, 0, 0));
+		$this->assertEmpty($flat->getWeight(1, 1, 0));
+		$this->assertEmpty($flat->getWeight(1, 2, 0));
+	}
+
+	public function testValidateNeuron() {
+		$flat = new FlatNetwork(2, 3, 0, 1);
+		$test = function (int $layer, int $neuron) use ($flat) {
+			return function () use ($flat, $layer, $neuron) {
+				return $flat->validateNeuron($layer, $neuron);
+			};
+		};
+
+		$this->expectNeuralNetworkError($test(-1, 0), "Invalid layer count: -1");
+		$this->expectNeuralNetworkError($test(3, 0), "Invalid layer count: 3");
+		$this->expectNeuralNetworkError($test(0, -1), "Invalid neuron number: -1");
+		$this->expectNeuralNetworkError($test(0, 3), "Invalid neuron number: 3");
+		$this->expectNeuralNetworkError($test(1, -42), "Invalid neuron number: -42");
+		$this->expectNeuralNetworkError($test(1, 4), "Invalid neuron number: 4");
+		$this->expectNeuralNetworkError($test(2, -5), "Invalid neuron number: -5");
+		$this->expectNeuralNetworkError($test(2, 1), "Invalid neuron number: 1");
+
+		try {
+			$this->assertSame($flat, $test(0, 0)());
+			$this->assertSame($flat, $test(0, 1)());
+			$this->assertSame($flat, $test(0, 2)());
+			$this->assertSame($flat, $test(1, 0)());
+			$this->assertSame($flat, $test(1, 1)());
+			$this->assertSame($flat, $test(1, 2)());
+			$this->assertSame($flat, $test(1, 3)());
+			$this->assertSame($flat, $test(2, 0)());
+		} catch (\Exception $e) {
+			$this->fail("unexpected exception: {$e->getMessage()}");
+		}
+	}
+
+	private function expectNeuralNetworkError(callable $fn, string $message) {
+		try {
+			$fn();
+			$this->fail("Failed asserting that exception of type \"".NeuralNetworkError::class."\" is thrown.");
+		} catch (NeuralNetworkError $e) {
+			$this->assertEquals($message, $e->getMessage(),
+				"Failed asserting that exception message '{$e->getMessage()}' contains '$message."
+			);
+		}
+	}
 }

@@ -69,7 +69,7 @@ class FlatNetwork {
 	/** @var int */
 	private $outputCount;
 
-	/** @var int[] */
+	/** @var SplFixedArray */
 	private $weightIndex = [];
 
 	/** @var SplFixedArray */
@@ -184,7 +184,7 @@ class FlatNetwork {
 			}
 			$neuronIndex = 0;
 			for ($j = $layerCount-1; $j >= 0; $j--) {
-				if ($layers[$j]->getContextFedBy() == $layers[$i]) {
+				if ($layers[$j]->getContextFedBy() === $layers[$i]) {
 					$this->contextTargetOffset[$index] = $neuronIndex + $layers[$j]->getTotalCount()
 						- $layers[$j]->getContextCount();
 					$this->contextTargetSize[$index] = $layers[$j]->getContextCount();
@@ -291,9 +291,8 @@ class FlatNetwork {
 		$this->validateNeuron($fromLayer, $fromNeuron)->validateNeuron($fromLayer+1, $toNeuron);
 		$fromLayerNumber = count($this->layerContextCount) - $fromLayer - 1;
 		$toLayerNumber = $fromLayerNumber - 1;
-		if ($toLayerNumber < 0) {
-			throw new NeuralNetworkError("The specified layer is not connected to another layer: $fromLayer");
-		}
+		assert($toLayerNumber >= 0);
+
 		$base = $this->weightIndex[$toLayerNumber];
 		$count = $this->layerCounts[$fromLayerNumber];
 		$index = $base + $fromNeuron + ($toNeuron * $count);
@@ -351,7 +350,7 @@ class FlatNetwork {
 		return $this->activationFunctions;
 	}
 
-	public function setActivationFunctions(array $f) {
+	public function setActivationFunctions(ActivationFunction ...$f) {
 		$this->activationFunctions = $f;
 	}
 
@@ -359,7 +358,7 @@ class FlatNetwork {
 		return $this->beginTraining;
 	}
 
-	public function setBeginTraining(int $v): int {
+	public function setBeginTraining(int $v) {
 		$this->beginTraining = $v;
 	}
 
@@ -367,7 +366,7 @@ class FlatNetwork {
 		return $this->endTraining;
 	}
 
-	public function setEndTraining(int $v): int {
+	public function setEndTraining(int $v) {
 		$this->endTraining = $v;
 	}
 

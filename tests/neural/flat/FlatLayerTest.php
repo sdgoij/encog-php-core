@@ -32,8 +32,9 @@ class FlatLayerTest extends TestCase {
 
 		$layer = new FlatLayer(new ActivationTANH(), 3, 0.0, 0.5);
 		$layer->setContextFedBy($layer);
+		$layer->setBiasActivation(0.3);
 		$this->assertEquals(new ActivationTANH(), $layer->getActivation());
-		$this->assertEquals(0.0, $layer->getBiasActivation());
+		$this->assertEquals(0.3, $layer->getBiasActivation());
 		$this->assertEquals(0.5, $layer->getDropoutRate());
 		$this->assertEquals(3, $layer->getContextCount());
 		$this->assertEquals($layer, $layer->getContextFedBy());
