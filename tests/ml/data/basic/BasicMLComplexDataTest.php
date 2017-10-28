@@ -39,7 +39,7 @@ class BasicMLComplexDataTest extends TestCase {
 		$data->addComplex(0, $data->getComplexDataAt(1));
 
 		$this->assertEquals(new BasicMLComplexData([new ComplexNumber(4,6), new ComplexNumber(3,4)]), $data);
-		$this->setExpectedException(RangeException::class);
+		$this->expectException(RangeException::class);
 		$data->addComplex(2, $data->getComplexDataAt(0));
 	}
 
@@ -56,7 +56,7 @@ class BasicMLComplexDataTest extends TestCase {
 		$this->assertEquals(new ComplexNumber(3,4), $data->getComplexDataAt(1));
 		$this->assertEquals(new ComplexNumber(5,0), $data->getComplexDataAt(2));
 		$this->assertEquals(new ComplexNumber(6,0), $data->getComplexDataAt(3));
-		$this->setExpectedException(RangeException::class);
+		$this->expectException(RangeException::class);
 		$data->getComplexDataAt(4);
 	}
 
@@ -65,7 +65,7 @@ class BasicMLComplexDataTest extends TestCase {
 		$data->setComplexData(SplFixedArray::fromArray([new ComplexNumber(1,2), new ComplexNumber(3,4)]));
 		$this->assertEquals(new ComplexNumber(1,2), $data->getComplexDataAt(0));
 		$this->assertEquals(new ComplexNumber(3,4), $data->getComplexDataAt(1));
-		$this->setExpectedException(InvalidArgumentException::class);
+		$this->expectException(InvalidArgumentException::class);
 		$data->setComplexData(SplFixedArray::fromArray([1,2,3]));
 	}
 

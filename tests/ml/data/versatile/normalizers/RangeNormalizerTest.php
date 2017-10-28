@@ -28,7 +28,8 @@ class RangeNormalizerTest extends TestCase {
 	}
 
 	public function testNormalizeColumn() {
-		$this->setExpectedException(EncogError::class, "Can't range-normalize a string value: A");
+		$this->expectException(EncogError::class);
+		$this->expectExceptionMessage("Can't range-normalize a string value: A");
 		$column = new ColumnDefinition("a", new ColumnType(ColumnType::nominal));
 		$output = [];
 

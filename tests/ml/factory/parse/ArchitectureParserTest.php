@@ -53,25 +53,29 @@ class ArchitectureParserTest extends TestCase {
 	}
 
 	public function testParseLayerNegativeCount() {
-		$this->setExpectedException(EncogError::class, "Count cannot be less than zero.");
+		$this->expectException(EncogError::class);
+		$this->expectExceptionMessage("Count cannot be less than zero.");
 		ArchitectureParser::parseLayer("-1?", -1);
 	}
 
 	public function testParseLayerInvalidDefault() {
-		$this->setExpectedException(EncogError::class, "Default (?) in an invalid location.");
+		$this->expectException(EncogError::class);
+		$this->expectExceptionMessage("Default (?) in an invalid location.");
 		ArchitectureParser::parseLayer("?", 1);
 		ArchitectureParser::parseLayer("?", -1);
 	}
 
 	public function testParseLayerParams() {
-		$this->setExpectedException(EncogError::class, "Illegal parentheses.");
+		$this->expectException(EncogError::class);
+		$this->expectExceptionMessage("Illegal parentheses.");
 		ArchitectureParser::parseLayer("F()", 1);
 		ArchitectureParser::parseLayer("F(", 1);
 	}
 
 	public function testParseParams() {
 		$this->assertEquals(['A'=>'1', 'B'=>'2', 'C'=>'3'], ArchitectureParser::parseParams("a=1,b=2,c=3"));
-		$this->setExpectedException(EncogError::class, "Missing equals(=) operator.");
+		$this->expectException(EncogError::class);
+		$this->expectExceptionMessage("Missing equals(=) operator.");
 		ArchitectureParser::parseParams("abc");
 	}
 }

@@ -30,8 +30,8 @@ class NetworkCODECTest extends TestCase {
 				public function decodeFromArray(array $data) { $this->weights = $data; }
 				private $weights;
 			}));
-		$this->setExpectedExceptionRegExp(NeuralNetworkError::class,
-			"/^This machine learning method cannot be encoded/");
+		$this->expectException(NeuralNetworkError::class);
+		$this->expectExceptionMessageRegExp("/^This machine learning method cannot be encoded/");
 		NetworkCODEC::networkSize(new class implements MLMethod {});
 	}
 }

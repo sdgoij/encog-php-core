@@ -90,7 +90,7 @@ class RandomTest extends TestCase {
 	}
 
 	public function testNextIntBoundedNeg() {
-		$this->setExpectedException(InvalidArgumentException::class);
+		$this->expectException(InvalidArgumentException::class);
 		$r = new Random();
 		$r->nextInt(-17);
 	}

@@ -24,7 +24,8 @@ class MLMethodFactoryTest extends TestCase {
 	public function testCreateMethod() {
 		$factory = new MLMethodFactory();
 		$this->assertInstanceOf(MLMethod::class, $factory->create("TEST_OK", "?:b->?b", 2, 1));
-		$this->setExpectedException(EncogError::class, "Unknown method type: TEST_FAIL");
+		$this->expectException(EncogError::class);
+		$this->expectExceptionMessage("Unknown method type: TEST_FAIL");
 		$factory->create("TEST_FAIL", "", 2, 1);
 	}
 	public function setUp() {

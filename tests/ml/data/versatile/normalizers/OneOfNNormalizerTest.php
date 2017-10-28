@@ -43,7 +43,8 @@ class OneOfNNormalizerTest extends TestCase {
 	}
 
 	public function testNormalizeColumnDouble() {
-		$this->setExpectedException(EncogError::class, "Can't use a one-of-n normalizer on a continuous value: 3.14");
+		$this->expectException(EncogError::class);
+		$this->expectExceptionMessage("Can't use a one-of-n normalizer on a continuous value: 3.14");
 		$column = new ColumnDefinition("A", new ColumnType(ColumnType::continuous));
 		$output = [];
 

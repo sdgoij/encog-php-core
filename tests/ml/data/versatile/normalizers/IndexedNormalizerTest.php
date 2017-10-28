@@ -39,12 +39,14 @@ class IndexedNormalizerTest extends TestCase {
 		$this->assertEquals(3, $normalizer->normalizeColumn($column, "C", $output, 2));
 		$this->assertEquals([0, 1, 2], $output);
 
-		$this->setExpectedException(EncogError::class, "Undefined value: D");
+		$this->expectException(EncogError::class);
+		$this->expectExceptionMessage("Undefined value: D");
 		$normalizer->normalizeColumn($column, "D", $output, 0);
 	}
 
 	public function testNormalizeColumnDouble() {
-		$this->setExpectedException(EncogError::class, "Can't use an indexed normalizer on a continuous value: 3.14");
+		$this->expectException(EncogError::class);
+		$this->expectExceptionMessage("Can't use an indexed normalizer on a continuous value: 3.14");
 		$column = new ColumnDefinition("A", new ColumnType(ColumnType::continuous));
 		$output = [];
 

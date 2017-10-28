@@ -26,7 +26,8 @@ class MLActivationFactoryTest extends TestCase {
 	public function testCreateMethod() {
 		$factory = new MLActivationFactory();
 		$this->assertInstanceOf(ActivationFunction::class, $factory->create("TEST_OK"));
-		$this->setExpectedException(EncogError::class, "Unknown activation function: TEST_FAIL");
+		$this->expectException(EncogError::class);
+		$this->expectExceptionMessage("Unknown activation function: TEST_FAIL");
 		$factory->create("TEST_FAIL", "", 2, 1);
 	}
 	public function setUp() {

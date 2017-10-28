@@ -34,9 +34,11 @@ class FlatNetworkTest extends TestCase {
 		$this->assertEquals(4, $flat->getNeuronCount());
 		$this->assertFalse($flat->isLimited());
 
-		$this->setExpectedException(InvalidArgumentException::class,
-			"\$layers should at least contain a input and output layer");
-		FlatNetwork::createFromArray([new FlatLayer(null, 2, 1.0)]);
+		$this->expectExceptionMessage("\$layers should at least contain a input and output layer");
+		$this->expectException(InvalidArgumentException::class);
+		FlatNetwork::createFromArray([
+			new FlatLayer(null, 2, 1.0),
+		]);
 	}
 
 	public function testCreateFlat() {
@@ -73,12 +75,14 @@ class FlatNetworkTest extends TestCase {
 	}
 
 	public function testValidateInvalidLayer() {
-		$this->setExpectedException(NeuralNetworkError::class, "Invalid layer count: 3");
+		$this->expectExceptionMessage("Invalid layer count: 3");
+		$this->expectException(NeuralNetworkError::class);
 		(new FlatNetwork(2, 3, 0, 1))->validateNeuron(3, 4);
 	}
 
 	public function testValidateInvalidNeuron() {
-		$this->setExpectedException(NeuralNetworkError::class, "Invalid neuron number: 3");
+		$this->expectExceptionMessage("Invalid neuron number: 3");
+		$this->expectException(NeuralNetworkError::class);
 		(new FlatNetwork(2, 3, 0, 1))->validateNeuron(2, 3);
 	}
 
@@ -92,8 +96,8 @@ class FlatNetworkTest extends TestCase {
 		$flat = new FlatNetwork(2, 3, 0, 1);
 		$flat->decodeNetwork(range(0, 12));
 		$this->assertEquals(range(0, 12), $flat->getWeights()->toArray());
-		$this->setExpectedException(EncogError::class,
-			"Incompatible weight sizes, can't assign length=15 to length=13");
+		$this->expectExceptionMessage("Incompatible weight sizes, can't assign length=15 to length=13");
+		$this->expectException(EncogError::class);
 		$flat->decodeNetwork(range(0, 14));
 	}
 

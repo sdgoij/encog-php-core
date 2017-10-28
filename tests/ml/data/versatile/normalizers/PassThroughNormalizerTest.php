@@ -28,7 +28,8 @@ class PassThroughNormalizerTest extends TestCase {
 	}
 
 	public function testNormalizeColumn() {
-		$this->setExpectedException(EncogError::class, "Can't use a pass-through normalizer on a string value: A");
+		$this->expectException(EncogError::class);
+		$this->expectExceptionMessage("Can't use a pass-through normalizer on a string value: A");
 		$column = new ColumnDefinition("A", new ColumnType(ColumnType::nominal));
 		$output = [];
 		(new PassThroughNormalizer())->normalizeColumn($column, "A", $output, 0);
