@@ -14,6 +14,9 @@
  */
 namespace encog\mathutil\randomize\generate;
 
+/**
+ * Provides the ability for subclasses to generate normally distributed random numbers.
+ */
 abstract class AbstractBoxMuller extends AbstractGenerateRandom {
 	const MU    = 0;
 	const SIGMA = 1;
