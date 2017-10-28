@@ -51,9 +51,9 @@ class NormalizedField {
 		return $field;
 	}
 
-	public function __construct(float $nh, float $nl, float $ah = -INF, float $al = INF) {
+	public function __construct(float $nh, float $nl, float $ah = null, float $al = INF) {
 		$this->action = new NormalizationAction(NormalizationAction::Normalize);
-		$this->actualHigh = $ah;
+		$this->actualHigh = $ah ?? -INF;
 		$this->actualLow = $al;
 		$this->normalizedHigh = $nh;
 		$this->normalizedLow = $nl;
