@@ -91,6 +91,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 			ctx.fillStyle = "rgb(255,255,255)";
 			ctx.fillRect(0,0,300,300);
+
+			console.clear();
 		}
 
 		function draw(x, y) {
@@ -112,7 +114,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			xhr.open("POST", "<?=$_SERVER["PHP_SELF"]?>");
 			xhr.setRequestHeader("Content-type", "application/json");
 			xhr.onreadystatechange = function() {
-				console.log(xhr.responseText);
+				if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+					var result = JSON.parse(xhr.responseText);
+					for (var i in result) {
+						console.log(i + ": " + result[i]);
+					}
+				}
 			};
 			xhr.send(JSON.stringify(data));
 		}
