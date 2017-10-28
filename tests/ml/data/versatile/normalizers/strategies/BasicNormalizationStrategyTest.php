@@ -15,6 +15,7 @@
 namespace encog\test\ml\data\versatile\normalizers\strategies;
 
 use encog\EncogError;
+use encog\ml\data\basic\BasicMLData;
 use encog\ml\data\versatile\columns\ColumnDefinition;
 use encog\ml\data\versatile\columns\ColumnType;
 use encog\ml\data\versatile\NormalizationHelper;
@@ -94,9 +95,13 @@ class BasicNormalizationStrategyTest extends TestCase {
 
 	public function testDenormalizeColumn() {
 		$strategy = new BasicNormalizationStrategy(0.0, 1.0, 0.0, 1.0);
-		$column = new ColumnDefinition("a", new ColumnType(ColumnType::nominal));
+		$column = new ColumnDefinition("a", new ColumnType(ColumnType::ordinal));
 		$column->setOwner(new NormalizationHelper());
-		$column->analyze(10.0);
-		$column->analyze(0.0);
+		$column->setClasses(["A", "B", "C"]);
+		$data = new BasicMLData([0.0, 0.3333333333333333, 0.6666666666666666]);
+
+		$this->assertEquals("A", $strategy->denormalizeColumn($column, true, $data, 0));
+		$this->assertEquals("B", $strategy->denormalizeColumn($column, true, $data, 1));
+		$this->assertEquals("C", $strategy->denormalizeColumn($column, true, $data, 2));
 	}
 }

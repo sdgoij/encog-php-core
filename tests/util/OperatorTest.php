@@ -14,9 +14,17 @@
  */
 namespace encog\test\util;
 
+use encog\util\Operator;
 use PHPUnit\Framework\TestCase;
 
 class OperatorTest extends TestCase {
+	use PrivateConstructorTest;
+
 	public function testUnsignedRightShift() {
+		$this->assertEquals(0, Operator::urshift(1, 1));
+	}
+
+	protected function getSubjectClassName(): string {
+		return Operator::class;
 	}
 }

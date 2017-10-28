@@ -265,6 +265,8 @@ class TemporalMLDataSetTest extends TestCase {
 		$temporal->createPoint(0);
 		$temporal->createPoint(1);
 		$temporal->generate();
+
+		$this->assertCount(2, $temporal->getDescriptions());
 	}
 
 	public function testWindowSize() {

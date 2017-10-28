@@ -151,6 +151,8 @@ class BasicNetworkTest extends TestCase {
 		if (!$network instanceof BasicNetwork) {
 			$this->fail("Expected instance of 'BasicNetwork'");
 		}
+		$this->assertInstanceOf(BasicNetwork::class, $network);
+
 		$training = RandomTrainingFactory::generate(1000, 5, $network->getInputCount(), $network->getOutputCount(), -1, 1);
 		$trainer = new ResilientPropagation($network, $training);
 		$trainer->iteration();
@@ -167,6 +169,8 @@ class BasicNetworkTest extends TestCase {
 		if (!$network instanceof BasicNetwork) {
 			$this->fail("Expected instance of 'BasicNetwork'");
 		}
+		$this->assertInstanceOf(BasicNetwork::class, $network);
+
 		$training = RandomTrainingFactory::generate(1000, 5, $network->getInputCount(), $network->getOutputCount(), -1, 1);
 		$trainer = new ResilientPropagation($network, $training);
 		$trainer->iteration();

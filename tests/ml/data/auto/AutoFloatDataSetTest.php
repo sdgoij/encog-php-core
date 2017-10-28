@@ -185,5 +185,6 @@ class AutoFloatDataSetTest extends TestCase {
 
 		$dataset = new AutoFloatDataSet(1,2,1,1);
 		$dataset->loadCSV("memory://12345.csv", false, CSVFormat::$english, [0,1], [2]);
+		$this->assertEquals(1, $dataset->getRecordCount());
 	}
 }
