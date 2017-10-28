@@ -14,7 +14,7 @@
  */
 namespace encog\test\mathutil\matrices;
 
-use InvalidArgumentException;
+use encog\test\util\PrivateConstructorTest;
 use encog\mathutil\matrices\Matrix;
 use encog\mathutil\matrices\MatrixError;
 use encog\mathutil\matrices\MatrixMath;
@@ -22,6 +22,12 @@ use PHPUnit_Framework_TestCase as TestCase;
 use Throwable;
 
 class MatrixMathTest extends TestCase {
+	use PrivateConstructorTest;
+
+	protected function getSubjectClassName(): string {
+		return MatrixMath::class;
+	}
+
 	public function testAdd() {
 		$this->assertEquals(new Matrix([[]]), MatrixMath::add(
 			new Matrix([[]]),

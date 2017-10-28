@@ -18,9 +18,12 @@ use encog\ml\MLEncodable;
 use encog\ml\MLMethod;
 use encog\neural\networks\structure\NetworkCODEC;
 use encog\neural\NeuralNetworkError;
+use encog\test\util\PrivateConstructorTest;
 use PHPUnit_Framework_TestCase as TestCase;
 
 class NetworkCODECTest extends TestCase {
+	use PrivateConstructorTest;
+
 	public function testNetworkSize() {
 		$this->assertEquals(5, NetworkCODEC::networkSize(
 			new class([1,2,3,4,5]) implements MLMethod, MLEncodable {
@@ -33,5 +36,9 @@ class NetworkCODECTest extends TestCase {
 		$this->expectException(NeuralNetworkError::class);
 		$this->expectExceptionMessageRegExp("/^This machine learning method cannot be encoded/");
 		NetworkCODEC::networkSize(new class implements MLMethod {});
+	}
+
+	protected function getSubjectClassName(): string {
+		return NetworkCODEC::class;
 	}
 }

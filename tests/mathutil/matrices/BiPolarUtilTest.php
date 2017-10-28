@@ -15,9 +15,16 @@
 namespace encog\test\mathutil\matrices;
 
 use encog\mathutil\matrices\BiPolarUtil;
+use encog\test\util\PrivateConstructorTest;
 use PHPUnit_Framework_TestCase as TestCase;
 
 class BiPolarUtilTest extends TestCase {
+	use PrivateConstructorTest;
+
+	protected function getSubjectClassName(): string {
+		return BiPolarUtil::class;
+	}
+
 	public function testToDouble() {
 		$this->assertEquals(-1.0, BiPolarUtil::toDouble(false));
 		$this->assertEquals(1.0, BiPolarUtil::toDouble(true));

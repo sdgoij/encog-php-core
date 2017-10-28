@@ -14,11 +14,14 @@
  */
 namespace encog\test\util\csv;
 
+use encog\test\util\PrivateConstructorTest;
 use encog\util\csv\CSVFormat;
 use encog\util\csv\NumberList;
 use PHPUnit_Framework_TestCase as TestCase;
 
 class NumberListTest extends TestCase {
+	use PrivateConstructorTest;
+
 	public function testFromList() {
 		$numbers = [
 			NumberList::fromList(CSVFormat::$decimalPoint, "1,2.5,3000"),
@@ -58,5 +61,9 @@ class NumberListTest extends TestCase {
 
 		$this->assertEquals("1,10000,10,1", NumberList::toListInt(CSVFormat::$decimalPoint, $data));
 		$this->assertEquals("1;10000;10;1", NumberList::toListInt(CSVFormat::$decimalComma, $data));
+	}
+
+	protected function getSubjectClassName(): string {
+		return NumberList::class;
 	}
 }

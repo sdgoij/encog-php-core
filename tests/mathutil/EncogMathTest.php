@@ -15,9 +15,12 @@
 namespace encog\test\mathutil;
 
 use encog\mathutil\EncogMath;
+use encog\test\util\PrivateConstructorTest;
 use PHPUnit_Framework_TestCase as TestCase;
 
 class EncogMathTest extends TestCase {
+	use PrivateConstructorTest;
+
 	public function testHypot() {
 		$this->assertEquals(0, EncogMath::hypot(0, 0));
 		$this->assertEquals(1, EncogMath::hypot(1, 0));
@@ -33,5 +36,9 @@ class EncogMathTest extends TestCase {
 		$this->assertEquals(-1, -1 <=> 0);
 		$this->assertEquals(0, 0 <=> 0);
 		$this->assertEquals(1, 1 <=> 0);
+	}
+
+	protected function getSubjectClassName(): string {
+		return EncogMath::class;
 	}
 }

@@ -18,6 +18,8 @@ use encog\util\Format;
 use PHPUnit_Framework_TestCase as TestCase;
 
 class FormatTest extends TestCase {
+	use PrivateConstructorTest;
+
 	public function testFormatDouble() {
 		$this->assertEquals("1.23456", Format::formatDouble(1.23456, 5));
 		$this->assertEquals("1.2346", Format::formatDouble(1.23456, 4));
@@ -34,5 +36,9 @@ class FormatTest extends TestCase {
 	public function testFormatDateSpan() {
 		$this->assertEquals("1 day 00:00:00", Format::formatDateSpan(24*60*60));
 		$this->assertEquals("6 days 05:43:21", Format::formatDateSpan(6*24*60*60 + 5*60*60 + 43*60 + 21));
+	}
+
+	protected function getSubjectClassName(): string {
+		return Format::class;
 	}
 }

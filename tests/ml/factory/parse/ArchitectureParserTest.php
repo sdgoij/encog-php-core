@@ -17,9 +17,16 @@ namespace encog\test\ml\factory\parse;
 use encog\EncogError;
 use encog\ml\factory\parse\ArchitectureLayer;
 use encog\ml\factory\parse\ArchitectureParser;
+use encog\test\util\PrivateConstructorTest;
 use PHPUnit_Framework_TestCase as TestCase;
 
 class ArchitectureParserTest extends TestCase {
+	use PrivateConstructorTest;
+
+	protected function getSubjectClassName(): string {
+		return ArchitectureParser::class;
+	}
+
 	public function testParseLayers() {
 		$this->assertEquals(["a", "b", "c"], ArchitectureParser::parseLayers("a->b->c"));
 		$this->assertEquals(["a", "bc"], ArchitectureParser::parseLayers("a->bc"));
