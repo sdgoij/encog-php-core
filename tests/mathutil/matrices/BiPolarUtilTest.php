@@ -16,7 +16,7 @@ namespace encog\test\mathutil\matrices;
 
 use encog\mathutil\matrices\BiPolarUtil;
 use encog\test\util\PrivateConstructorTest;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class BiPolarUtilTest extends TestCase {
 	use PrivateConstructorTest;

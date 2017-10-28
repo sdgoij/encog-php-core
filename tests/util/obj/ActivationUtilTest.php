@@ -16,7 +16,7 @@ namespace encog\test\util\obj;
 
 use encog\engine\network\activation\ActivationFunction;
 use encog\util\obj\ActivationUtil;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use SplFixedArray;
 
 class ActivationUtilTest extends TestCase {

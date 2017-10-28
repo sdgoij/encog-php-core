@@ -18,7 +18,7 @@ use encog\test\util\PrivateConstructorTest;
 use encog\mathutil\matrices\Matrix;
 use encog\mathutil\matrices\MatrixError;
 use encog\mathutil\matrices\MatrixMath;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Throwable;
 
 class MatrixMathTest extends TestCase {

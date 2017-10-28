@@ -16,7 +16,7 @@ namespace encog\test\mathutil\error;
 
 use encog\mathutil\error\ErrorCalculation;
 use encog\mathutil\error\ErrorCalculationMode;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class ErrorCalculationTest extends TestCase {
 	public function testCalculationMode() {

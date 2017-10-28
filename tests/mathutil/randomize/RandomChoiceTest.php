@@ -16,7 +16,7 @@ namespace encog\test\mathutil\randomize;
 
 use encog\mathutil\randomize\RandomChoice;
 use encog\util\Random;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class RandomChoiceTest extends TestCase {
 	public function testGenerateDefaultProbabilities() {

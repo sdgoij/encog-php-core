@@ -19,7 +19,7 @@ use encog\ml\data\basic\BasicMLData;
 use encog\ml\data\versatile\columns\ColumnDefinition;
 use encog\ml\data\versatile\columns\ColumnType;
 use encog\ml\data\versatile\normalizers\PassThroughNormalizer;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class PassThroughNormalizerTest extends TestCase {
 	public function testOutputSize() {

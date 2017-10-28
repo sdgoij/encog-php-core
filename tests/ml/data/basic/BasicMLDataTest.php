@@ -16,7 +16,7 @@ namespace encog\test\ml\data\basic;
 
 use InvalidArgumentException;
 use encog\ml\data\basic\BasicMLData;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use RangeException;
 use SplFixedArray;
 

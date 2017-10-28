@@ -19,7 +19,7 @@ use encog\ml\data\MLDataError;
 use encog\ml\data\versatile\columns\ColumnDefinition;
 use encog\ml\data\versatile\columns\ColumnType;
 use encog\ml\data\versatile\NormalizationHelper;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class ColumnDefinitionTest extends TestCase {
 	public function testCreateColumn() {

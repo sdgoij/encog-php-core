@@ -18,7 +18,7 @@ use encog\EncogError;
 use encog\ml\data\versatile\columns\ColumnDefinition;
 use encog\ml\data\versatile\columns\ColumnType;
 use encog\ml\data\versatile\missing\MeanMissingHandler;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class MeanMissingHandlerTest extends TestCase {
 	public function testProcessString() {

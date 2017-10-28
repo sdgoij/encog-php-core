@@ -15,7 +15,7 @@
 namespace encog\test\util;
 
 use encog\util\Format;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class FormatTest extends TestCase {
 	use PrivateConstructorTest;

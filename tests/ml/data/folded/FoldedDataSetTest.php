@@ -23,7 +23,7 @@ use encog\ml\data\MLDataPair;
 use encog\ml\data\MLDataSet;
 
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use RangeException;
 
 class FoldedDataSetTest extends TestCase {

@@ -15,7 +15,7 @@
 namespace encog\test\util;
 
 use encog\util\SimpleParser;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class SimpleParserTest extends TestCase {
 	public function testToString() {

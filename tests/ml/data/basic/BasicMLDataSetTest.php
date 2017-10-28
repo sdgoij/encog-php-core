@@ -17,7 +17,7 @@ namespace encog\test\ml\data\basic;
 use encog\ml\data\basic\BasicMLData;
 use encog\ml\data\basic\BasicMLDataPair;
 use encog\ml\data\basic\BasicMLDataSet;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use RangeException;
 
 class BasicMLDataSetTest extends TestCase {

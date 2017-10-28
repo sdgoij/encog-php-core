@@ -22,7 +22,7 @@ use encog\ml\data\MLDataPair;
 use encog\test\util\csv\MemoryStream;
 use encog\util\csv\CSVFormat;
 use OutOfBoundsException;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class AutoFloatDataSetTest extends TestCase {
 	public function testGetIdealSize() {

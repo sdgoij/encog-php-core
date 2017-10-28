@@ -19,7 +19,7 @@ use encog\ml\MLMethod;
 use encog\neural\networks\structure\NetworkCODEC;
 use encog\neural\NeuralNetworkError;
 use encog\test\util\PrivateConstructorTest;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class NetworkCODECTest extends TestCase {
 	use PrivateConstructorTest;

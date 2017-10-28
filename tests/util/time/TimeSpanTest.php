@@ -17,7 +17,7 @@ namespace encog\test\util\time;
 use DateTime;
 use encog\util\time\TimeSpan;
 use encog\util\time\TimeUnit;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class TimeSpanTest extends TestCase {
 	public function testSpanSeconds() {

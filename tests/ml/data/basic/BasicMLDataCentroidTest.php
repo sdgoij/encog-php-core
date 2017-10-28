@@ -17,7 +17,7 @@ namespace encog\test\ml\data\basic;
 use InvalidArgumentException;
 use encog\ml\data\basic\BasicMLData;
 use encog\ml\data\basic\BasicMLDataCentroid;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class BasicMLDataCentroidTest extends TestCase {
 	public function testCreateCentroid() {

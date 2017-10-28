@@ -16,7 +16,7 @@ namespace encog\test\util\csv;
 
 use encog\util\csv\CSVFormat;
 use encog\util\csv\CSVReader;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class CSVReaderTest extends TestCase {
 	const INPUT_NAME = "memory://test.csv";

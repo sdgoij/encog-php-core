@@ -15,7 +15,7 @@
 namespace encog\test\engine\network\activation;
 
 use encog\engine\network\activation\ActivationElliott;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use SplFixedArray;
 
 class ActivationElliottTest extends TestCase {

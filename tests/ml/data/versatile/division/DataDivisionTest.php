@@ -16,7 +16,7 @@ namespace encog\test\ml\data\versatile\division;
 
 use encog\ml\data\versatile\division\DataDivision;
 use encog\ml\data\versatile\MatrixMLDataSet;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class DataDivisionTest extends TestCase {
 	public function testDataDivision() {

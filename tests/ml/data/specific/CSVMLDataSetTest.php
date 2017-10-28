@@ -18,7 +18,7 @@ use encog\ml\data\MLDataPair;
 use encog\ml\data\specific\CSVMLDataSet;
 use encog\test\util\csv\MemoryStream;
 use encog\util\csv\CSVFormat;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class CSVMLDataSetTest extends TestCase {
 	public function testGetFileName() {

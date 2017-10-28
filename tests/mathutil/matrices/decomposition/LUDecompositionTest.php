@@ -18,7 +18,7 @@ use InvalidArgumentException;
 use encog\mathutil\matrices\MatrixError;
 use encog\mathutil\matrices\decomposition\LUDecomposition;
 use encog\mathutil\matrices\Matrix;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Throwable;
 
 class LUDecompositionTest extends TestCase {

@@ -16,7 +16,7 @@ namespace encog\test\ml\data\auto;
 
 use encog\ml\data\auto\AutoFloatColumn;
 use OutOfBoundsException;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class AutoFloatColumnTest extends TestCase {
 	public function testToString() {

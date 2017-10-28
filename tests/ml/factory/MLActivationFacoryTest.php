@@ -20,7 +20,7 @@ use encog\Encog;
 use encog\EncogError;
 use encog\engine\network\activation\ActivationFunction;
 use encog\ml\factory\MLActivationFactory;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class MLActivationFactoryTest extends TestCase {
 	public function testCreateMethod() {

@@ -18,7 +18,7 @@ use encog\mathutil\randomize\generate\BasicGenerateRandom;
 use encog\mathutil\randomize\generate\LinearCongruentialRandom;
 use encog\ml\data\cross\KFoldCrossValidation;
 use encog\ml\data\versatile\MatrixMLDataSet;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class KFoldCrossValidationTest extends TestCase {
 	public function testCreateKFold() {

@@ -15,7 +15,7 @@
 namespace encog\test\ml\data\temporal;
 
 use encog\ml\data\temporal\TemporalPoint;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class TemporalPointTest extends TestCase {
 	public function testToString() {

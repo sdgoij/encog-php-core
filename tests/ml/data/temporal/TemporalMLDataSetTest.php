@@ -25,7 +25,7 @@ use encog\ml\data\temporal\TemporalError;
 use encog\ml\data\temporal\TemporalMLDataSet;
 use encog\ml\data\temporal\TemporalPoint;
 use encog\util\time\TimeUnit;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class TemporalMLDataSetTest extends TestCase {
 	public function testAdd() {

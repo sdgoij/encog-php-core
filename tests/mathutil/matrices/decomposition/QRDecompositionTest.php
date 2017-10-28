@@ -17,7 +17,7 @@ namespace encog\test\mathutil\matrices\decomposition;
 use encog\mathutil\matrices\decomposition\QRDecomposition;
 use encog\mathutil\matrices\Matrix;
 use encog\mathutil\matrices\MatrixError;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Throwable;
 
 class QRDecompositionTest extends TestCase {

@@ -16,7 +16,7 @@ namespace encog\test\ml\data\specific;
 
 use encog\ml\data\MLDataError;
 use encog\ml\data\specific\BiPolarMLData;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class BiPolarMLDataTest extends TestCase {
 	public function testAdd() {

@@ -17,7 +17,7 @@ namespace encog\test\util\kmeans;
 use encog\ml\data\basic\BasicMLData;
 use encog\ml\data\basic\BasicMLDataPair;
 use encog\util\kmeans\Cluster;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class ClusterTest extends TestCase {
 	public function testEmptyCluster() {

@@ -15,7 +15,7 @@
 namespace encog\test\engine\network\activation;
 
 use encog\engine\network\activation\ActivationSigmoid;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use SplFixedArray;
 
 class ActivationSigmoidTest extends TestCase {

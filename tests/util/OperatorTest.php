@@ -14,7 +14,7 @@
  */
 namespace encog\test\util;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class OperatorTest extends TestCase {
 	public function testUnsignedRightShift() {

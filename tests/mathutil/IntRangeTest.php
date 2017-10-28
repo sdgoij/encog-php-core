@@ -15,7 +15,7 @@
 namespace encog\test\mathutil;
 
 use encog\mathutil\IntRange;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class IntRangeTest extends TestCase {
 	public function testIntRange() {

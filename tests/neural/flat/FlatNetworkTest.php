@@ -20,7 +20,7 @@ use encog\neural\flat\FlatLayer;
 use encog\neural\flat\FlatNetwork;
 use encog\neural\NeuralNetworkError;
 use InvalidArgumentException;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use SplFixedArray;
 
 class FlatNetworkTest extends TestCase {

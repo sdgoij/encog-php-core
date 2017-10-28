@@ -18,7 +18,7 @@ use encog\ml\data\basic\BasicMLData;
 use encog\ml\data\basic\BasicMLDataSet;
 use encog\ml\data\MLDataPair;
 use encog\ml\kmeans\KMeansClustering;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class KMeansClusteringTest extends TestCase {
 	public function testKMeansCluster() {

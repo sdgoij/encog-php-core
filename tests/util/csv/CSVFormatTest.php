@@ -15,7 +15,7 @@
 namespace encog\test\util\csv;
 
 use encog\util\csv\CSVFormat;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class CSVFormatTest extends TestCase {
 	public function testDefaultConstructor() {

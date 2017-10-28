@@ -17,7 +17,7 @@ namespace encog\test\util\csv;
 use encog\test\util\PrivateConstructorTest;
 use encog\util\csv\CSVFormat;
 use encog\util\csv\NumberList;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class NumberListTest extends TestCase {
 	use PrivateConstructorTest;

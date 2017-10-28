@@ -15,7 +15,7 @@
 namespace encog\test\util\identity;
 
 use encog\util\identity\BasicGenerateID;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class BasicGenerateIDTest extends TestCase {
 	public function testGetCurrentId() {

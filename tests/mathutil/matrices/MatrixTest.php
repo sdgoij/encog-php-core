@@ -17,7 +17,7 @@ namespace encog\test\mathutil\matrices;
 use encog\mathutil\matrices\Matrix;
 use encog\mathutil\matrices\MatrixError;
 use encog\mathutil\matrices\MatrixMath;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use RangeException;
 
 class MatrixTest extends TestCase {

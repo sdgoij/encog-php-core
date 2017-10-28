@@ -18,7 +18,7 @@ use encog\mathutil\randomize\generate\LinearCongruentialRandom;
 use encog\ml\data\versatile\division\DataDivision;
 use encog\ml\data\versatile\division\PerformDataDivision;
 use encog\ml\data\versatile\MatrixMLDataSet;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class PerformDataDivisionTest extends TestCase {
 	public function testPerformDivision() {

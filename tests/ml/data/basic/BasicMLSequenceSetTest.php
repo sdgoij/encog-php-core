@@ -19,7 +19,7 @@ use encog\ml\data\basic\BasicMLDataPair;
 use encog\ml\data\basic\BasicMLDataSet;
 use encog\ml\data\basic\BasicMLSequenceSet;
 use encog\ml\data\MLDataError;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class BasicMLSequenceSetTest extends TestCase {
 	public function testCreateEmpty() {

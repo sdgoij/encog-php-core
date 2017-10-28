@@ -18,7 +18,7 @@ use encog\Encog;
 use encog\EncogError;
 use encog\ml\factory\MLMethodFactory;
 use encog\ml\MLMethod;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class MLMethodFactoryTest extends TestCase {
 	public function testCreateMethod() {

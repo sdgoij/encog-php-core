@@ -15,7 +15,7 @@
 namespace encog\test\ml\data\versatile\columns;
 
 use encog\ml\data\versatile\columns\ColumnType;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class ColumnTypeTest extends TestCase {
 	public function testToString() {

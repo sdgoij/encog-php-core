@@ -16,7 +16,7 @@ namespace encog\test\mathutil\randomize\factory;
 
 use encog\mathutil\randomize\factory\BasicRandomFactory;
 use encog\util\Random;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class BasicRandomFactoryTest extends TestCase {
 	public function testFactorFactory() {

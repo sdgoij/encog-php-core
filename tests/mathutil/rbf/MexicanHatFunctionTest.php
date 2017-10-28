@@ -15,7 +15,7 @@
 namespace encog\test\mathutil\rbf;
 
 use encog\mathutil\rbf\MexicanHatFunction;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class MexicanHatFunctionTest extends TestCase {
 	public function testCalculateSingleDimensional() {

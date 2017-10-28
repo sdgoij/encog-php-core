@@ -18,7 +18,7 @@ use encog\ml\MLMethod;
 use encog\ml\train\BasicTraining;
 use encog\ml\TrainingImplementationType;
 use encog\neural\networks\training\propagation\TrainingContinuation;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class BasicTrainingTest extends TestCase {
 	public function testTrainingImplementationType() {

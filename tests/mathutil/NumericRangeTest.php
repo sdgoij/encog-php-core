@@ -15,7 +15,7 @@
 namespace encog\test\mathutil;
 
 use encog\mathutil\NumericRange;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class NumericRangeTest extends TestCase {
 	public function testNumericRange() {

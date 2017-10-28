@@ -16,7 +16,7 @@ namespace encog\test\util\csv;
 
 use encog\util\csv\CSVFormat;
 use encog\util\csv\CSVLineParser;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class CSVLineParserTest extends TestCase {
 	public function testParseSpaceSeparated() {

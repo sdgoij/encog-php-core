@@ -18,7 +18,7 @@ use encog\EncogError;
 use encog\ml\factory\parse\ArchitectureLayer;
 use encog\ml\factory\parse\ArchitectureParser;
 use encog\test\util\PrivateConstructorTest;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class ArchitectureParserTest extends TestCase {
 	use PrivateConstructorTest;

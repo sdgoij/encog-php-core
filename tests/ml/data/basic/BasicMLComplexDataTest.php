@@ -18,7 +18,7 @@ use InvalidArgumentException;
 use encog\mathutil\ComplexNumber;
 use encog\ml\data\basic\BasicMLComplexData;
 use encog\ml\data\basic\BasicMLData;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use RangeException;
 use SplFixedArray;
 

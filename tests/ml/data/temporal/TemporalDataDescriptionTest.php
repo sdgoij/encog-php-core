@@ -18,7 +18,7 @@ use encog\engine\network\activation\ActivationSigmoid;
 use encog\engine\network\activation\ActivationTANH;
 use encog\ml\data\temporal\TemporalDataDescription;
 use encog\ml\data\temporal\TemporalDataType;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class TemporalDataDescriptionTest extends TestCase {
 	public function testDataDescription() {

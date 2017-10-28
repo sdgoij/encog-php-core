@@ -15,7 +15,7 @@
 namespace encog\test\engine\network\activation;
 
 use encog\engine\network\activation\ActivationTANH;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use SplFixedArray;
 
 class ActivationTANHTest extends TestCase {

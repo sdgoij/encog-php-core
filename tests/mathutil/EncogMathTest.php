@@ -16,7 +16,7 @@ namespace encog\test\mathutil;
 
 use encog\mathutil\EncogMath;
 use encog\test\util\PrivateConstructorTest;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class EncogMathTest extends TestCase {
 	use PrivateConstructorTest;

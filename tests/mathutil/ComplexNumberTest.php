@@ -15,7 +15,7 @@
 namespace encog\test\mathutil;
 
 use encog\mathutil\ComplexNumber;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class ComplexNumberTest extends TestCase {
 	public function testMod() {

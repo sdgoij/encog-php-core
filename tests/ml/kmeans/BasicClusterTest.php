@@ -21,7 +21,7 @@ use encog\ml\data\basic\BasicMLDataSet;
 use encog\ml\kmeans\BasicCluster;
 use encog\util\kmeans\Centroid;
 use encog\util\kmeans\Cluster;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class BasicClusterTest extends TestCase {
 	public function testCreateCluster() {

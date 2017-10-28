@@ -25,7 +25,7 @@ use encog\neural\pattern\ElmanPattern;
 use encog\neural\pattern\JordanPattern;
 use encog\util\benchmark\RandomTrainingFactory;
 use encog\util\Random;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class BasicNetworkTest extends TestCase {
 	public function testToString() {

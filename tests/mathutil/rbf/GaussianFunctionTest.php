@@ -15,7 +15,7 @@
 namespace encog\test\mathutil\rbf;
 
 use encog\mathutil\rbf\GaussianFunction;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class GaussianFunctionTest extends TestCase {
 	public function testCalculateSingleDimensional() {

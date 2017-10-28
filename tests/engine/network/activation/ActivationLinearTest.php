@@ -15,7 +15,7 @@
 namespace engine\network\activation;
 
 use encog\engine\network\activation\ActivationLinear;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use SplFixedArray;
 
 class ActivationLinearTest extends TestCase {

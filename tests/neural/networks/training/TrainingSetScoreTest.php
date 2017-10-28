@@ -18,7 +18,7 @@ use encog\ml\data\basic\BasicMLDataSet;
 use encog\ml\MLMethod;
 use encog\neural\networks\training\TrainingError;
 use encog\neural\networks\training\TrainingSetScore;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class TrainingSetScoreTest extends TestCase {
 	public function testCalculateScore() {

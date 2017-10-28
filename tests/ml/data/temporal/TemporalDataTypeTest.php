@@ -15,7 +15,7 @@
 namespace encog\test\ml\data\temporal;
 
 use encog\ml\data\temporal\TemporalDataType;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class TemporalDataTypeTest extends TestCase {
 	public function testDefaultTypes() {

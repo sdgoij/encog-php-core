@@ -15,7 +15,7 @@
 namespace encog\test\mathutil\rbf;
 
 use encog\mathutil\rbf\MultiquadricFunction;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class MultiquadricFunctionTest extends TestCase {
 	public function testCalculateSingleDimensional() {

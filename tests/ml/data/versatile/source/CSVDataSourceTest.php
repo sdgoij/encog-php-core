@@ -18,7 +18,7 @@ use encog\EncogError;
 use encog\ml\data\versatile\sources\CSVDataSource;
 use encog\test\util\csv\MemoryStream;
 use encog\util\csv\CSVFormat;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class CSVDataSourceTest extends TestCase {
 	public function testColumnIndex() {

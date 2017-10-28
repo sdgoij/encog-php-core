@@ -18,7 +18,7 @@ use encog\engine\network\activation\ActivationLinear;
 use encog\engine\network\activation\ActivationSigmoid;
 use encog\engine\network\activation\ActivationTANH;
 use encog\neural\flat\FlatLayer;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class FlatLayerTest extends TestCase {
 	public function testCreateFlatLayer() {

@@ -18,7 +18,7 @@ use encog\ml\data\basic\BasicMLData;
 use encog\ml\data\basic\BasicMLDataSet;
 use encog\ml\data\buffer\codec\MLDataSetCODEC;
 use encog\ml\data\MLDataSet;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class MLDataSetCODECTest extends TestCase {
 	public function testIdealSize() {

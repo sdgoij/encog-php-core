@@ -17,7 +17,7 @@ namespace encog\test\ml\data\cross;
 use encog\ml\data\cross\DataFold;
 use encog\ml\data\versatile\MatrixMLDataSet;
 use encog\ml\MLMethod;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class DataFoldTest extends TestCase {
 	public function testTrainingSet() {
