@@ -14,7 +14,6 @@
  */
 namespace encog\mathutil\matrices;
 
-use InvalidArgumentException;
 use encog\Encog;
 use encog\mathutil\matrices\decomposition\LUDecomposition;
 use encog\mathutil\matrices\decomposition\QRDecomposition;
@@ -57,9 +56,6 @@ class Matrix {
 			$data[0] = [];
 		}
 		foreach ($data as $r => $row) {
-			if (!is_array($row)) {
-				throw new InvalidArgumentException();
-			}
 			foreach ($row as $c => $column) {
 				if (is_bool($column)) {
 					$column = $column ? 1.0 : -1.0;
@@ -199,7 +195,7 @@ class Matrix {
 	}
 
 	public function getRow(int $row): Matrix {
-		if ($row > $this->getRows()) {
+		if ($row < 0 || $row >= $this->getRows()) {
 			throw new MatrixError("Row $row does not exist.");
 		}
 		for ($col = 0; $col < $this->getCols(); $col++) {

@@ -107,6 +107,18 @@ class MatrixMathTest extends TestCase {
 	public function testDotProduct() {
 		$this->assertEquals(70.0, MatrixMath::dotProduct(
 			new Matrix([[1, 2, 3, 4]]),
+			new Matrix([[5, 6, 7, 8]])
+		));
+		$this->assertEquals(70.0, MatrixMath::dotProduct(
+			new Matrix([[1, 2, 3, 4]]),
+			new Matrix([[5], [6], [7], [8]])
+		));
+		$this->assertEquals(70.0, MatrixMath::dotProduct(
+			new Matrix([[1], [2], [3], [4]]),
+			new Matrix([[5, 6, 7, 8]])
+		));
+		$this->assertEquals(70.0, MatrixMath::dotProduct(
+			new Matrix([[1], [2], [3], [4]]),
 			new Matrix([[5], [6], [7], [8]])
 		));
 

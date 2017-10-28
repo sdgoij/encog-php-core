@@ -105,6 +105,9 @@ class MatrixTest extends TestCase {
 		$m->add(0, 0, 1);
 
 		$this->assertEquals(2, $m->get(0, 0));
+
+		$this->expectMatrixError(function () use ($m) { $m->add(3,0,0); }, "The row: 3 is out of range: 3");
+		$this->expectMatrixError(function () use ($m) { $m->add(2,1,0); }, "The column: 1 is out of range: 1");
 	}
 
 	public function testAddMatrix() {
@@ -230,5 +233,50 @@ class MatrixTest extends TestCase {
 		$matrix->setFromMatrix(new Matrix([[4,3], [2,1]]));
 
 		$this->assertEquals([[4,3,0],[2,1,0]], $matrix->getData());
+	}
+
+	public function testGetRow() {
+		$matrix = Matrix::createZero(2,2);
+		$test = function (int $row) use ($matrix) {
+			return function () use ($matrix, $row): Matrix {
+				return $matrix->getRow($row);
+			};
+		};
+		$this->expectMatrixError($test(-100), "Row -100 does not exist.");
+		$this->expectMatrixError($test(-1), "Row -1 does not exist.");
+		$this->expectMatrixError($test(2), "Row 2 does not exist.");
+		$this->expectMatrixError($test(3), "Row 3 does not exist.");
+		$this->expectMatrixError($test(42), "Row 42 does not exist.");
+
+		try {
+			$this->assertEquals([[0,0]], ($test(0)())->getData());
+			$this->assertEquals([[0,0]], ($test(1)())->getData());
+		} catch (MatrixError $e) {
+			$this->fail("unexpected exception: {$e->getMessage()}");
+		}
+	}
+
+	private function expectMatrixError(callable $fn, string $message) {
+		try {
+			$fn();
+			$this->fail("Failed asserting that exception of type \"".MatrixError::class."\" is thrown.");
+		} catch (MatrixError $e) {
+			$this->assertEquals($message, $e->getMessage(),
+				"Failed asserting that exception message '{$e->getMessage()}' contains '$message."
+			);
+		}
+	}
+
+	public function testHashCode() {
+		$this->assertEquals(0 % PHP_INT_MAX, Matrix::createZero(100, 100)->hashCode());
+	}
+
+	public function testInverse() {
+		$this->assertEquals([[3,2],[4,3]], (new Matrix([[3,-2], [-4,3]]))->inverse()->getData());
+		$this->assertInstanceOf(Matrix::class, (new Matrix([[1,2],[3,4],[5,6]]))->inverse());
+
+		$this->expectException(MatrixError::class);
+		$this->expectExceptionMessage("Matrix is rank deficient.");
+		(new Matrix([[1,2,3],[4,5,6]]))->inverse();
 	}
 }
