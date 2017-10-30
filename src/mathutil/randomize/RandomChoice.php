@@ -60,11 +60,6 @@ class RandomChoice {
 				return $i;
 			}
 		}
-		for ($i = 0; $i < $this->length; $i++) {
-			if ($this->probabilities[$i] != 0.0) {
-				return $i;
-			}
-		}
 		throw new EncogError("Invalid probabilities.");
 	}
 
