@@ -52,7 +52,7 @@ class Equilateral {
 	public final function getDistance(array $data, int $set): float {
 		$result = 0.0;
 		foreach ($data as $key => $value) {
-			$result += $value-$this->matrix[$set][$key] ** 2;
+			$result += ($value-$this->matrix[$set][$key]) ** 2;
 		}
 		return sqrt($result);
 	}
