@@ -64,20 +64,17 @@ class RandomChoice {
 	}
 
 	public function generateSkip(Random $random, int $skip): int {
-		$totalProp = 1.0 - $this->probabilities[$skip];
-		$throwValue = $random->nextDouble() * $totalProp;
-		$accumulator = 0.0;
-		for ($i = 0; $i < $this->length; $i++) {
-			if ($i != $skip) {
-				$accumulator += $this->probabilities[$i];
-				if ($accumulator > $throwValue) {
-					return $i;
+		if (count($this->probabilities)) {
+			$totalProp = 1.0 - $this->probabilities[$skip];
+			$throwValue = $random->nextDouble() * $totalProp;
+			$accumulator = 0.0;
+			for ($i = 0; $i < $this->length; $i++) {
+				if ($i != $skip) {
+					$accumulator += $this->probabilities[$i];
+					if ($accumulator > $throwValue) {
+						return $i;
+					}
 				}
-			}
-		}
-		for ($i = 0; $i < $this->length; $i++) {
-			if ($i != $skip && $this->probabilities[$i] != 0.0) {
-				return $i;
 			}
 		}
 		return -1;

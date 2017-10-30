@@ -34,4 +34,14 @@ class RandomChoiceTest extends TestCase {
 		$this->expectExceptionMessage("Invalid probabilities.");
 		(new RandomChoice([]))->generate(new Random(1));
 	}
+
+	public function testGenerateSkipProbabilities() {
+		$this->assertEquals(-1, (new RandomChoice([]))->generateSkip(new Random(1), 0));
+		$this->assertEquals(-1, (new RandomChoice([0.0]))->generateSkip(new Random(1), 0));
+		$this->assertEquals(0, (new RandomChoice([0.0,0.0]))->generateSkip(new Random(1), 1));
+		$this->assertEquals(1, (new RandomChoice([0.0,0.0,0.0]))->generateSkip(new Random(1), 2));
+		$this->assertEquals(1, (new RandomChoice([0.07,0.07,0.07]))->generateSkip(new Random(1), 2));
+		$this->assertEquals(0, (new RandomChoice([0.010,0.011]))->generateSkip(new Random(1), 1));
+		$this->assertEquals(-1, (new RandomChoice([0.021]))->generateSkip(new Random(1), 0));
+	}
 }
