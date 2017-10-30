@@ -43,7 +43,7 @@ class Equilateral {
 	}
 
 	public final function encode(int $set): array {
-		if ($set < 0 || $set > count($this->matrix)) {
+		if ($set < 0 || $set >= count($this->matrix)) {
 			throw new EncogError("Class out of range for equilateral: $set");
 		}
 		return $this->matrix[$set];
@@ -71,7 +71,7 @@ class Equilateral {
 					$result[$i][$j] *= $f;
 				}
 			}
-			$r = 1.0 / $r;
+			$r = -1.0 / $r;
 			for ($i = 0; $i < $k; $i++) {
 				$result[$i][$k-1] = $r;
 			}
