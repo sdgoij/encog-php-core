@@ -125,4 +125,26 @@ class ComplexNumberTest extends TestCase {
 		$this->assertEquals(new ComplexNumber(-1, -2), $n->chs());
 		$this->assertNotEquals($n, $n->chs());
 	}
+
+	public function testCopy() {
+		$n = new ComplexNumber(1,2);
+		$c = ComplexNumber::copy($n);
+
+		$this->assertNotSame($n, $c);
+		$this->assertEquals($n, $c);
+	}
+
+	public function testToString() {
+		$this->assertEquals("1 + 1i", new ComplexNumber(1, 1));
+		$this->assertEquals("1 - 1i", new ComplexNumber(1, -1));
+		$this->assertEquals("1", new ComplexNumber(1, 0));
+		$this->assertEquals("0", new ComplexNumber(0, 0));
+		$this->assertEquals("1i", new ComplexNumber(0, 1));
+		$this->assertEquals("NAN + i*NAN", new ComplexNumber(NAN, NAN));
+		$this->assertEquals("INF + i*NAN", new ComplexNumber(INF, NAN));
+		$this->assertEquals("NAN", new ComplexNumber(NAN, 0));
+		$this->assertEquals("INF + INFi", new ComplexNumber(INF, INF));
+		$this->assertEquals("1 + INFi", new ComplexNumber(1, INF));
+		$this->assertEquals("1 + i*NAN", new ComplexNumber(1, NAN));
+	}
 }
