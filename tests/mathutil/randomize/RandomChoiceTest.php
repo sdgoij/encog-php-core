@@ -14,6 +14,7 @@
  */
 namespace encog\test\mathutil\randomize;
 
+use encog\EncogError;
 use encog\mathutil\randomize\RandomChoice;
 use encog\util\Random;
 use PHPUnit\Framework\TestCase;
@@ -26,5 +27,11 @@ class RandomChoiceTest extends TestCase {
 		$this->assertEquals(2, (new RandomChoice([0.07,0.07,0.07]))->generate(new Random(1)));
 		$this->assertEquals(1, (new RandomChoice([0.010,0.011]))->generate(new Random(1)));
 		$this->assertEquals(0, (new RandomChoice([0.021]))->generate(new Random(1)));
+	}
+
+	public function testGenerateInvalidProbabilities() {
+		$this->expectException(EncogError::class);
+		$this->expectExceptionMessage("Invalid probabilities.");
+		(new RandomChoice([]))->generate(new Random(1));
 	}
 }
