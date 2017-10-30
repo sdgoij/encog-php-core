@@ -89,7 +89,9 @@ class RandomChoice {
 	}
 
 	private function setDefaultProbabilities($start, $end) {
-		$this->probabilities = array_fill($start, $end, 1.0 / ($end-$start));
+		if ($end-$start > 0) {
+			$this->probabilities = array_fill($start, $end, 1.0 / ($end-$start));
+		}
 	}
 
 	/** @var float[] */
