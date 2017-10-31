@@ -21,15 +21,28 @@ namespace encog\mathutil\randomize\generate;
 abstract class AbstractGenerateRandom implements GenerateRandom {
 	public function nextDouble(float $high = null, float $low = 0): float {
 		return $high !== null
-			? $low + ($this->next() * ($high - $low))
+			? $low + $this->bound($high, $low)
 			: $this->next();
 	}
 
 	public function nextInt(int $high = null, int $low = 0): int {
 		return $high !== null
-			? $low + (int)($this->next() * ($high - $low))
+			? $low + (int)round($this->bound($high, $low))
 			: $this->nextLong();
 	}
 
+	public function nextBoolean(): bool { return $this->nextDouble() > 0.5; }
+	public function nextFloat(): float { return $this->nextDouble(); }
+	public function nextLong(): int { return $this->nextInt(); }
+
+	/**
+	 * All types are implemented in terms of next()
+	 *
+	 * @return float
+	 */
 	abstract protected function next(): float;
+
+	private function bound($high, $low): float {
+		return $this->next() * ($high - $low);
+	}
 }

@@ -54,7 +54,7 @@ class Random {
 	public function nextBytes(array &$bytes) {
 		foreach ($bytes as $k => $v) {
 			for ($rand = $this->nextInt(), $n = min(count($bytes)-$k, 4); $n--> 0; $rand >>= 8) {
-				$bytes[$k] = $rand;
+				$bytes[$k] = $rand % 256;
 			}
 		}
 	}
@@ -82,7 +82,7 @@ class Random {
 	}
 
 	public function nextBoolean(): bool {
-		return $this->next(1) != 0;
+		return $this->nextFloat() > .5;
 	}
 
 	public function nextFloat(): float {

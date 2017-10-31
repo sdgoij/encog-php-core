@@ -26,10 +26,7 @@ class RangeRandomizer extends BasicRandomizer {
 	}
 
 	public static function randomFloat(float $min, float $max, Random $r = null): float {
-		$rand = $r === null
-			? function(): float { return mt_rand()/mt_getrandmax(); }
-			: function() use($r): float { return $r->nextDouble(); };
-		return ($max-$min) * $rand() + $min;
+		return ($max-$min) * ($r === null ? mt_rand()/mt_getrandmax() : $r->nextDouble()) + $min;
 	}
 
 	public function __construct(float $min, float $max) {

@@ -80,17 +80,17 @@ class MersenneTwisterGenerateRandom extends AbstractBoxMuller {
 	public function setSeedArray(array $seeds) {
 		$length = count($seeds);
 		$this->setSeed(19650218);
-		for ($i = 1, $j = 0, $k = self::N > $length ? self::N : $length; $k > 0; $i++, $j++, $k--) {
+		for ($i = 1, $j = 0, $k = (self::N > $length ? self::N : $length)-1; $k > 0; $k--) {
 			$this->sv[$i] = ($this->sv[$i]^(($this->sv[$i-1]^Operator::urshift($this->sv[$i-1],30))*1664525))+$seeds[$j]+$j;
-			if ($i > self::N) {
+			if (++$i >= self::N) {
 				$this->sv[0] = $this->sv[self::N-1];
 				$i = 1;
 			}
-			if ($j >= $length) $j = 0;
+			if (++$j >= $length-1) $j = 0;
 		}
-		for ($k = self::N-1; $k > 0; $i++, $k--) {
+		for ($k = self::N-1; $k > 0; $k--) {
 			$this->sv[$i] = ($this->sv[$i]^(($this->sv[$i-1]^Operator::urshift($this->sv[$i-1],30))*1566083941))-$i;
-			if ($i > self::N) {
+			if (++$i >= self::N) {
 				$this->sv[0] = $this->sv[self::N-1];
 				$i = 1;
 			}
@@ -98,16 +98,8 @@ class MersenneTwisterGenerateRandom extends AbstractBoxMuller {
 		$this->sv[0] = self::UPPER_MASK;
 	}
 
-	public function nextBoolean(): bool {
-		return $this->nextDouble() > 0.5;
-	}
-
 	public function nextLong(): int {
-		return ($this->nextI(32) << 32) + $this->nextI(32);
-	}
-
-	public function nextFloat(): float {
-		return $this->next();
+		return ($this->nextI(32) << 32) | $this->nextI(32);
 	}
 
 	protected function next(): float {

@@ -58,7 +58,7 @@ class PerformDataDivision {
 		$remaining = $total - $count;
 		$numDiv = count($divisions);
 		while ($remaining-- > 0) {
-			$division = $divisions[$this->random->nextInt($numDiv)];
+			$division = $divisions[$this->random->nextInt($numDiv-1)];
 			$division->setCount($division->getCount()+1);
 		}
 	}

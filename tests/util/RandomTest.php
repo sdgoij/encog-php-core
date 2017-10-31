@@ -42,6 +42,14 @@ class RandomTest extends TestCase {
 
 		while ($i < self::NCALLS && $r->nextInt() == $f) ++$i;
 		$this->assertTrue($i < self::NCALLS);
+
+		$r1 = new Random(42);
+		$r2 = new Random(42);
+		$i = 0;
+
+		while ($i++ < 1000) {
+			$this->assertSame($r1->nextInt(), $r2->nextInt());
+		}
 	}
 
 	public function testNextLong() {
@@ -107,5 +115,15 @@ class RandomTest extends TestCase {
 			}
 			$this->assertTrue($i < self::NCALLS);
 		}
+	}
+
+	public function testNextBytes() {
+		$result1 = array_fill(0, 1024, 0.0);
+		$result2 = array_fill(0, 1024, 0.0);
+
+		(new Random(1))->nextBytes($result1);
+		(new Random(1))->nextBytes($result2);
+
+		$this->assertSame($result1, $result2);
 	}
 }

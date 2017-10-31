@@ -65,19 +65,7 @@ class LinearCongruentialRandom extends AbstractBoxMuller {
 	}
 
 	protected function next(): float {
-		return ((float)$this->nextLong()) / self::MAX_RAND;
-	}
-
-	public function nextBoolean(): bool {
-		return $this->nextDouble() > .5;
-	}
-
-	public function nextLong(): int {
 		$this->seed = ($this->multiplier * $this->seed + $this->increment) % $this->modulus;
-		return $this->seed;
-	}
-
-	public function nextFloat(): float {
-		return $this->nextDouble();
+		return ((float)$this->seed) / self::MAX_RAND;
 	}
 }

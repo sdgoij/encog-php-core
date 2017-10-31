@@ -12,30 +12,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace encog\util;
+namespace encog\test\mathutil\randomize\generate;
 
-final class Operator {
-	public static function urshift($a, $b) {
-		if ($b >= 32 || $b < -32) {
-			$m = (int)($b / 32);
-			$b -= $m * 32;
-		}
-		if ($b < 0) {
-			$b += 32;
-		}
-		if ($b == 0) {
-			return $a;
-		}
-		if ($a < 0) {
-			$a >>= 1;
-			$a &= 2147483647;
-			$a |= 0x40000000;
-			$a >>= ($b - 1);
-		} else {
-			$a >>= $b;
-		}
-		return $a;
-	}
-	private function __construct() {
+use encog\mathutil\randomize\generate\LinearCongruentialRandom;
+use PHPUnit\Framework\TestCase;
+
+class LinearCongruentialRandomTest extends TestCase {
+	public function testCreateLinearCongruentialRandomNumberGenerator() {
+		$g = new LinearCongruentialRandom(1, 2, 3, 4);
+		$this->assertEquals(1, $g->getSeed());
+		$this->assertEquals(2, $g->getModulus());
+		$this->assertEquals(3, $g->getMultiplier());
+		$this->assertEquals(4, $g->getIncrement());
 	}
 }
