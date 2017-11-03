@@ -20,15 +20,15 @@ use encog\mathutil\error\ErrorCalculation;
 use encog\ml\data\MLDataPair;
 use encog\ml\data\MLDataSet;
 use encog\ml\MLContext;
+use encog\ml\MLMethod;
 use encog\ml\MLRegression;
-use encog\neural\networks\BasicNetwork;
 use encog\neural\pattern\FeedForwardPattern;
 
 /**
  * General utility class for Encog. Provides for some common Encog procedures.
  */
 final class EncogUtility {
-	public static function simpleFeedForward(int $input, int $hidden1, int $hidden2, int $output, bool $tanh): BasicNetwork {
+	public static function simpleFeedForward(int $input, int $hidden1, int $hidden2, int $output, bool $tanh): MLMethod {
 		$pattern = new FeedForwardPattern();
 		$pattern->setInputNeurons($input);
 		$pattern->setOutputNeurons($output);
