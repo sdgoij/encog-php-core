@@ -184,7 +184,7 @@ class AutoFloatDataSetTest extends TestCase {
 		MemoryStream::put("12345.csv", "1,2,3,4,5\r\n1,2,3,4,5");
 
 		$dataset = new AutoFloatDataSet(1,2,1,1);
-		$dataset->loadCSV("memory://12345.csv", false, CSVFormat::$english, [0,1], [2]);
+		$dataset->loadCSV("memory://12345.csv", false, CSVFormat::English(), [0,1], [2]);
 		$this->assertEquals(1, $dataset->getRecordCount());
 	}
 }

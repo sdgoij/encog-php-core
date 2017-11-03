@@ -69,7 +69,7 @@ class MemoryDataLoaderTest extends TestCase {
 
 	public function testCodec() {
 		$codec1 = $this->createDataCODEC();
-		$codec2 = CSVDataCODEC::reader("foo.csv", CSVFormat::$english, false, 2, 1, false);
+		$codec2 = CSVDataCODEC::reader("foo.csv", CSVFormat::English(), false, 2, 1, false);
 		$loader = new MemoryDataLoader($codec1);
 		$this->assertEquals($codec1, $loader->getCodec());
 		$loader->setCodec($codec2);

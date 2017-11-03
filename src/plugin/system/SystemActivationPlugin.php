@@ -76,7 +76,7 @@ class SystemActivationPlugin implements EncogPluginService1 {
 				throw new EncogError("Unbounded '[' while parsing activation function.");
 			}
 			$name = strtolower(substr($fn, 0, $startIndex));
-			$params = NumberList::fromList(CSVFormat::$egFormat, substr($fn, $startIndex+1, $endIndex));
+			$params = NumberList::fromList(CSVFormat::EgFormat(), substr($fn, $startIndex+1, $endIndex));
 		} else {
 			$name = strtolower($fn);
 			$params = [];

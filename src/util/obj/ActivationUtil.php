@@ -22,7 +22,7 @@ final class ActivationUtil {
 	public static function generateActivationFactory(string $name, ActivationFunction $af): string {
 		$result = strtoupper($name);
 		if (count($af->getParams())) {
-			$result .= sprintf("[%s]", NumberList::toList(CSVFormat::$egFormat, $af->getParams()));
+			$result .= sprintf("[%s]", NumberList::toList(CSVFormat::EgFormat(), $af->getParams()));
 		}
 		return $result;
 	}

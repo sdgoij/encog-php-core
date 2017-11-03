@@ -25,12 +25,12 @@ use PHPUnit\Framework\TestCase;
 class CSVDataCODECTest extends TestCase {
 
 	public function testIdealSize() {
-		$this->assertEquals(1, CSVDataCODEC::reader("foo.csv", CSVFormat::$english, false, 2, 1, false)->getIdealSize());
+		$this->assertEquals(1, CSVDataCODEC::reader("foo.csv", CSVFormat::English(), false, 2, 1, false)->getIdealSize());
 		$this->assertEquals(-1, (new CSVDataCODEC())->getIdealSize());
 	}
 
 	public function testInputSize() {
-		$this->assertEquals(2, CSVDataCODEC::reader("foo.csv", CSVFormat::$english, false, 2, 1, false)->getInputSize());
+		$this->assertEquals(2, CSVDataCODEC::reader("foo.csv", CSVFormat::English(), false, 2, 1, false)->getInputSize());
 		$this->assertEquals(-1, (new CSVDataCODEC())->getInputSize());
 	}
 
@@ -54,7 +54,7 @@ class CSVDataCODECTest extends TestCase {
 		$this->assertFalse((new CSVDataCODEC())->read($input, $ideal, $significance));
 
 		MemoryStream::put("test.csv", "1,2,3\r\n2,3,4\r\n3,4,5");
-		$codec = CSVDataCODEC::reader("memory://test.csv", CSVFormat::$english, false, 2, 1, false);
+		$codec = CSVDataCODEC::reader("memory://test.csv", CSVFormat::English(), false, 2, 1, false);
 		$codec->prepareRead();
 
 		while ($codec->read($input, $ideal, $significance)) {
@@ -73,7 +73,7 @@ class CSVDataCODECTest extends TestCase {
 		$this->assertFalse((new CSVDataCODEC())->read($input, $ideal, $significance));
 
 		MemoryStream::put("test.csv", "1,2,3,0.1\r\n2,3,4,0.2\r\n3,4,5,0.3");
-		$codec = CSVDataCODEC::reader("memory://test.csv", CSVFormat::$english, false, 2, 1, true);
+		$codec = CSVDataCODEC::reader("memory://test.csv", CSVFormat::English(), false, 2, 1, true);
 		$codec->prepareRead();
 
 		while ($codec->read($input, $ideal, $significance)) {
@@ -88,7 +88,7 @@ class CSVDataCODECTest extends TestCase {
 	public function testWrite() {
 		MemoryStream::put("test.csv", "");
 		$expect = "1,2,3,0.1\r\n2,3,4,0.2\r\n3,4,5,0.3\r\n";
-		$codec = CSVDataCODEC::writer("memory://test.csv", CSVFormat::$english, true);
+		$codec = CSVDataCODEC::writer("memory://test.csv", CSVFormat::English(), true);
 		$codec->prepareWrite(3, 2, 1);
 		$codec->write([1,2], [3], 0.1);
 		$codec->write([2,3], [4], 0.2);
@@ -103,7 +103,7 @@ class CSVDataCODECTest extends TestCase {
 
 	public function testClose() {
 		MemoryStream::put("test.csv", "");
-		$codec = CSVDataCODEC::writer("memory://test.csv", CSVFormat::$english, false);
+		$codec = CSVDataCODEC::writer("memory://test.csv", CSVFormat::English(), false);
 		$codec->prepareWrite(3,2,1);
 		$codec->close();
 

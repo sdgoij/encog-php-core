@@ -25,7 +25,7 @@ class CSVLineParserTest extends TestCase {
 		$this->assertEquals(["a", "b c"], $parser->parse("a \"b c\""));
 	}
 	public function testParseCommaSeparated() {
-		$parser = new CSVLineParser(CSVFormat::$decimalPoint);
+		$parser = new CSVLineParser(CSVFormat::DecimalPoint());
 		$this->assertEquals(["a", "b", "c"], $parser->parse("a,b,c"));
 		$this->assertEquals(["a", "b,c"], $parser->parse("a,\"b,c\""));
 	}

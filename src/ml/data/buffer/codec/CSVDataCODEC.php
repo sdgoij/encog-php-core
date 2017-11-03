@@ -39,7 +39,7 @@ class CSVDataCODEC implements DataSetCODEC {
 	private $writer;
 
 	public function __construct() {
-		$this->format = CSVFormat::$english;
+		$this->format = CSVFormat::English();
 	}
 
 	public static function fromCSVReader(CSVReader $reader, int $input, int $ideal, bool $significance): CSVDataCODEC {

@@ -24,7 +24,7 @@ class CSVReaderTest extends TestCase {
 	public function testCommaSeparated() {
 		MemoryStream::put(self::INPUT_NAME, "one,1\ntwo,2\nthree,3\n");
 
-		$csv = CSVReader::createFromFileName(self::INPUT_NAME, false, CSVFormat::$egFormat);
+		$csv = CSVReader::createFromFileName(self::INPUT_NAME, false, CSVFormat::EgFormat());
 		$this->assertTrue($csv->next());
 
 		$this->assertEquals("one", $csv->get(0));

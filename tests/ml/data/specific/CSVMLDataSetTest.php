@@ -26,9 +26,9 @@ class CSVMLDataSetTest extends TestCase {
 	}
 
 	public function testGetFormat() {
-		$this->assertEquals(CSVFormat::$decimalPoint,
-			(new CSVMLDataSet("memory://foo.csv", 2, 1, false, CSVFormat::$decimalPoint))->getFormat());
-		$this->assertEquals(CSVFormat::$english,
+		$this->assertEquals(CSVFormat::DecimalPoint(),
+			(new CSVMLDataSet("memory://foo.csv", 2, 1, false, CSVFormat::DecimalPoint()))->getFormat());
+		$this->assertEquals(CSVFormat::English(),
 			(new CSVMLDataSet("memory://foo.csv", 2, 1, false))->getFormat());
 	}
 

@@ -32,10 +32,16 @@ class CSVFormatTest extends TestCase {
 		$dp = new CSVFormat(".", ",");
 		$dc = new CSVFormat(",", ";");
 
-		$this->assertEquals(CSVFormat::$decimalPoint, $dp);
-		$this->assertEquals(CSVFormat::$decimalComma, $dc);
-		$this->assertEquals(CSVFormat::$english, $dp);
-		$this->assertEquals(CSVFormat::$egFormat, $dp);
+		$this->assertEquals(CSVFormat::DecimalPoint(), $dp);
+		$this->assertEquals(CSVFormat::DecimalComma(), $dc);
+		$this->assertEquals(CSVFormat::English(), $dp);
+		$this->assertEquals(CSVFormat::EgFormat(), $dp);
+	}
+
+	public function testNewDecimalPoint() {
+		$format = CSVFormat::newDecimalPoint();
+		$this->assertNotSame(CSVFormat::DecimalPoint(), $format);
+		$this->assertEquals(CSVFormat::DecimalPoint(), $format);
 	}
 
 	public function testGetDecimalCharacter() {
@@ -55,15 +61,15 @@ class CSVFormatTest extends TestCase {
 	}
 
 	public function testFormat() {
-		$this->assertEquals(CSVFormat::$decimalPoint->format(3.1415926535898, 0), "3");
-		$this->assertEquals(CSVFormat::$decimalPoint->format(3.1415926535898, 2), "3.14");
-		$this->assertEquals(CSVFormat::$decimalPoint->format(3.1415926535898, 4), "3.1416");
-		$this->assertEquals(CSVFormat::$decimalPoint->format(3.1415926535898, 100), "3.1415926535898");
+		$this->assertEquals(CSVFormat::DecimalPoint()->format(3.1415926535898, 0), "3");
+		$this->assertEquals(CSVFormat::DecimalPoint()->format(3.1415926535898, 2), "3.14");
+		$this->assertEquals(CSVFormat::DecimalPoint()->format(3.1415926535898, 4), "3.1416");
+		$this->assertEquals(CSVFormat::DecimalPoint()->format(3.1415926535898, 100), "3.1415926535898");
 
-		$this->assertEquals(CSVFormat::$decimalComma->format(3.1415926535898, 0), "3");
-		$this->assertEquals(CSVFormat::$decimalComma->format(3.1415926535898, 2), "3,14");
-		$this->assertEquals(CSVFormat::$decimalComma->format(3.1415926535898, 4), "3,1416");
-		$this->assertEquals(CSVFormat::$decimalComma->format(3.1415926535898, 100), "3,1415926535898");
+		$this->assertEquals(CSVFormat::DecimalComma()->format(3.1415926535898, 0), "3");
+		$this->assertEquals(CSVFormat::DecimalComma()->format(3.1415926535898, 2), "3,14");
+		$this->assertEquals(CSVFormat::DecimalComma()->format(3.1415926535898, 4), "3,1416");
+		$this->assertEquals(CSVFormat::DecimalComma()->format(3.1415926535898, 100), "3,1415926535898");
 
 		$this->assertEquals((new CSVFormat("^"))->format(3.1415926535898, 0), "3");
 		$this->assertEquals((new CSVFormat("^"))->format(3.1415926535898, 2), "3^14");
@@ -72,15 +78,15 @@ class CSVFormatTest extends TestCase {
 	}
 
 	public function testParse() {
-		$this->assertEquals(CSVFormat::$decimalPoint->parse("3"), 3);
-		$this->assertEquals(CSVFormat::$decimalPoint->parse("3.14"), 3.14);
-		$this->assertEquals(CSVFormat::$decimalPoint->parse("3.1416"), 3.1416);
-		$this->assertEquals(CSVFormat::$decimalPoint->parse("3.1415926535898"), M_PI);
+		$this->assertEquals(CSVFormat::DecimalPoint()->parse("3"), 3);
+		$this->assertEquals(CSVFormat::DecimalPoint()->parse("3.14"), 3.14);
+		$this->assertEquals(CSVFormat::DecimalPoint()->parse("3.1416"), 3.1416);
+		$this->assertEquals(CSVFormat::DecimalPoint()->parse("3.1415926535898"), M_PI);
 
-		$this->assertEquals(CSVFormat::$decimalComma->parse("3"), 3);
-		$this->assertEquals(CSVFormat::$decimalComma->parse("3,14"), 3.14);
-		$this->assertEquals(CSVFormat::$decimalComma->parse("3,1416"), 3.1416);
-		$this->assertEquals(CSVFormat::$decimalComma->parse("3,1415926535898"), M_PI);
+		$this->assertEquals(CSVFormat::DecimalComma()->parse("3"), 3);
+		$this->assertEquals(CSVFormat::DecimalComma()->parse("3,14"), 3.14);
+		$this->assertEquals(CSVFormat::DecimalComma()->parse("3,1416"), 3.1416);
+		$this->assertEquals(CSVFormat::DecimalComma()->parse("3,1415926535898"), M_PI);
 
 		$this->assertEquals((new CSVFormat("^"))->parse("3"), 3);
 		$this->assertEquals((new CSVFormat("^"))->parse("3^14"), 3.14);

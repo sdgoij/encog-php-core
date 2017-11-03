@@ -89,7 +89,7 @@ class NormalizationHelper {
 	}
 
 	public function getFormat(): CSVFormat {
-		return $this->format ?? CSVFormat::$decimalPoint;
+		return $this->format ?? CSVFormat::DecimalPoint();
 	}
 
 	public function setFormat(CSVFormat $format) {

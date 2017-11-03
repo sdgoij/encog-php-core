@@ -23,6 +23,7 @@ class SimpleParserTest extends TestCase {
 		$this->assertEquals("[Parser:abc]", (string)$parser);
 		$parser->advance();
 		$this->assertEquals("[Parser:bc]", (string)$parser);
+		$this->assertEquals("abc", $parser->getLine());
 	}
 
 	public function testRemaining() {
@@ -66,6 +67,7 @@ class SimpleParserTest extends TestCase {
 
 	public function testPeek() {
 		$this->assertEquals("a", (new SimpleParser("a"))->peek());
+		$this->assertEquals("", (new SimpleParser(""))->peek());
 	}
 
 	public function testAdvance() {

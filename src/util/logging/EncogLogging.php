@@ -38,6 +38,6 @@ class EncogLogging {
 	}
 
 	public final function getCurrentLevel(): int {
-		Encog::getInstance()->getLoggingPlugin()->getLogLevel();
+		return Encog::getInstance()->getLoggingPlugin()->getLogLevel();
 	}
 }

@@ -19,8 +19,8 @@ class CSVFormat {
 		return localeconv()['decimal_point'];
 	}
 
-	public static function newDecimalPoint(): CSVFormat {
-		return new self(".", ",");
+	public static function newDecimalPoint(): self {
+		return clone self::DecimalPoint();
 	}
 
 	public function __construct(string $decimal = ".", string $separator = ",") {
@@ -72,23 +72,42 @@ class CSVFormat {
 		return $this->getNumberFormatter()->parse(trim($str))->floatValue();
 	}
 
-	/** @var CSVFormat $decimalPoint */
-	public static $decimalPoint;
+	public static function DecimalPoint(): self {
+		if (!self::$decimalPoint) {
+			self::$decimalPoint = new self(".", ",");
+		}
+		return self::$decimalPoint;
+	}
 
-	/** @var CSVFormat $decimalComma*/
-	public static $decimalComma;
+	public static function DecimalComma(): self {
+		if (!self::$decimalComma) {
+			self::$decimalComma = new self(",", ";");
+		}
+		return self::$decimalComma;
+	}
 
-	/** @var CSVFormat $english */
-	public static $english;
+	public static function English(): self {
+		if (!self::$english) {
+			self::$english = clone self::DecimalPoint();
+		}
+		return self::$english;
+	}
 
-	/** @var CSVFormat $egFormat */
-	public static $egFormat;
+	public static function EgFormat(): self {
+		if (!self::$egFormat) {
+			self::$egFormat = clone self::DecimalPoint();
+		}
+		return self::$egFormat;
+	}
+
+	/** @var CSVFormat */
+	private static
+		$decimalPoint,
+		$decimalComma,
+		$english,
+		$egFormat
+	;
 
 	private $separator;
 	private $decimal;
 }
-
-CSVFormat::$decimalPoint = new CSVFormat(".", ",");
-CSVFormat::$decimalComma = new CSVFormat(",", ";");
-CSVFormat::$english = CSVFormat::$decimalPoint;
-CSVFormat::$egFormat = CSVFormat::$decimalPoint;

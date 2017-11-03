@@ -33,7 +33,7 @@ class CSVMLDataSet extends BasicMLDataSet {
 			CSVFormat $format = null, bool $significance = false) {
 		parent::__construct();
 		$this->filename = $filename;
-		$this->format = $format ?? CSVFormat::$english;
+		$this->format = $format ?? CSVFormat::English();
 		$loader = new MemoryDataLoader(CSVDataCODEC::reader(
 			$filename, $this->format, $headers,
 			$input, $ideal, $significance
