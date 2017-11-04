@@ -15,7 +15,7 @@
 namespace encog\ml\train;
 
 use encog\ml\data\MLDataSet;
-use encog\ml\train\strategy\end\EndTrainingStrategy;
+use encog\ml\train\strategy\end\EndTraining;
 use encog\ml\train\strategy\Strategy;
 use encog\ml\TrainingImplementationType;
 
@@ -75,7 +75,7 @@ abstract class BasicTraining implements MLTrain {
 
 	public function isTrainingDone(): bool {
 		foreach ($this->strategies as $strategy) {
-			if ($strategy instanceof EndTrainingStrategy) {
+			if ($strategy instanceof EndTraining) {
 				if ($strategy->shouldStop()) {
 					return true;
 				}

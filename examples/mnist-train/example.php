@@ -17,7 +17,7 @@ use encog\engine\network\activation\ActivationElliott;
 use encog\engine\network\activation\ActivationLinear;
 use encog\engine\network\activation\ActivationSigmoid;
 use encog\engine\network\activation\ActivationSoftMax;
-use encog\ml\train\strategy\StopTrainingStrategy;
+use encog\ml\train\strategy\StopTraining;
 use encog\neural\networks\BasicNetwork;
 use encog\neural\networks\layers\BasicLayer;
 use encog\neural\networks\training\propagation\resilient\ResilientPropagation;
@@ -45,7 +45,7 @@ function main() {
 	// Use seed "42" to initialise the network, so we get reproducible results.
 	$network->reset(42);
 
-	$stop = new StopTrainingStrategy();
+	$stop = new StopTraining();
 	$trainer = new ResilientPropagation($network, $dataset);
 	$trainer->setThreadCount(1);
 	$trainer->addStrategy($stop);

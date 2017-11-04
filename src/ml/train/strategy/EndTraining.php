@@ -12,10 +12,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace encog\ml\train\strategy\end;
+namespace encog\ml\train\strategy;
 
-use encog\ml\train\strategy\Strategy;
-
-interface EndTrainingStrategy extends Strategy {
+interface EndTraining extends Strategy {
 	public function shouldStop(): bool;
 }
