@@ -39,6 +39,10 @@ class ConsistentRandomizerTest extends TestCase {
 					$r2->randomizeFloat(0)
 				);
 			}
+			$this->assertSame(
+				(new ConsistentRandomizer(-1, 1, $i))->nextDouble(),
+				(new ConsistentRandomizer(-1, 1, $i))->nextDouble()
+			);
 		}
 	}
 
