@@ -14,8 +14,11 @@
  */
 namespace encog\test\util\csv;
 
+use DateTime;
+use encog\EncogError;
 use encog\util\csv\CSVFormat;
 use encog\util\csv\CSVReader;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 class CSVReaderTest extends TestCase {
@@ -64,5 +67,95 @@ class CSVReaderTest extends TestCase {
 		$this->assertEquals("three", $csv->get(0));
 		$this->assertEquals("3", $csv->get(1));
 		$this->assertFalse($csv->next());
+	}
+
+	public function testGetColumnNames() {
+		MemoryStream::put(self::INPUT_NAME, "a,b,c");
+		$reader = CSVReader::createFromFileName(self::INPUT_NAME, true, ",");
+		$this->assertEquals(["a", "b", "c"], $reader->getColumnNames());
+	}
+
+	public function testInvalidStreamResource() {
+		$this->expectException(InvalidArgumentException::class);
+		$this->expectExceptionMessage("\$reader is not a valid stream resource.");
+		new CSVReader(false, false, ',');
+	}
+
+	public function testGetFormat() {
+		MemoryStream::put(self::INPUT_NAME, "a,b,c");
+		$reader = CSVReader::createFromFileName(self::INPUT_NAME, false, CSVFormat::EgFormat());
+		$this->assertSame(CSVFormat::EgFormat(), $reader->getFormat());
+	}
+
+	public function testHasMissing() {
+		MemoryStream::put(self::INPUT_NAME, join("\n", [
+			"a,b,c",
+			"a,?,c",
+			"\"\", ?, ?",
+			"\"a\",b,c",
+		]));
+
+		$reader = CSVReader::createFromFileName(self::INPUT_NAME, false, ",");
+		$this->assertTrue($reader->next());
+
+		$this->assertFalse($reader->hasMissing());
+		$this->assertTrue($reader->next());
+
+		$this->assertTrue($reader->hasMissing());
+		$this->assertTrue($reader->next());
+
+		$this->assertTrue($reader->hasMissing());
+		$this->assertTrue($reader->next());
+
+		$this->assertFalse($reader->hasMissing());
+		$this->assertFalse($reader->next());
+	}
+
+	public function testParseDate() {
+		$diff = (new DateTime("30011111"))->diff(CSVReader::parseDate("30011111"));
+		$this->assertSame(0, $diff->y);
+		$this->assertSame(0, $diff->m);
+		$this->assertSame(0, $diff->d);
+	}
+
+	public function testDisplayDate() {
+		$this->assertEquals("30011111", CSVReader::displayDate(new DateTime("3001/11/11")));
+	}
+
+	public function testGetInvalidColumn() {
+		MemoryStream::put(self::INPUT_NAME, "a,b,c");
+		$reader = CSVReader::createFromFileName(self::INPUT_NAME, false, ",");
+		$this->assertTrue($reader->next());
+		$this->assertEquals(3, $reader->getColumnCount());
+
+		$this->expectException(EncogError::class);
+		$this->expectExceptionMessageRegExp("/^Can't access column \[.*\] in a file that has only .* columns/");
+		$reader->get(3);
+	}
+
+	public function testGetColumnByName() {
+		MemoryStream::put(self::INPUT_NAME, join("\n", ["a,b,c", "2111/01/01,1.1,2"]));
+		$reader = CSVReader::createFromFileName(self::INPUT_NAME, true, ",");
+		$this->assertTrue($reader->next());
+
+		$this->assertSame("2111/01/01", $reader->get("a"));
+		$this->assertSame((new DateTime("21110101"))->getTimestamp(), $reader->getDate("A")->getTimestamp());
+		$this->assertSame(1.1, $reader->getDouble("b"));
+		$this->assertSame("1.1", $reader->get("B"));
+		$this->assertSame(2, $reader->getInt("c"));
+		$this->assertSame("2", $reader->get("C"));
+		$this->assertSame("", $reader->get("Z"));
+
+		$this->assertFalse($reader->next());
+	}
+
+	public function testGetInvalidDate() {
+		MemoryStream::put(self::INPUT_NAME, "a,b,c");
+		$reader = CSVReader::createFromFileName(self::INPUT_NAME, false, " ");
+		$this->assertTrue($reader->next());
+
+		$this->expectException(EncogError::class);
+		$this->expectExceptionMessageRegExp("/failed to parse time string \(a,b,c\) at position/i");
+		$reader->getDate(0);
 	}
 }

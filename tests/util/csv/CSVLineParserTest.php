@@ -28,5 +28,6 @@ class CSVLineParserTest extends TestCase {
 		$parser = new CSVLineParser(CSVFormat::DecimalPoint());
 		$this->assertEquals(["a", "b", "c"], $parser->parse("a,b,c"));
 		$this->assertEquals(["a", "b,c"], $parser->parse("a,\"b,c\""));
+		$this->assertEquals(["a", "b,c", "\""], $parser->parse("a,\"b,c\",\"\"\""));
 	}
 }

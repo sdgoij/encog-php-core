@@ -18,7 +18,6 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use Exception;
 use InvalidArgumentException;
-use SplFileInfo;
 
 use encog\EncogError;
 
@@ -43,10 +42,6 @@ class CSVReader {
 
 	public static function createFromFileName(string $filename, bool $headers, $format): CSVReader {
 		return new static(@fopen($filename, 'r'), $headers, $format);
-	}
-
-	public static function createFromFileInfo(SplFileInfo $file, bool $headers, $format): CSVReader {
-		return static::createFromFileName($file->getRealPath(), $headers, $format);
 	}
 
 	public function __construct($reader, bool $headers, $format) {
@@ -101,8 +96,8 @@ class CSVReader {
 	public function get($index): string {
 		if (is_string($index)) {
 			$index = strtolower($index);
-			if (!array_key_exists($this->columns, $index)) {
-				return null;
+			if (!array_key_exists($index, $this->columns)) {
+				return "";
 			}
 			$index = $this->columns[$index];
 		}
@@ -130,7 +125,7 @@ class CSVReader {
 
 	public function getInt($column): int {
 		return $this->format->getNumberFormatter()
-			->parse($this->get($column))->intVal();
+			->parse($this->get($column))->intValue();
 	}
 
 	public function next(): bool {
