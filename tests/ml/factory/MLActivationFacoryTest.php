@@ -17,7 +17,6 @@ namespace ml\factory;
 namespace encog\test\ml\factory;
 
 use encog\Encog;
-use encog\EncogError;
 use encog\engine\network\activation\ActivationFunction;
 use encog\ml\factory\MLActivationFactory;
 use PHPUnit\Framework\TestCase;
@@ -26,9 +25,7 @@ class MLActivationFactoryTest extends TestCase {
 	public function testCreateMethod() {
 		$factory = new MLActivationFactory();
 		$this->assertInstanceOf(ActivationFunction::class, $factory->create("TEST_OK"));
-		$this->expectException(EncogError::class);
-		$this->expectExceptionMessage("Unknown activation function: TEST_FAIL");
-		$factory->create("TEST_FAIL", "", 2, 1);
+		$this->assertNull($factory->create("TEST_FAIL"));
 	}
 	public function setUp() {
 		Encog::getInstance()->reset()->registerPlugin(new DummyPlugin());

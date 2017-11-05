@@ -16,7 +16,6 @@ namespace encog\test\ml\factory;
 
 use encog\engine\network\activation\ActivationFunction;
 use encog\engine\network\activation\ActivationLinear;
-use encog\ml\data\basic\BasicMLData;
 use encog\ml\data\MLDataSet;
 use encog\ml\MLMethod;
 use encog\ml\train\MLTrain;
@@ -26,6 +25,7 @@ use encog\neural\networks\training\propagation\TrainingContinuation;
 use encog\plugin\EncogPluginBase;
 use encog\plugin\EncogPluginError;
 use encog\plugin\EncogPluginService1;
+use encog\test\neural\networks\XORUtil;
 
 class DummyPlugin implements EncogPluginService1 {
 	public function getPluginType(): int {
@@ -64,10 +64,10 @@ class DummyPlugin implements EncogPluginService1 {
 		}
 		return new class implements MLTrain {
 			public function getTrainingImplementationType(): TrainingImplementationType {
-				return new TrainingImplementationType();
+				return new TrainingImplementationType(TrainingImplementationType::Iterative);
 			}
 			public function isTrainingDone(): bool { return true; }
-			public function getTraining(): MLDataSet { return new BasicMLData([]); }
+			public function getTraining(): MLDataSet { return XORUtil::createDataSet(); }
 			public function iteration(int $count = 0) {}
 			public function getError(): float { return 1.0; }
 			public function finishTraining() {}

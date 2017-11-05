@@ -15,10 +15,10 @@
 namespace encog\ml\factory;
 
 use encog\Encog;
-use encog\EncogError;
 use encog\engine\network\activation\ActivationFunction;
 use encog\plugin\EncogPluginError;
 use encog\plugin\EncogPluginService1;
+use encog\util\logging\EncogLogging;
 
 class MLActivationFactory {
 
@@ -38,7 +38,7 @@ class MLActivationFactory {
 	const STEP        = "step";
 	const TANH        = "tanh";
 
-	public function create(string $name): ActivationFunction {
+	public function create(string $name): ?ActivationFunction {
 		foreach (Encog::getInstance()->getPlugins() as $plugin) {
 			if ($plugin instanceof EncogPluginService1) {
 				try {
@@ -46,6 +46,7 @@ class MLActivationFactory {
 				} catch (EncogPluginError $e) {}
 			}
 		}
-		throw new EncogError("Unknown activation function: $name");
+		EncogLogging::log(EncogLogging::LEVEL_INFO, "Unknown activation function: $name");
+		return null;
 	}
 }

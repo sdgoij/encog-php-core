@@ -56,6 +56,7 @@ class ArchitectureParserTest extends TestCase {
 		$this->assertEquals($layerBias, ArchitectureParser::parseLayer("?:B", 1));
 		$this->assertEquals($layerTANH, ArchitectureParser::parseLayer("TANH", 1));
 		$this->assertEquals($layerParams, ArchitectureParser::parseLayer("FUNC(a=1,b=2,c=3)", 1));
+		$this->assertCount(2, ArchitectureParser::parseLayer("x(a=1,b=2)", 1)->getParams());
 		$this->assertEquals($layer3, ArchitectureParser::parseLayer("3", 1));
 	}
 
@@ -80,7 +81,7 @@ class ArchitectureParserTest extends TestCase {
 	}
 
 	public function testParseParams() {
-		$this->assertEquals(['A'=>'1', 'B'=>'2', 'C'=>'3'], ArchitectureParser::parseParams("a=1,b=2,c=3"));
+		$this->assertEquals(['A'=>'1', 'B'=>'x', 'C'=>'"'], ArchitectureParser::parseParams("a=1,b=\"x\",c=\"\"\""));
 		$this->expectException(EncogError::class);
 		$this->expectExceptionMessage("Missing equals(=) operator.");
 		ArchitectureParser::parseParams("abc");
