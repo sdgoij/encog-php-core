@@ -15,7 +15,7 @@
 namespace encog\ml\train;
 
 use encog\ml\data\MLDataSet;
-use encog\ml\train\strategy\end\EndTraining;
+use encog\ml\train\strategy\EndTraining;
 use encog\ml\train\strategy\Strategy;
 use encog\ml\TrainingImplementationType;
 
