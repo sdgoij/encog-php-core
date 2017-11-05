@@ -15,7 +15,6 @@
 
 use encog\engine\network\activation\ActivationElliott;
 use encog\engine\network\activation\ActivationLinear;
-use encog\engine\network\activation\ActivationSigmoid;
 use encog\engine\network\activation\ActivationSoftMax;
 use encog\ml\train\strategy\StopTraining;
 use encog\neural\networks\BasicNetwork;
@@ -23,7 +22,6 @@ use encog\neural\networks\layers\BasicLayer;
 use encog\neural\networks\training\propagation\resilient\ResilientPropagation;
 use encog\util\data\mnist\MNISTDataSet;
 use encog\util\data\mnist\MNISTReader;
-use encog\util\Random;
 
 require __DIR__ . "/../../vendor/autoload.php";
 
@@ -45,7 +43,7 @@ function main() {
 	// Use seed "42" to initialise the network, so we get reproducible results.
 	$network->reset(42);
 
-	$stop = new StopTraining();
+	$stop = new StopTraining(StopTraining::DEFAULT_MIN_IMPROVEMENT, 3);
 	$trainer = new ResilientPropagation($network, $dataset);
 	$trainer->setThreadCount(1);
 	$trainer->addStrategy($stop);
@@ -54,20 +52,15 @@ function main() {
 		echo "Epoch #{$trainer->getIteration()} Error: ";
 		$trainer->iteration();
 		echo sprintf("%01.16f", $trainer->getError()), PHP_EOL;
-	} while (!$stop->shouldStop() || $trainer->getError() > 0.01);
+	} while (!$stop->shouldStop());
 
 	$test = new MNISTDataSet(new MNISTReader(
 		$data_dir . "t10k-labels-idx1-ubyte.gz",
 		$data_dir . "t10k-images-idx3-ubyte.gz"
 	));
 
-	$r = new Random();
-	$m = $test->size();
-
-	for ($i = 0; $i < 15; $i++) {
-		$pair = $test->get($r->nextInt($m));
+	foreach ($test as $pair) {
 		$result = $network->compute($pair->getInput());
-
 		echo "IDEAL:  ", join(", ", ff($pair->getIdealArray())), PHP_EOL;
 		echo "OUTPUT: ", join(", ", ff($result->getData()->toArray())), PHP_EOL;
 		echo str_repeat("-", 66), PHP_EOL;
