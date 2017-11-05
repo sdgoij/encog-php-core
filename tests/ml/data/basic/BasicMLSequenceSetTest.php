@@ -20,6 +20,7 @@ use encog\ml\data\basic\BasicMLDataSet;
 use encog\ml\data\basic\BasicMLSequenceSet;
 use encog\ml\data\MLDataError;
 use PHPUnit\Framework\TestCase;
+use RangeException;
 
 class BasicMLSequenceSetTest extends TestCase {
 	public function testCreateEmpty() {
@@ -94,6 +95,7 @@ class BasicMLSequenceSetTest extends TestCase {
 		$seq->add(new BasicMLData([5,6]));
 
 		$this->assertEquals(3, $seq->getRecordCount());
+		$this->assertEquals(3, $seq->size());
 	}
 
 	public function testStartNewSequence() {
@@ -113,6 +115,9 @@ class BasicMLSequenceSetTest extends TestCase {
 
 		$this->assertEquals(new BasicMLDataSet(array_reverse($pairs)), $seq->getSequence(1));
 		$this->assertEquals(new BasicMLDataSet($pairs), $seq->getSequence(0));
+
+		$this->expectException(RangeException::class);
+		$seq->getSequence(2);
 	}
 
 	public function testGetRecord() {
@@ -175,6 +180,13 @@ class BasicMLSequenceSetTest extends TestCase {
 		$this->assertEquals($expect, $seq->getSequences());
 	}
 
+	public function testAddDataSet() {
+		$seq = BasicMLSequenceSet::createEmpty();
+		$seq->addDataSet(new BasicMLDataSet([[0,0], [0,1], [1,0], [1,1]]));
+		$this->assertEquals(1, $seq->getSequenceCount());
+		$this->assertEquals(4, $seq->getRecordCount());
+	}
+
 	public function testIterator() {
 		$expect[] = new BasicMLDataPair(new BasicMLData([1,2]), new BasicMLData([3]));
 		$expect[] = new BasicMLDataPair(new BasicMLData([4,5]), new BasicMLData([6]));
@@ -194,5 +206,13 @@ class BasicMLSequenceSetTest extends TestCase {
 		foreach ($seq as $pair) {
 			$this->assertEquals($expect[$key++], $pair);
 		}
+	}
+
+	public function testOpenAdditional() {
+		$seq1 = BasicMLSequenceSet::createFromArray([[1,2],[3,4],[5,6]], [[1],[2],[3]]);
+		$seq2 = $seq1->openAdditional();
+
+		$this->assertNotSame($seq1, $seq2);
+		$this->assertEquals($seq1, $seq2);
 	}
 }

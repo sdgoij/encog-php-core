@@ -20,6 +20,7 @@ use encog\ml\data\basic\BasicMLComplexData;
 use encog\ml\data\basic\BasicMLData;
 use PHPUnit\Framework\TestCase;
 use RangeException;
+use RuntimeException;
 use SplFixedArray;
 
 class BasicMLComplexDataTest extends TestCase {
@@ -32,6 +33,9 @@ class BasicMLComplexDataTest extends TestCase {
 		$this->assertEquals(0, $data->getComplexDataAt(1)->getImaginary());
 		$this->assertEquals(3, $data->getComplexDataAt(2)->getReal());
 		$this->assertEquals(0, $data->getComplexDataAt(2)->getImaginary());
+		$this->assertEquals(3, BasicMLComplexData::createFromMLData($data)->size());
+		$this->expectException(InvalidArgumentException::class);
+		new BasicMLComplexData("{}");
 	}
 
 	public function testAddComplex() {
@@ -101,9 +105,12 @@ class BasicMLComplexDataTest extends TestCase {
 	public function testClone() {
 		$d1 = new BasicMLComplexData([1,2,3]);
 		$d2 = clone $d1;
+		$d3 = $d2->clone();
 
+		$this->assertNotSame($d1, $d2);
+		$this->assertNotSame($d2, $d3);
 		$this->assertEquals($d1, $d2);
-		$this->assertTrue($d1 !== $d2);
+		$this->assertEquals($d2, $d3);
 	}
 
 	public function testGetData() {
@@ -120,5 +127,27 @@ class BasicMLComplexDataTest extends TestCase {
 		$this->assertEquals(3, $data->getDataAt(1));
 		$this->assertEquals(5, $data->getDataAt(2));
 		$this->assertEquals(6, $data->getDataAt(3));
+	}
+
+	public function testSetData() {
+		$data = new BasicMLComplexData(2);
+		$data->setData(SplFixedArray::fromArray([1,2]));
+		$this->assertEquals(1, $data->getDataAt(0));
+		$this->assertEquals(2, $data->getDataAt(1));
+	}
+
+	public function testSetDataAt() {
+		$data = new BasicMLComplexData(2);
+		$data->setDataAt(0, 1);
+		$data->setDataAt(1, 2);
+		$this->assertEquals(1, $data->getDataAt(0));
+		$this->assertEquals(2, $data->getDataAt(1));
+
+		$this->expectException(RuntimeException::class);
+		$data->setDataAt(2, 3);
+	}
+
+	public function testCreateCentroid() {
+		$this->assertSame(0.0, (new BasicMLComplexData(2))->createCentroid()->distance(0));
 	}
 }

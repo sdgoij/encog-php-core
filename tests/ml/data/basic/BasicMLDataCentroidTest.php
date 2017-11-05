@@ -54,5 +54,7 @@ class BasicMLDataCentroidTest extends TestCase {
 
 		$this->assertEquals(2.8284271247461903, $c->distance($d1));
 		$this->assertEquals(0.0, $c->distance($d2));
+		$this->expectException(InvalidArgumentException::class);
+		$c->distance(1);
 	}
 }

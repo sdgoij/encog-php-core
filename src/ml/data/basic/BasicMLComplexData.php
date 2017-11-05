@@ -138,7 +138,13 @@ class BasicMLComplexData implements MLComplexData {
 	}
 
 	public function createCentroid(): Centroid {
-		return null;
+		return new class implements Centroid {
+			public function add($element) {}
+			public function remove($element) {}
+			public function distance($element): float {
+				return 0.0;
+			}
+		};
 	}
 
 	/** @var ComplexNumber[] */

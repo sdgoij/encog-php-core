@@ -56,5 +56,7 @@ class BasicMLDataPairCentroidTest extends TestCase {
 
 		$this->assertEquals(1.7677669529663689, $c->distance($p[1]));
 		$this->assertEquals(1.0606601717798212, $c->distance($p[0]));
+		$this->expectException(InvalidArgumentException::class);
+		$c->distance(1);
 	}
 }

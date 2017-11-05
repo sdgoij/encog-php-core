@@ -62,10 +62,7 @@ class BasicMLDataSet implements MLDataSet {
 		if (!count($this->data)) {
 			return 0;
 		}
-		if (!$ideal = $this->data[0]->getIdeal()) {
-			return 0;
-		}
-		return $ideal->size();
+		return $this->data[0]->getIdeal()->size();
 	}
 
 	public function getInputSize(): int {

@@ -122,11 +122,7 @@ class BasicMLSequenceSet implements MLSequenceSet {
 
 	public function get(int $index): MLDataPair {
 		$pair = BasicMLDataPair::createPair($this->getInputSize(), $this->getIdealSize());
-		try {
-			$this->getRecord($index, $pair);
-		} catch (EncogError $e) {
-			throw new RangeException($e->getMessage());
-		}
+		$this->getRecord($index, $pair);
 		return $pair;
 	}
 

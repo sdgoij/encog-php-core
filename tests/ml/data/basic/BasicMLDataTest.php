@@ -14,8 +14,9 @@
  */
 namespace encog\test\ml\data\basic;
 
-use InvalidArgumentException;
+use encog\ml\data\basic\BasicMLDataCentroid;
 use encog\ml\data\basic\BasicMLData;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use RangeException;
 use SplFixedArray;
@@ -130,5 +131,9 @@ class BasicMLDataTest extends TestCase {
 
 		$this->assertEquals(new BasicMLData([-1,-1,1]), $d2);
 		$this->assertNotEquals($d1, $d2);
+	}
+
+	public function testCentroid() {
+		$this->assertInstanceOf(BasicMLDataCentroid::class, (new BasicMLData(10))->createCentroid());
 	}
 }

@@ -14,8 +14,10 @@
  */
 namespace encog\test\ml\data\basic;
 
+use encog\EncogError;
 use encog\ml\data\basic\BasicMLData;
 use encog\ml\data\basic\BasicMLDataPair;
+use encog\ml\data\MLData;
 use PHPUnit\Framework\TestCase;
 
 class BasicMLDataPairTest extends TestCase {
@@ -75,5 +77,12 @@ class BasicMLDataPairTest extends TestCase {
 		$this->assertEquals(1.0, $pair->getSignificance());
 		$pair->setSignificance(0.5);
 		$this->assertEquals(0.5, $pair->getSignificance());
+	}
+
+	public function testCreateCentroid() {
+		/** @var MLData $input */
+		$input = $this->createMock(MLData::class);
+		$this->expectException(EncogError::class);
+		(new BasicMLDataPair($input, null))->createCentroid();
 	}
 }
