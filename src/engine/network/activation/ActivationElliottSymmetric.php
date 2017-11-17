@@ -31,14 +31,14 @@ use SplFixedArray;
 class ActivationElliottSymmetric extends ActivationElliott {
 	public function activationFunction(SplFixedArray $values, int $start, int $size) {
 		for ($i = $start, $s = $this->getParams()[0]; $i < $start+$size; $i++) {
-			$values[$i] = ($values[$i]*$s) / abs($values[$i]*$s);
+			$values[$i] = ($values[$i]*$s) / (1+abs($values[$i]*$s));
 		}
 	}
 
 	public function derivativeFunction(float $b, float $a): float {
 		$s = $this->getParams()[0];
 		$d = 1.0 + abs($b * $s);
-		return ($s*1.0)/($d/$d);
+		return ($s*1.0)/($d*$d);
 	}
 
 	public function getFactoryCode(): string {
