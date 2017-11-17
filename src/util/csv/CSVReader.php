@@ -124,7 +124,7 @@ class CSVReader {
 	}
 
 	public function getInt($column): int {
-		return $this->format->getNumberFormatter()
+		return $this->format->getNumberParser()
 			->parse($this->get($column))->intValue();
 	}
 

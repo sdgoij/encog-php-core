@@ -20,7 +20,7 @@ namespace encog\util\csv;
 final class NumberList {
 	public static function fromList(CSVFormat $format, string $str): array {
 		$values = explode($format->getSeparator(), $str);
-		$formatter = $format->getNumberFormatter();
+		$formatter = $format->getNumberParser();
 		foreach ($values as $k => $v) {
 			$values[$k] = $formatter->parse($v)->floatValue();
 		}
@@ -29,7 +29,7 @@ final class NumberList {
 
 	public static function fromListInt(CSVFormat $format, string $str): array {
 		$values = explode($format->getSeparator(), $str);
-		$formatter = $format->getNumberFormatter();
+		$formatter = $format->getNumberParser();
 		foreach ($values as $k => $v) {
 			$values[$k] = $formatter->parse($v)->intValue();
 		}

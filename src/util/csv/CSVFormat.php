@@ -28,13 +28,13 @@ class CSVFormat {
 		$this->decimal = $decimal;
 	}
 
-	public function getNumberFormatter() {
-		return new class($this) {
+	public function getNumberParser(): NumberParser {
+		return new class($this) implements NumberParser {
 			public function __construct(CSVFormat $format) {
 				$this->format = $format;
 			}
-			public function parse(string $str) {
-				return new class($str, $this->format) {
+			public function parse(string $str): NumberFormatter {
+				return new class($str, $this->format) implements NumberFormatter {
 					public function __construct($value, CSVFormat $format) {
 						$this->format = $format;
 						$this->value = $value;
@@ -69,7 +69,7 @@ class CSVFormat {
 	}
 
 	public function parse(string $str): float {
-		return $this->getNumberFormatter()->parse(trim($str))->floatValue();
+		return $this->getNumberParser()->parse(trim($str))->floatValue();
 	}
 
 	public static function DecimalPoint(): self {
@@ -110,4 +110,13 @@ class CSVFormat {
 
 	private $separator;
 	private $decimal;
+}
+
+interface NumberFormatter {
+	function floatValue(): float;
+	function intValue(): int;
+}
+
+interface NumberParser {
+	function parse(string $s): NumberFormatter;
 }
