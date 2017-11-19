@@ -23,7 +23,7 @@ use encog\neural\networks\BasicNetwork;
 interface Layer {
 	public function getActivationFunction(): ActivationFunction;
 	public function setActivation(ActivationFunction $af);
-	public function getNetwork(): BasicNetwork;
+	public function getNetwork(): ?BasicNetwork;
 	public function setNetwork(BasicNetwork $network);
 	public function getNeuronCount(): int;
 	public function hasBias(): bool;

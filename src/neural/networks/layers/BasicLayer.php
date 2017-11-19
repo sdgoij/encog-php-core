@@ -67,7 +67,7 @@ class BasicLayer extends FlatLayer implements Layer {
 		return $this->getActivation();
 	}
 
-	public function getNetwork(): BasicNetwork {
+	public function getNetwork(): ?BasicNetwork {
 		return $this->network;
 	}
 
