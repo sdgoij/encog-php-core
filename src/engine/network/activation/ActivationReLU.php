@@ -62,6 +62,7 @@ class ActivationReLU implements ActivationFunction {
 			/** @noinspection PhpMissingBreakStatementInspection */
 			case self::PARAM_RELU_LOW:
 				$this->params[$index] = $value;
+				break;
 			default:
 				throw new OutOfBoundsException();
 		}
