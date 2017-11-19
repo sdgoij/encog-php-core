@@ -42,7 +42,7 @@ class ActivationSoftMax implements ActivationFunction {
 	}
 
 	public function derivativeFunction(float $b, float $a): float {
-		return $a * (1.0 - $a);
+		return 1.0;
 	}
 
 	public function hasDerivative(): bool {
