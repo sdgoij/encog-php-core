@@ -37,10 +37,10 @@ class NeuralStructure {
 	private $flat;
 
 	/** @var float */
-	private $connectionLimit;
+	private $connectionLimit = 0.0;
 
 	/** @var bool */
-	private $connectionLimited;
+	private $connectionLimited = false;
 
 	public function __construct(BasicNetwork $network) {
 		$this->network = $network;
@@ -63,10 +63,10 @@ class NeuralStructure {
 	}
 
 	public function finalizeLimit() {
-		$limit = $this->network->getPropertyString(BasicNetwork::TAG_LIMIT);
-		if ($limit !== null) {
+		$limit = $this->network->getPropertyDouble(BasicNetwork::TAG_LIMIT);
+		if ($limit) {
 			$this->connectionLimited = true;
-			$this->connectionLimit = (float)$limit;
+			$this->connectionLimit = $limit;
 			$this->enforceLimit();
 		} else {
 			$this->connectionLimited = false;
@@ -125,8 +125,8 @@ class NeuralStructure {
 	}
 
 	public function updateProperties() {
-		if ($this->network->getProperty(BasicNetwork::TAG_LIMIT) !== null) {
-			$this->connectionLimit = $this->network->getPropertyDouble(BasicNetwork::TAG_LIMIT);
+		if ($limit = $this->network->getPropertyDouble(BasicNetwork::TAG_LIMIT)) {
+			$this->connectionLimit = $limit;
 			$this->connectionLimited = true;
 		} else {
 			$this->connectionLimited = false;
