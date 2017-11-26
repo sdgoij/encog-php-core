@@ -12,37 +12,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace encog\test\neural\networks\training;
+namespace encog\test\util\error;
 
-use encog\ml\data\basic\BasicMLDataSet;
-use encog\ml\MLMethod;
 use encog\neural\networks\BasicNetwork;
 use encog\neural\networks\layers\BasicLayer;
-use encog\neural\networks\training\TrainingError;
-use encog\neural\networks\training\TrainingSetScore;
 use encog\test\neural\networks\XORUtil;
+use encog\util\error\CalculateRegressionError;
 use PHPUnit\Framework\TestCase;
 
-class TrainingSetScoreTest extends TestCase {
-	public function testCalculateScore() {
+class CalculateRegressionErrorTest extends TestCase {
+	public function testCalculateError() {
 		$network = new BasicNetwork();
 		$network->addLayer(BasicLayer::create(2));
 		$network->addLayer(BasicLayer::create(3));
 		$network->addLayer(BasicLayer::create(1));
 		$network->getStructure()->finalizeStructure();
 
-		$this->assertSame(0.25, (new TrainingSetScore(XORUtil::createDataSet()))->calculateScore($network));
-
-		$this->expectExceptionMessage("The method must support regression (MLRegression)");
-		$this->expectException(TrainingError::class);
-		(new TrainingSetScore(new BasicMLDataSet()))->calculateScore(new class implements MLMethod {});
-	}
-
-	public function testShouldMinimize() {
-		$this->assertTrue((new TrainingSetScore(new BasicMLDataSet()))->shouldMinimize());
-	}
-
-	public function testRequireSingleThreaded() {
-		$this->assertFalse((new TrainingSetScore(new BasicMLDataSet()))->requireSingleThreaded());
+		$this->assertSame(0.25, CalculateRegressionError::calculateError($network, XORUtil::createDataSet()));
 	}
 }
