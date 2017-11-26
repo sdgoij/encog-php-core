@@ -14,6 +14,8 @@
  */
 namespace encog\ml;
 
+use Throwable;
+
 /**
  * A class that provides basic property functionality for the MLProperties
  * interface.
@@ -24,15 +26,27 @@ abstract class BasicML implements MLMethod, MLProperties {
 	}
 
 	public function getPropertyDouble(string $name): float {
-		return (float)$this->getProperty($name);
+		try {
+			return (float)$this->getProperty($name);
+		} catch (Throwable $e) {
+			return 0.0;
+		}
 	}
 
 	public function getPropertyLong(string $name): int {
-		return (int)$this->getProperty($name);
+		try {
+			return (int)$this->getProperty($name);
+		} catch (Throwable $e) {
+			return 0;
+		}
 	}
 
 	public function getPropertyString(string $name): string {
-		return (string)$this->getProperty($name);
+		try {
+			return (string)$this->getProperty($name);
+		} catch (Throwable $e) {
+			return "";
+		}
 	}
 
 	public function getProperty(string $name) {

@@ -14,23 +14,343 @@
  */
 namespace encog\test\neural\networks;
 
+use ArrayIterator;
 use encog\engine\network\activation\ActivationLinear;
 use encog\engine\network\activation\ActivationSigmoid;
 use encog\ml\data\basic\BasicMLData;
+use encog\ml\factory\MLMethodFactory;
 use encog\ml\MLRegression;
+use encog\neural\flat\FlatNetwork;
 use encog\neural\networks\BasicNetwork;
 use encog\neural\networks\layers\BasicLayer;
+use encog\neural\networks\structure\NeuralStructure;
 use encog\neural\networks\training\propagation\resilient\ResilientPropagation;
+use encog\neural\NeuralNetworkError;
 use encog\neural\pattern\ElmanPattern;
 use encog\neural\pattern\JordanPattern;
 use encog\util\benchmark\RandomTrainingFactory;
 use encog\util\Random;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use PHPUnit_Framework_MockObject_MockObject as MockObject;
+use ReflectionObject;
+use SplFixedArray;
 
 class BasicNetworkTest extends TestCase {
 	public function testToString() {
 		$this->assertEquals("[BasicNetwork: Layers=3]", (string)XORUtil::createTrainedNetwork());
 		$this->assertEquals("[BasicNetwork: Layers=3]", (string)XORUtil::createThreeLayerNetwork());
+	}
+
+	public function testAddLayer() {
+		$network = new BasicNetwork();
+		$network->addLayer(BasicLayer::create(2));
+		$network->addLayer(BasicLayer::create(5));
+		$network->addLayer(BasicLayer::create(1));
+
+		$this->assertCount(3, $network->getStructure()->getLayers());
+
+		foreach ($network->getStructure()->getLayers() as $layer) {
+			$this->assertSame($network, $layer->getNetwork());
+		}
+	}
+
+	public function testAddWeight() {
+		$network = new BasicNetwork();
+
+		$structure = $network->getStructure();
+		$structure->addLayer(BasicLayer::create(1));
+		$structure->addLayer(BasicLayer::create(1));
+		$structure->finalizeStructure();
+
+		$network->addWeight(0, 0, 0, 0.4);
+		$network->addWeight(0, 0, 0, 0.6);
+
+		$this->assertSame(1.0, $network->getWeight(0, 0 , 0));
+		$this->expectException(NeuralNetworkError::class);
+		$this->expectExceptionMessage("The specified layer is not connected to another layer: 1");
+		$network->setWeight(1, 0, 0, 1.0);
+	}
+
+	public function testSetWeight() {
+		$network = new BasicNetwork();
+
+		$structure = $network->getStructure();
+		$structure->addLayer(BasicLayer::create(1));
+		$structure->addLayer(BasicLayer::create(1));
+		$structure->finalizeStructure();
+
+		$network->setWeight(0, 0, 0, 1.0);
+
+		$this->assertSame(1.0, $network->getWeight(0, 0, 0));
+		$this->expectException(NeuralNetworkError::class);
+		$this->expectExceptionMessage("The specified layer is not connected to another layer: 1");
+		$network->setWeight(1, 0, 0, 1.0);
+	}
+
+	public function testIsLayerBiased() {
+		$network = new BasicNetwork();
+
+		$structure = $network->getStructure();
+		$structure->addLayer(BasicLayer::create(1, null, false));
+		$structure->addLayer(BasicLayer::create(1, null, true));
+		$structure->finalizeStructure();
+
+		$this->assertFalse($network->isLayerBiased(0));
+		$this->assertTrue($network->isLayerBiased(1));
+
+		$this->expectException(NeuralNetworkError::class);
+		$this->expectExceptionMessage("Must call finalizeStructure before using this network.");
+		(new BasicNetwork())->isLayerBiased(0);
+	}
+
+	public function testSetBiasActivation() {
+		$network = new BasicNetwork();
+
+		$structure = $network->getStructure();
+		$structure->addLayer(BasicLayer::create(1, null, false));
+		$structure->addLayer(BasicLayer::create(1, null, true));
+
+		$network->setBiasActivation(0.9);
+
+		$this->assertSame(0.0, $structure->getLayers()[0]->getBiasActivation());
+		$this->assertSame(0.9, $structure->getLayers()[1]->getBiasActivation());
+
+		$structure->finalizeStructure();
+
+		$network->setBiasActivation(1.0);
+		$this->assertSame(1.0, $structure->getFlat()->getLayerOutput()[1]);
+	}
+
+	public function testSetLayerBiasActivation() {
+		$network = new BasicNetwork();
+		$structure = $network->getStructure();
+		$structure->addLayer(BasicLayer::create(1, null, false));
+		$structure->addLayer(BasicLayer::create(1, null, true));
+		$structure->finalizeStructure();
+
+		$network->setLayerBiasActivation(1, 0.8);
+
+		$this->assertSame(0.8, $structure->getFlat()->getLayerOutput()[1]);
+		$this->expectException(NeuralNetworkError::class);
+		$this->expectExceptionMessage("Error, the specified layer does not have a bias: 0");
+		$network->setLayerBiasActivation(0, 0.1);
+	}
+
+	public function testUpdateProperties() {
+		/** @var NeuralStructure|MockObject $structure */
+		$structure = $this->createMock(NeuralStructure::class);
+		$structure->expects($this->once())->method("updateProperties");
+		$this->createNetworkFromMock($structure)->updateProperties();
+	}
+
+	public function testClearContext() {
+		/** @var NeuralStructure|MockObject $flat */
+		$flat = $this->createMock(FlatNetwork::class);
+		$flat->expects($this->once())->method("clearContext");
+
+		/** @var NeuralStructure|MockObject $structure */
+		$structure = $this->createMock(NeuralStructure::class);
+		$structure->expects($this->exactly(2))
+			->method("getFlat")
+			->willReturn(null, $flat);
+
+		$network = $this->createNetworkFromMock($structure);
+		$network->clearContext();
+		$network->clearContext();
+	}
+
+	public function testCalculateError() {
+		$network = new BasicNetwork();
+		$network->addLayer(BasicLayer::create(2));
+		$network->addLayer(BasicLayer::create(3));
+		$network->addLayer(BasicLayer::create(1));
+		$network->getStructure()->finalizeStructure();
+
+		$this->assertSame(0.25, $network->calculateError(XORUtil::createDataSet()));
+	}
+
+	public function testGetLayerCount() {
+		$network = new BasicNetwork();
+		$network->addLayer(BasicLayer::create(10));
+		$network->addLayer(BasicLayer::create(25));
+		$network->addLayer(BasicLayer::create(50));
+		$network->addLayer(BasicLayer::create(50));
+		$network->addLayer(BasicLayer::create(40));
+		$network->addLayer(BasicLayer::create(10));
+		$network->getStructure()->finalizeStructure();
+		$this->assertEquals(6, $network->getLayerCount());
+
+		$this->expectException(NeuralNetworkError::class);
+		$this->expectExceptionMessage("Must call finalizeStructure before using this network.");
+		(new BasicNetwork())->getLayerCount();
+	}
+
+	public function testGetLayerNeuronCount() {
+		/** @var NeuralStructure|MockObject $flat */
+		$flat = $this->createMock(FlatNetwork::class);
+		$flat->expects($this->once())
+			->method("getLayerFeedCounts")
+			->willReturn(SplFixedArray::fromArray([2]));
+		$flat->expects($this->once())
+			->method("getLayerCounts")
+			->willReturn(SplFixedArray::fromArray([1]));
+
+		/** @var NeuralStructure|MockObject $structure */
+		$structure = $this->createMock(NeuralStructure::class);
+		$structure->expects($this->exactly(2))
+			->method("requireFlat")
+			->willReturn($flat);
+
+		$this->assertEquals(2, $this->createNetworkFromMock($structure)->getLayerNeuronCount(0));
+	}
+
+	public function testGetLayerOutput() {
+		$network = new BasicNetwork();
+		$network->addLayer(BasicLayer::create(1));
+		$network->addLayer(BasicLayer::create(2));
+		$network->getStructure()->finalizeStructure();
+
+		$this->assertSame(0.0, $network->getLayerOutput(0, 0));
+		$this->assertSame(1.0, $network->getLayerOutput(0, 1));
+
+		$this->assertSame(0.0, $network->getLayerOutput(1, 0));
+		$this->assertSame(0.0, $network->getLayerOutput(1, 1));
+		$this->assertSame(1.0, $network->getLayerOutput(1, 2));
+		$this->assertSame(0.0, $network->getLayerOutput(1, 3));
+		$this->assertSame(1.0, $network->getLayerOutput(1, 4));
+
+		$this->expectException(NeuralNetworkError::class);
+		$this->expectExceptionMessage("The layer index: 5 specifies an output index larger than the network has.");
+		$network->getLayerOutput(0, 2);
+	}
+
+	public function testCalculateNeuronCount() {
+		$network = new BasicNetwork();
+		$network->addLayer(BasicLayer::create(2));
+		$network->addLayer(BasicLayer::create(3));
+		$network->addLayer(BasicLayer::create(1));
+
+		$this->assertEquals(6, $network->calculateNeuronCount());
+		$network->getStructure()->finalizeStructure();
+		$network->reset(1);
+
+		$this->assertEquals(0, $network->calculateNeuronCount());
+	}
+
+	public function testComputeArray() {
+		$network = new BasicNetwork();
+		$network->addLayer(BasicLayer::create(2));
+		$network->addLayer(BasicLayer::create(3));
+		$network->addLayer(BasicLayer::create(1));
+		$network->getStructure()->finalizeStructure();
+
+		$output = [[], [], [], []];
+
+		$network->computeArray([0,0], $output[0]);
+		$network->computeArray([0,1], $output[1]);
+		$network->computeArray([1,0], $output[2]);
+		$network->computeArray([1,1], $output[3]);
+
+		$this->assertSame(0.5, $output[0][0]);
+		$this->assertSame(0.5, $output[1][0]);
+		$this->assertSame(0.5, $output[2][0]);
+		$this->assertSame(0.5, $output[3][0]);
+	}
+
+	public function testGetFactoryType() {
+		$this->assertEquals(MLMethodFactory::TYPE_FEEDFORWARD, (new BasicNetwork())->getFactoryType());
+	}
+
+	public function testGetFactoryArchitecture() {
+		$network = new BasicNetwork();
+		$network->addLayer(BasicLayer::create(2));
+		$network->addLayer(BasicLayer::create(3));
+		$network->addLayer(BasicLayer::create(1));
+		$network->getStructure()->finalizeStructure();
+
+		$this->assertEquals(
+			"2:B->SIGMOID->3:B->SIGMOID->1:B",
+			$network->getFactoryArchitecture()
+		);
+	}
+
+	public function testEnableConnection() {
+		$network = new BasicNetwork();
+		$network->addLayer(BasicLayer::create(2));
+		$network->addLayer(BasicLayer::create(3));
+		$network->addLayer(BasicLayer::create(1));
+		$network->getStructure()->finalizeStructure();
+
+		$network->enableConnection(1, 0, 0, false);
+		$network->enableConnection(1, 1, 0, false);
+
+		$this->assertTrue($network->getStructure()->isConnectionLimited());
+		$this->assertSame(0.0, $network->getStructure()->getFlat()->getWeights()[0]);
+		$this->assertSame(0.0, $network->getStructure()->getFlat()->getWeights()[1]);
+
+		$network->enableConnection(1, 0, 0, true);
+		$network->enableConnection(1, 1, 0, true);
+
+		$this->assertTrue($network->getStructure()->isConnectionLimited());
+		$this->assertNotSame(0.0, $network->getStructure()->getFlat()->getWeights()[0]);
+		$this->assertNotSame(0.0, $network->getStructure()->getFlat()->getWeights()[1]);
+	}
+
+	public function testWinner() {
+		$network = new BasicNetwork();
+		$network->addLayer(BasicLayer::create(2));
+		$network->addLayer(BasicLayer::create(3));
+		$network->addLayer(BasicLayer::create(1));
+		$network->getStructure()->finalizeStructure();
+
+		$this->assertEquals(0, $network->winner(new BasicMLData([0,0])));
+		$this->assertEquals(0, $network->winner(new BasicMLData([0,1])));
+		$this->assertEquals(0, $network->winner(new BasicMLData([1,0])));
+		$this->assertEquals(0, $network->winner(new BasicMLData([1,1])));
+
+		$this->assertEquals(
+			$network->winner(new BasicMLData([0,0])),
+			$network->classify(new BasicMLData([0,0]))
+		);
+		$this->assertEquals(
+			$network->winner(new BasicMLData([0,1])),
+			$network->classify(new BasicMLData([0,1]))
+		);
+		$this->assertEquals(
+			$network->winner(new BasicMLData([1,0])),
+			$network->classify(new BasicMLData([1,0]))
+		);
+		$this->assertEquals(
+			$network->winner(new BasicMLData([1,1])),
+			$network->classify(new BasicMLData([1,1]))
+		);
+	}
+
+	public function testValidateNeuron() {
+		/** @var NeuralStructure|MockObject $flat */
+		$flat = $this->createMock(FlatNetwork::class);
+		$flat->expects($this->exactly(4))->method("validateNeuron");
+
+		/** @var NeuralStructure|MockObject $structure */
+		$structure = $this->createMock(NeuralStructure::class);
+		$structure->expects($this->exactly(4))
+			->method("requireFlat")
+			->willReturn($flat);
+
+		$network = $this->createNetworkFromMock($structure);
+		$network->validateNeuron(0, 0);
+		$network->validateNeuron(0, 1);
+		$network->validateNeuron(1, 0);
+		$network->validateNeuron(1, 1);
+	}
+
+	public function testMaxIndex() {
+		$this->assertEquals(1, BasicNetwork::maxIndex([1,2,0]));
+		$this->assertEquals(1, BasicNetwork::maxIndex(new ArrayIterator([1,2,0])));
+		$this->assertEquals(1, BasicNetwork::maxIndex(SplFixedArray::fromArray([1,2,0])));
+		$this->expectException(InvalidArgumentException::class);
+		BasicNetwork::maxIndex(1);
 	}
 
 	public function testTrainedXOR() {
@@ -139,6 +459,19 @@ class BasicNetworkTest extends TestCase {
 		$this->performJordanTest(1, 25, 1);
 		$this->performJordanTest(2, 2, 2);
 		$this->performJordanTest(8, 2, 8);
+	}
+
+	private function createNetworkFromMock($mock): BasicNetwork {
+		return new class($mock) extends BasicNetwork {
+			public function __construct(MockObject $mock) {
+				parent::__construct();
+				$structure = (new ReflectionObject($this))
+					->getParentClass()
+					->getProperty("structure");
+				$structure->setAccessible(true);
+				$structure->setValue($this, $mock);
+			}
+		};
 	}
 
 	private function performElmanTest(int $input, int $hidden, int $ideal) {

@@ -15,10 +15,12 @@
 namespace encog\test\neural\flat;
 
 use encog\EncogError;
+use encog\engine\network\activation\ActivationLinear;
 use encog\engine\network\activation\ActivationSigmoid;
 use encog\neural\flat\FlatLayer;
 use encog\neural\flat\FlatNetwork;
 use encog\neural\NeuralNetworkError;
+use encog\test\neural\networks\XORUtil;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use SplFixedArray;
@@ -33,6 +35,18 @@ class FlatNetworkTest extends TestCase {
 		$this->assertEquals(2, count($flat->getLayerCounts()));
 		$this->assertEquals(4, $flat->getNeuronCount());
 		$this->assertFalse($flat->isLimited());
+
+		$flat = FlatNetwork::createFromArray([
+			new FlatLayer(null, 2, 1.0, 1.0),
+			new FlatLayer(new ActivationLinear(), 1, 0.0, 0.5),
+			new FlatLayer(null, 2, 1.0, 0.25),
+		], true);
+		$this->assertEquals(3, count($flat->getLayerCounts()));
+		$this->assertEquals(7, $flat->getNeuronCount());
+		$this->assertEquals(
+			[0.25, 0.5, 1.0],
+			$flat->getLayerDropoutRates()->toArray()
+		);
 
 		$this->expectExceptionMessage("\$layers should at least contain a input and output layer");
 		$this->expectException(InvalidArgumentException::class);
@@ -60,6 +74,10 @@ class FlatNetworkTest extends TestCase {
 		$this->assertEquals(4, count($flat->getLayerCounts()));
 		$this->assertEquals(12, $flat->getNeuronCount());
 		$this->assertFalse($flat->isLimited());
+	}
+
+	public function testCalculateError() {
+		$this->assertSame(0.25, (new FlatNetwork(2, 3, 0, 1, false))->calculateError(XORUtil::createDataSet()));
 	}
 
 	public function testValidateOK() {
@@ -201,5 +219,69 @@ class FlatNetworkTest extends TestCase {
 				"Failed asserting that exception message '{$e->getMessage()}' contains '$message."
 			);
 		}
+	}
+
+	public function testConnectionLimit() {
+		$network = new FlatNetwork();
+		$network->setConnectionLimit(0.1);
+		$network->setLimited(true);
+
+		$this->assertTrue($network->isLimited());
+		$this->assertEquals(0.1, $network->getConnectionLimit());
+
+		$network->clearConnectionLimit();
+
+		$this->assertFalse($network->isLimited());
+		$this->assertEquals(0.0, $network->getConnectionLimit());
+	}
+
+	public function testSetActivationFunctions() {
+		$network = new FlatNetwork();
+		$network->setActivationFunctions(
+			new ActivationLinear(),
+			new ActivationSigmoid()
+		);
+		$this->assertCount(2, $network->getActivationFunctions());
+	}
+
+	public function testGetSetProperties() {
+		$expected = SplFixedArray::fromArray([1,2,3]);
+
+		$network = new FlatNetwork();
+		$network->setInputCount(2);
+		$network->setOutputCount(1);
+		$network->setBiasActivation($expected);
+		$network->setWeightIndex($expected);
+		$network->setWeights($expected);
+		$network->setContextTargetOffset($expected);
+		$network->setContextTargetSize($expected);
+		$network->setLayerContextCount($expected);
+		$network->setLayerCounts($expected);
+		$network->setLayerDropoutRates($expected);
+		$network->setLayerFeedCounts($expected);
+		$network->setLayerIndex($expected);
+		$network->setLayerOutput($expected);
+		$network->setLayerSums($expected);
+		$network->setBeginTraining(8);
+		$network->setEndTraining(12);
+		$network->setHasContext(true);
+
+		$this->assertSame(2, $network->getInputCount());
+		$this->assertSame(1, $network->getOutputCount());
+		$this->assertSame($expected, $network->getBiasActivation());
+		$this->assertSame($expected, $network->getWeightIndex());
+		$this->assertSame($expected, $network->getWeights());
+		$this->assertSame($expected, $network->getContextTargetOffset());
+		$this->assertSame($expected, $network->getContextTargetSize());
+		$this->assertSame($expected, $network->getLayerContextCount());
+		$this->assertSame($expected, $network->getLayerCounts());
+		$this->assertSame($expected, $network->getLayerDropoutRates());
+		$this->assertSame($expected, $network->getLayerFeedCounts());
+		$this->assertSame($expected, $network->getLayerIndex());
+		$this->assertSame($expected, $network->getLayerOutput());
+		$this->assertSame($expected, $network->getLayerSums());
+		$this->assertSame(8, $network->getBeginTraining());
+		$this->assertSame(12, $network->getEndTraining());
+		$this->assertTrue($network->getHasContext());
 	}
 }

@@ -162,7 +162,7 @@ class BasicNetwork extends BasicML implements ContainsFlat, MLContext, MLRegress
 
 	public function getLayerOutput(int $layer, int $neuron): float {
 		$index = $this->structure->requireFlat()->getLayerIndex()[$this->getLayerCount()-$layer-1]+$neuron;
-		$output = $this->getFlat()->getLayerOutput();
+		$output = $this->structure->getFlat()->getLayerOutput();
 		if ($index >= count($output)) {
 			throw new NeuralNetworkError("The layer index: $index specifies an output index larger than the network has.");
 		}
@@ -293,7 +293,7 @@ class BasicNetwork extends BasicML implements ContainsFlat, MLContext, MLRegress
 	}
 
 	public static function maxIndex($data): int {
-		if (!$data instanceof \Traversable || !is_array($data))
+		if (!$data instanceof \Traversable && !is_array($data))
 			throw new \InvalidArgumentException;
 		$result = -1;
 		foreach ($data as $k => $v) {

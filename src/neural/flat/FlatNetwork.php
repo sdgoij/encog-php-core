@@ -45,32 +45,32 @@ class FlatNetwork {
 	/** @var int */
 	private $inputCount;
 
-	/** @var int[]|SplFixedArray  */
-	private $layerCounts = [];
+	/** @var SplFixedArray  */
+	private $layerCounts;
 
-	/** @var float[] */
-	private $layerDropoutRates = [];
+	/** @var SplFixedArray */
+	private $layerDropoutRates;
 
-	/** @var int[]  */
-	private $layerContextCount = [];
+	/** @var SplFixedArray */
+	private $layerContextCount;
 
-	/** @var int[] */
-	private $layerFeedCounts = [];
+	/** @var SplFixedArray */
+	private $layerFeedCounts;
 
-	/** @var int[] */
-	private $layerIndex = [];
+	/** @var SplFixedArray */
+	private $layerIndex;
 
 	/** @var SplFixedArray */
 	private $layerOutput;
 
-	/** @var float[] */
-	private $layerSums = [];
+	/** @var SplFixedArray */
+	private $layerSums;
 
 	/** @var int */
 	private $outputCount;
 
 	/** @var SplFixedArray */
-	private $weightIndex = [];
+	private $weightIndex;
 
 	/** @var SplFixedArray */
 	private $weights;
@@ -78,14 +78,14 @@ class FlatNetwork {
 	/** @var ActivationFunction[] */
 	private $activationFunctions = [];
 
-	/** @var int[] */
-	private $contextTargetOffset = [];
+	/** @var SplFixedArray */
+	private $contextTargetOffset;
 
-	/** @var int[] */
-	private $contextTargetSize = [];
+	/** @var SplFixedArray */
+	private $contextTargetSize;
 
-	/** @var float[] */
-	private $biasActivation = [];
+	/** @var SplFixedArray */
+	private $biasActivation;
 
 	/** @var int */
 	private $beginTraining;
@@ -370,11 +370,11 @@ class FlatNetwork {
 		$this->endTraining = $v;
 	}
 
-	public function getBiasActivation(): float {
+	public function getBiasActivation(): SplFixedArray {
 		return $this->biasActivation;
 	}
 
-	public function setBiasActivation(float $v) {
+	public function setBiasActivation(SplFixedArray $v) {
 		$this->biasActivation = $v;
 	}
 
