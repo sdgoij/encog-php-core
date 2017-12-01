@@ -27,11 +27,8 @@ use encog\util\logging\EncogLogging;
 class SmartLearningRate implements Strategy {
 	const LEARNING_DECAY = 0.99;
 
-	/** @var MLTrain */
-	private $owner;
-
-	/** @var LearningRate */
-	private $setter;
+	/** @var MLTrain|LearningRate */
+	private $trainer;
 
 	/** @var float */
 	private $currentLearningRate;
@@ -42,28 +39,27 @@ class SmartLearningRate implements Strategy {
 	/** @var bool */
 	private $ready = false;
 
-	public function init(MLTrain $train) {
-		if (!$train instanceof LearningRate) {
+	public function init(MLTrain $trainer) {
+		if (!$trainer instanceof LearningRate) {
 			throw new TrainingError("Trainer must implement LearningRate.");
 		}
-		$this->currentLearningRate = 1.0 / $train->getTraining()->getRecordCount();
-		$this->owner = $train;
-		$this->setter = $train;
-		$this->setter->setLearningRate($this->currentLearningRate);
+		$this->currentLearningRate = 1.0 / $trainer->getTraining()->getRecordCount();
+		$trainer->setLearningRate($this->currentLearningRate);
+		$this->trainer = $trainer;
 
 		EncogLogging::log(EncogLogging::LEVEL_DEBUG,
 			"Starting learning rate: {$this->currentLearningRate}");
 	}
 
 	public function preIteration() {
-		$this->lastError = $this->owner->getError();
+		$this->lastError = $this->trainer->getError();
 	}
 
 	public function postIteration() {
 		if ($this->ready) {
-			if ($this->owner->getError() > $this->lastError) {
+			if ($this->trainer->getError() > $this->lastError) {
 				$this->currentLearningRate *= self::LEARNING_DECAY;
-				$this->setter->setLearningRate($this->currentLearningRate);
+				$this->trainer->setLearningRate($this->currentLearningRate);
 
 				EncogLogging::log(EncogLogging::LEVEL_DEBUG,
 					"Adjusting learning rate to {$this->currentLearningRate}");

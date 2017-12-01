@@ -42,8 +42,8 @@ class Hybrid implements Strategy {
 		$this->ready = false;
 	}
 
-	public function init(MLTrain $train) {
-		$this->primary = $train;
+	public function init(MLTrain $trainer) {
+		$this->primary = $trainer;
 	}
 
 	public function preIteration() {

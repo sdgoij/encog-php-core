@@ -31,11 +31,8 @@ class SmartMomentum implements Strategy {
 	const MOMENTUM_INCREASE = 0.01;
 	const MOMENTUM_CYCLES   = 10;
 
-	/** @var MLTrain */
-	private $owner;
-
-	/** @var Momentum  */
-	private $setter;
+	/** @var MLTrain|Momentum */
+	private $trainer;
 
 	/** @var float */
 	private $lastError;
@@ -49,23 +46,22 @@ class SmartMomentum implements Strategy {
 	/** @var float */
 	private $currentMomentum;
 
-	public function init(MLTrain $train) {
-		if (!$train instanceof Momentum) {
+	public function init(MLTrain $trainer) {
+		if (!$trainer instanceof Momentum) {
 			throw new TrainingError("Trainer must implement Momentum.");
 		}
-		$this->owner = $train;
-		$this->setter = $train;
-		$this->setter->setMomentum(0.0);
+		$trainer->setMomentum(0.0);
 		$this->currentMomentum = 0.0;
+		$this->trainer = $trainer;
 	}
 
 	public function preIteration() {
-		$this->lastError = $this->owner->getError();
+		$this->lastError = $this->trainer->getError();
 	}
 
 	public function postIteration() {
 		if ($this->ready) {
-			$currentError = $this->owner->getError();
+			$currentError = $this->trainer->getError();
 			$lastImprovement = ($currentError-$this->lastError) / $this->lastError;
 			EncogLogging::log(EncogLogging::LEVEL_DEBUG, "Last improvement: $lastImprovement");
 			if ($lastImprovement > 0 || abs($lastImprovement) < self::MIN_IMPROVEMENT) {
@@ -74,7 +70,7 @@ class SmartMomentum implements Strategy {
 						$this->currentMomentum = self::START_MOMENTUM;
 					}
 					$this->currentMomentum *= 1.0 + self::MOMENTUM_INCREASE;
-					$this->setter->setMomentum($this->currentMomentum);
+					$this->trainer->setMomentum($this->currentMomentum);
 					EncogLogging::log(EncogLogging::LEVEL_DEBUG,
 						"Adjusting momentum: {$this->currentMomentum}");
 
@@ -82,7 +78,7 @@ class SmartMomentum implements Strategy {
 			} else {
 				EncogLogging::log(EncogLogging::LEVEL_DEBUG,
 					"Setting momentum back to zero.");
-				$this->setter->setMomentum(0.0);
+				$this->trainer->setMomentum(0.0);
 				$this->currentMomentum = 0.0;
 			}
 		} else {

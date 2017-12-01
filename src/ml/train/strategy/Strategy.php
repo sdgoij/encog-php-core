@@ -25,7 +25,7 @@ use encog\ml\train\MLTrain;
  * strategies are provided as well.
  */
 interface Strategy {
-	public function init(MLTrain $train);
+	public function init(MLTrain $trainer);
 	public function preIteration();
 	public function postIteration();
 }
