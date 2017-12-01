@@ -17,7 +17,7 @@ namespace encog\test\ml\data\buffer;
 use encog\ml\data\buffer\BufferedDataError;
 use encog\ml\data\buffer\EncogEGBFile;
 use encog\test\util\csv\MemoryStream;
-use PHPUnit_Framework_MockObject_MockObject as MockObject;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 use SplFileInfo;

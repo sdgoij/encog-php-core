@@ -21,8 +21,7 @@ use encog\ml\data\folded\FoldedDataSet;
 use encog\ml\data\MLDataError;
 use encog\ml\data\MLDataPair;
 use encog\ml\data\MLDataSet;
-
-use PHPUnit_Framework_MockObject_MockObject as MockObject;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use RangeException;
 

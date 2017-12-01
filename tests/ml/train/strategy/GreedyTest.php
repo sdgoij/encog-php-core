@@ -19,8 +19,8 @@ use encog\ml\MLMethod;
 use encog\ml\train\MLTrain;
 use encog\ml\train\strategy\Greedy;
 use encog\neural\networks\training\TrainingError;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use PHPUnit_Framework_MockObject_MockObject as MockObject;
 
 class GreedyTest extends TestCase {
 	public function testInitMethodInvalid() {

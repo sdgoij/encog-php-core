@@ -16,8 +16,8 @@ namespace encog\test\ml\train\strategy;
 
 use encog\ml\train\MLTrain;
 use encog\ml\train\strategy\StopTraining;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use PHPUnit_Framework_MockObject_MockObject as MockObject;
 
 class StopTrainingTest extends TestCase {
 	public function testShouldStop() {

@@ -15,8 +15,8 @@
 namespace encog\test\mathutil\randomize\generate;
 
 use encog\mathutil\randomize\generate\AbstractBoxMuller;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use PHPUnit_Framework_MockObject_MockObject as MockObject;
 
 class AbstractBoxMullerTest extends TestCase {
 	public function testNextGaussian() {

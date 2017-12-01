@@ -17,8 +17,8 @@ namespace encog\test\neural\som\training\basic\neighborhood;
 use encog\mathutil\rbf\RadialBasisFunction;
 use encog\mathutil\rbf\RBFType;
 use encog\neural\som\training\basic\neighborhood\RBF1d;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use PHPUnit_Framework_MockObject_MockObject as MockObject;
 
 class RBF1dTest extends TestCase {
 	public function testCalculate() {

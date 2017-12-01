@@ -21,8 +21,8 @@ use encog\neural\networks\layers\BasicLayer;
 use encog\neural\networks\structure\NeuralStructure;
 use encog\neural\NeuralNetworkError;
 use encog\test\neural\networks\XORUtil;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use SplFixedArray;
 
 class NeuralStructureTest extends TestCase {

@@ -31,8 +31,8 @@ use encog\neural\pattern\JordanPattern;
 use encog\util\benchmark\RandomTrainingFactory;
 use encog\util\Random;
 use InvalidArgumentException;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use ReflectionObject;
 use SplFixedArray;
 

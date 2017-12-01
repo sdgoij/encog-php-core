@@ -25,7 +25,7 @@ use encog\ml\data\MLDataPair;
 use encog\NullStatusReportable;
 use encog\StatusReportable;
 use encog\util\csv\CSVFormat;
-use PHPUnit_Framework_MockObject_MockObject as MockObject;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class MemoryDataLoaderTest extends TestCase {

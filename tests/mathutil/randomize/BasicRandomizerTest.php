@@ -14,15 +14,13 @@
  */
 namespace encog\test\mathutil\randomize;
 
-use encog\EncogError;
 use encog\mathutil\matrices\Matrix;
 use encog\mathutil\randomize\BasicRandomizer;
 use encog\mathutil\randomize\generate\AbstractBoxMuller;
 use encog\ml\MLEncodable;
-use encog\ml\MLMethod;
 use encog\util\simple\EncogUtility;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use PHPUnit_Framework_MockObject_MockObject as MockObject;
 
 class BasicRandomizerTest extends TestCase {
 	public function testGetSetGenerateRandom() {

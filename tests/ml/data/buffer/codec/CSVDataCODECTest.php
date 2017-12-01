@@ -19,7 +19,7 @@ use encog\ml\data\buffer\codec\CSVDataCODEC;
 use encog\test\util\csv\MemoryStream;
 use encog\util\csv\CSVFormat;
 use encog\util\csv\CSVReader;
-use PHPUnit_Framework_MockObject_MockObject as MockObject;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class CSVDataCODECTest extends TestCase {

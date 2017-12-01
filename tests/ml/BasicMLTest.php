@@ -15,8 +15,8 @@
 namespace encog\test\ml;
 
 use encog\ml\BasicML;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use PHPUnit_Framework_MockObject_MockObject as MockObject;
 
 class BasicMLTest extends TestCase {
 	public function testProperties() {
