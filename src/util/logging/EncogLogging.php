@@ -37,7 +37,7 @@ class EncogLogging {
 		Encog::getInstance()->getLoggingPlugin()->logException($level, $e);
 	}
 
-	public final function getCurrentLevel(): int {
+	public static final function getCurrentLevel(): int {
 		return Encog::getInstance()->getLoggingPlugin()->getLogLevel();
 	}
 }
