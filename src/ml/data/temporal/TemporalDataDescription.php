@@ -50,7 +50,7 @@ class TemporalDataDescription {
 		$this->index = 0;
 	}
 
-	public function getActivation() {
+	public function getActivation(): ?ActivationFunction {
 		return $this->activation;
 	}
 

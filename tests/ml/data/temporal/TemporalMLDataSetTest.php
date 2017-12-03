@@ -26,6 +26,7 @@ use encog\ml\data\temporal\TemporalMLDataSet;
 use encog\ml\data\temporal\TemporalPoint;
 use encog\util\time\TimeUnit;
 use PHPUnit\Framework\TestCase;
+use Throwable;
 
 class TemporalMLDataSetTest extends TestCase {
 	public function testAdd() {
@@ -220,6 +221,33 @@ class TemporalMLDataSetTest extends TestCase {
 	}
 
 	public function testGenerateInputData() {
+		$temporal = new TemporalMLDataSet(5, 1);
+		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::Raw(), true, false));
+
+		for ($i = 0; $i < 10; $i++) {
+			$point = $temporal->createPoint($i);
+			$point->setDataAt(0, 1.0+($i*3));
+		}
+
+		try {
+			$temporal->generateInputData(0);
+		} catch (Throwable $e) {
+			$this->assertEquals("Undefined offset: -1", $e->getMessage());
+		}
+
+		$this->assertEquals([1.0, 4.0, 7.0, 10.0, 13.0], $temporal->generateInputData(1)->getData()->toArray());
+		$this->assertEquals([4.0, 7.0, 10.0, 13.0, 16.0], $temporal->generateInputData(2)->getData()->toArray());
+		$this->assertEquals([7.0, 10.0, 13.0, 16.0, 19.0], $temporal->generateInputData(3)->getData()->toArray());
+		$this->assertEquals([10.0, 13.0, 16.0, 19.0, 22.0], $temporal->generateInputData(4)->getData()->toArray());
+		$this->assertEquals([13.0, 16.0, 19.0, 22.0, 25.0], $temporal->generateInputData(5)->getData()->toArray());
+		$this->assertEquals([16.0, 19.0, 22.0, 25.0, 28.0], $temporal->generateInputData(6)->getData()->toArray());
+
+		try {
+			$temporal->generateInputData(7);
+		} catch (Throwable $e) {
+			$this->assertEquals("Undefined offset: 10", $e->getMessage());
+		}
+
 		$this->expectExceptionMessage("Unsupported data type.");
 		$this->expectException(TemporalError::class);
 
@@ -229,19 +257,38 @@ class TemporalMLDataSetTest extends TestCase {
 	}
 
 	public function testGenerateOutputData() {
-		$temporal = new TemporalMLDataSet(2, 1);
-		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::Raw(), true, false));
+		$temporal = new TemporalMLDataSet(5, 1);
+		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::DeltaChange(), false, true));
+		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::PercentChange(), false, true));
 		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::Raw(), false, true));
-		$temporal->createPoint(0);
-		$temporal->createPoint(1);
-		$temporal->createPoint(2);
 
-		$this->assertEquals(0.0, $temporal->generateOutputData(1)->getDataAt(0));
-		$this->assertEquals(0.0, $temporal->generateOutputData(2)->getDataAt(0));
+		for ($i = 0; $i < 10; $i++) {
+			$point = $temporal->createPoint($i);
+			$point->setDataAt(0, 1.0+($i*3));
+			$point->setDataAt(1, 2.0+($i*3));
+			$point->setDataAt(2, 3.0+($i*3));
+		}
+
+		try {
+			$temporal->generateOutputData(0);
+			$this->fail("here be dragons");
+		} catch (Throwable $e) {
+			$this->assertEquals("Undefined offset: -1", $e->getMessage());
+		}
+
+		$this->assertEquals([3.0, 1.5, 3.0], $temporal->generateOutputData(1)->getData()->toArray());
+		$this->assertEquals([3.0, 0.6, 6.0], $temporal->generateOutputData(2)->getData()->toArray());
+		$this->assertEquals([3.0, 0.375, 9.0], $temporal->generateOutputData(3)->getData()->toArray());
+		$this->assertEquals([3.0, 0.2727272727272727, 12.0], $temporal->generateOutputData(4)->getData()->toArray());
+		$this->assertEquals([3.0, 0.21428571428571427, 15.0], $temporal->generateOutputData(5)->getData()->toArray());
+		$this->assertEquals([3.0, 0.17647058823529413, 18.0], $temporal->generateOutputData(6)->getData()->toArray());
+		$this->assertEquals([3.0, 0.15, 21.0], $temporal->generateOutputData(7)->getData()->toArray());
+		$this->assertEquals([3.0, 0.13043478260869565, 24.0], $temporal->generateOutputData(8)->getData()->toArray());
+		$this->assertEquals([3.0, 0.11538461538461539, 27.0], $temporal->generateOutputData(9)->getData()->toArray());
 
 		$this->expectExceptionMessage("Can't generate prediction temporal data beyond the end of provided data.");
 		$this->expectException(TemporalError::class);
-		$temporal->generateOutputData(3);
+		$temporal->generateOutputData(10);
 	}
 
 	public function testStartingPoint() {

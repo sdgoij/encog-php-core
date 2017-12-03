@@ -195,10 +195,10 @@ class TemporalMLDataSet extends BasicMLDataSet {
 			throw new TemporalError("Can't generate prediction temporal data beyond the end of provided data.");
 		}
 		$result = new BasicMLData($this->outputNeuronCount);
-		for ($i = 0; $i < $this->predictWindowSize; $i++) {
+		for ($i = 0, $ri = 0; $i < $this->predictWindowSize; $i++) {
 			foreach ($this->descriptions as $desc) {
 				if ($desc->isPredict()) {
-					$result->setDataAt($i, $this->formatData($desc, $index+$i));
+					$result->setDataAt($ri++, $this->formatData($desc, $index+$i));
 				}
 			}
 		}
@@ -310,7 +310,7 @@ class TemporalMLDataSet extends BasicMLDataSet {
 	}
 
 	private function getDataDeltaChange(TemporalDataDescription $desc, int $index): float {
-		if ($index != 0) {
+		if ($index > 0) {
 			$cv = $this->points[$index]->getDataAt($desc->getIndex());
 			$pv = $this->points[$index-1]->getDataAt($desc->getIndex());
 			return $cv - $pv;
@@ -319,7 +319,7 @@ class TemporalMLDataSet extends BasicMLDataSet {
 	}
 
 	private function getDataPercentChange(TemporalDataDescription $desc, int $index): float {
-		if ($index != 0) {
+		if ($index > 0) {
 			$cv = $this->points[$index]->getDataAt($desc->getIndex());
 			$pv = $this->points[$index-1]->getDataAt($desc->getIndex());
 			return ($cv - $pv) / $pv;
