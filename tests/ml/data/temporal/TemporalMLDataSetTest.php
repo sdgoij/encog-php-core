@@ -47,20 +47,20 @@ class TemporalMLDataSetTest extends TestCase {
 		$this->assertEquals(0, $temporal->getInputNeuronCount());
 		$this->assertEquals(0, $temporal->getOutputNeuronCount());
 
-		$p1 = new TemporalDataDescription(TemporalDataType::$RAW, true, false);
-		$p2 = new TemporalDataDescription(TemporalDataType::$RAW, true, false);
-		$p3 = new TemporalDataDescription(TemporalDataType::$RAW, false, true);
+		$p1 = new TemporalDataDescription(TemporalDataType::Raw(), true, false);
+		$p2 = new TemporalDataDescription(TemporalDataType::Raw(), true, false);
+		$p3 = new TemporalDataDescription(TemporalDataType::Raw(), false, true);
 
 		$p1->setIndex(0);
 		$p2->setIndex(1);
 		$p3->setIndex(2);
 
-		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::$RAW, true, false));
+		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::Raw(), true, false));
 		$this->assertEquals(5, $temporal->getInputNeuronCount());
 		$this->assertEquals(0, $temporal->getOutputNeuronCount());
 
-		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::$RAW, true, false));
-		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::$RAW, false, true));
+		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::Raw(), true, false));
+		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::Raw(), false, true));
 
 		$this->assertEquals([$p1, $p2, $p3], $temporal->getDescriptions());
 		$this->assertEquals(10, $temporal->getInputNeuronCount());
@@ -71,14 +71,14 @@ class TemporalMLDataSetTest extends TestCase {
 
 		$temporal = new TemporalMLDataSet(5, 1);
 		$temporal->createPoint(0);
-		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::$RAW, true, false));
+		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::Raw(), true, false));
 	}
 
 	public function testClear() {
 		$temporal = new TemporalMLDataSet(5, 1);
-		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::$RAW, true, false));
-		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::$RAW, true, false));
-		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::$RAW, false, true));
+		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::Raw(), true, false));
+		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::Raw(), true, false));
+		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::Raw(), false, true));
 		$temporal->createPoint(0);
 		$temporal->createPoint(1);
 		$temporal->createPoint(2);
@@ -92,9 +92,9 @@ class TemporalMLDataSetTest extends TestCase {
 
 	public function testCreatePoint() {
 		$temporal = new TemporalMLDataSet(5, 1);
-		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::$RAW, true, false));
-		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::$RAW, true, false));
-		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::$RAW, false, true));
+		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::Raw(), true, false));
+		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::Raw(), true, false));
+		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::Raw(), false, true));
 		$point = $temporal->createPoint(1);
 
 		$this->assertEquals(1, $point->getSequence());
@@ -230,8 +230,8 @@ class TemporalMLDataSetTest extends TestCase {
 
 	public function testGenerateOutputData() {
 		$temporal = new TemporalMLDataSet(2, 1);
-		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::$RAW, true, false));
-		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::$RAW, false, true));
+		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::Raw(), true, false));
+		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::Raw(), false, true));
 		$temporal->createPoint(0);
 		$temporal->createPoint(1);
 		$temporal->createPoint(2);
@@ -260,8 +260,8 @@ class TemporalMLDataSetTest extends TestCase {
 
 	public function testFirstDeltaChange() {
 		$temporal = new TemporalMLDataSet(5, 1);
-		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::$DELTA_CHANGE, true, false));
-		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::$PERCENT_CHANGE, true, false));
+		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::DeltaChange(), true, false));
+		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::PercentChange(), true, false));
 		$temporal->createPoint(0);
 		$temporal->createPoint(1);
 		$temporal->generate();
@@ -284,9 +284,9 @@ class TemporalMLDataSetTest extends TestCase {
 
 	public function testBasicTemporal() {
 		$temporal = new TemporalMLDataSet(5, 1);
-		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::$RAW, true, false));
-		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::$RAW, true, false));
-		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::$RAW, false, true));
+		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::Raw(), true, false));
+		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::Raw(), true, false));
+		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::Raw(), false, true));
 		for ($i = 0; $i < 10; $i++) {
 			$point = $temporal->createPoint($i);
 			$point->setDataAt(0, 1+($i*3));
@@ -377,9 +377,9 @@ class TemporalMLDataSetTest extends TestCase {
 
 	public function testHiLowTemporal() {
 		$temporal = new TemporalMLDataSet(5, 1);
-		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::$RAW, true, false));
-		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::$RAW, true, false));
-		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::$RAW, false, true));
+		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::Raw(), true, false));
+		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::Raw(), true, false));
+		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::Raw(), false, true));
 		for ($i = 0; $i < 10; $i++) {
 			$point = $temporal->createPoint($i);
 			$point->setDataAt(0, 1+($i*3));
@@ -418,9 +418,9 @@ class TemporalMLDataSetTest extends TestCase {
 
 	public function testFormatTemporal() {
 		$temporal = new TemporalMLDataSet(5, 1);
-		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::$DELTA_CHANGE, true, false));
-		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::$PERCENT_CHANGE, true, false));
-		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::$RAW, false, true));
+		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::DeltaChange(), true, false));
+		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::PercentChange(), true, false));
+		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::Raw(), false, true));
 		for ($i = 0; $i < 10; $i++) {
 			$point = $temporal->createPoint($i);
 			$point->setDataAt(0, 1+($i*3));
@@ -454,9 +454,9 @@ class TemporalMLDataSetTest extends TestCase {
 
 	public function testActivationTemporal() {
 		$temporal = new TemporalMLDataSet(5, 1);
-		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::$RAW, true, false, 0, 0, new ActivationTANH()));
-		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::$RAW, true, false, 0, 0, new ActivationTANH()));
-		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::$RAW, false, true, 0, 0, new ActivationTANH()));
+		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::Raw(), true, false, 0, 0, new ActivationTANH()));
+		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::Raw(), true, false, 0, 0, new ActivationTANH()));
+		$temporal->addDescription(new TemporalDataDescription(TemporalDataType::Raw(), false, true, 0, 0, new ActivationTANH()));
 		for ($i = 0; $i < 10; $i++) {
 			$point = $temporal->createPoint($i);
 			$point->setDataAt(0, 1+($i*3));

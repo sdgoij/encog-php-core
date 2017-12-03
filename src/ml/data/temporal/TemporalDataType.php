@@ -33,11 +33,30 @@ class TemporalDataType extends SplEnum {
 	 */
 	const DELTA_CHANGE = 3;
 
-	public static $RAW;
-	public static $PERCENT_CHANGE;
-	public static $DELTA_CHANGE;
-}
+	public static function Raw(): TemporalDataType {
+		if (!self::$RAW) {
+			self::$RAW = new TemporalDataType(TemporalDataType::RAW);
+		}
+		return self::$RAW;
+	}
 
-TemporalDataType::$RAW = new TemporalDataType(TemporalDataType::RAW);
-TemporalDataType::$PERCENT_CHANGE = new TemporalDataType(TemporalDataType::PERCENT_CHANGE);
-TemporalDataType::$DELTA_CHANGE = new TemporalDataType(TemporalDataType::DELTA_CHANGE);
+	public static function PercentChange(): TemporalDataType {
+		if (!self::$PERCENT_CHANGE) {
+			self::$PERCENT_CHANGE = new TemporalDataType(TemporalDataType::PERCENT_CHANGE);
+		}
+		return self::$PERCENT_CHANGE;
+	}
+
+	public static function DeltaChange(): TemporalDataType {
+		if (!self::$DELTA_CHANGE) {
+			self::$DELTA_CHANGE = new TemporalDataType(TemporalDataType::DELTA_CHANGE);
+		}
+		return self::$DELTA_CHANGE;
+	}
+
+	private static
+		$RAW,
+		$PERCENT_CHANGE,
+		$DELTA_CHANGE
+	;
+}

@@ -291,13 +291,13 @@ class TemporalMLDataSet extends BasicMLDataSet {
 	private function formatData(TemporalDataDescription $desc, int $index): float {
 		$result = new SplFixedArray(1);
 		switch ($desc->getType()) {
-			case TemporalDataType::$DELTA_CHANGE:
+			case TemporalDataType::DeltaChange():
 				$result[0] = $this->getDataDeltaChange($desc, $index);
 				break;
-			case TemporalDataType::$PERCENT_CHANGE:
+			case TemporalDataType::PercentChange():
 				$result[0] = $this->getDataPercentChange($desc, $index);
 				break;
-			case TemporalDataType::$RAW:
+			case TemporalDataType::Raw():
 				$result[0] = $this->getRAW($desc, $index);
 				break;
 			default:

@@ -22,8 +22,8 @@ use PHPUnit\Framework\TestCase;
 
 class TemporalDataDescriptionTest extends TestCase {
 	public function testDataDescription() {
-		$desc = new TemporalDataDescription(TemporalDataType::$RAW, true, false);
-		$this->assertEquals(TemporalDataType::$RAW, $desc->getType());
+		$desc = new TemporalDataDescription(TemporalDataType::Raw(), true, false);
+		$this->assertEquals(TemporalDataType::Raw(), $desc->getType());
 		$this->assertEquals(0, $desc->getLow());
 		$this->assertEquals(0, $desc->getHigh());
 		$this->assertEquals(0, $desc->getIndex());
@@ -34,10 +34,10 @@ class TemporalDataDescriptionTest extends TestCase {
 		$this->assertEquals(1, $desc->getIndex());
 
 		$activation = new ActivationTANH();
-		$desc = new TemporalDataDescription(TemporalDataType::$PERCENT_CHANGE, false, true, -1, 1, $activation);
+		$desc = new TemporalDataDescription(TemporalDataType::PercentChange(), false, true, -1, 1, $activation);
 		$desc->setIndex(2);
 
-		$this->assertEquals(TemporalDataType::$PERCENT_CHANGE, $desc->getType());
+		$this->assertEquals(TemporalDataType::PercentChange(), $desc->getType());
 		$this->assertEquals($activation, $desc->getActivation());
 		$this->assertEquals(-1, $desc->getLow());
 		$this->assertEquals(1, $desc->getHigh());

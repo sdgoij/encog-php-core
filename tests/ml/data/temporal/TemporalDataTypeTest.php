@@ -19,8 +19,20 @@ use PHPUnit\Framework\TestCase;
 
 class TemporalDataTypeTest extends TestCase {
 	public function testDefaultTypes() {
-		$this->assertEquals(new TemporalDataType(TemporalDataType::RAW), TemporalDataType::$RAW);
-		$this->assertEquals(new TemporalDataType(TemporalDataType::PERCENT_CHANGE), TemporalDataType::$PERCENT_CHANGE);
-		$this->assertEquals(new TemporalDataType(TemporalDataType::DELTA_CHANGE), TemporalDataType::$DELTA_CHANGE);
+		$raw = new TemporalDataType(TemporalDataType::RAW);
+		$percent = new TemporalDataType(TemporalDataType::PERCENT_CHANGE);
+		$delta = new TemporalDataType(TemporalDataType::DELTA_CHANGE);
+
+		$this->assertEquals($raw, TemporalDataType::Raw());
+		$this->assertEquals($percent, TemporalDataType::PercentChange());
+		$this->assertEquals($delta, TemporalDataType::DeltaChange());
+
+		$this->assertSame(TemporalDataType::RAW(), TemporalDataType::Raw());
+		$this->assertSame(TemporalDataType::PercentChange(), TemporalDataType::PercentChange());
+		$this->assertSame(TemporalDataType::DeltaChange(), TemporalDataType::DeltaChange());
+
+		$this->assertNotSame($raw, TemporalDataType::Raw());
+		$this->assertNotSame($percent, TemporalDataType::PercentChange());
+		$this->assertNotSame($delta, TemporalDataType::DeltaChange());
 	}
 }
