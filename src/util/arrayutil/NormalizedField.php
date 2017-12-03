@@ -16,8 +16,7 @@ namespace encog\util\arrayutil;
 
 use encog\EncogError;
 use encog\mathutil\Equilateral;
-
-require_once __DIR__ . "/NormalizationAction.php";
+use LogicException;
 
 /**
  * This object holds the normalization stats for a column. This includes the
@@ -82,24 +81,25 @@ class NormalizedField {
 		}
 	}
 
-	public final function denormalize(float $value): float {
+	public function denormalize(float $value): float {
 		return (($this->actualLow - $this->actualHigh) * $value
 			- $this->normalizedHigh * $this->actualLow + $this->actualHigh
 			* $this->normalizedLow) / ($this->normalizedLow - $this->normalizedHigh);
 	}
 
-	public final function normalize(float $value): float {
+	public function normalize(float $value): float {
 		if ($value > $this->actualHigh) {
 			return $this->normalizedHigh;
 		}
 		if ($value < $this->actualLow) {
 			return $this->normalizedLow;
 		}
-		if ($this->actualHigh-$this->actualLow > 0) {
-			return (($value - $this->actualLow) / ($this->actualHigh - $this->actualLow))
-				* ($this->normalizedHigh - $this->normalizedLow) + $this->normalizedLow;
+		if ($this->actualHigh-$this->actualLow == 0) {
+			throw new LogicException("here be dragons");
 		}
-		return 0.0;
+		return (($value-$this->actualLow) / ($this->actualHigh-$this->actualLow))
+			* ($this->normalizedHigh-$this->normalizedLow)
+			+ $this->normalizedLow;
 	}
 
 	public function isClassify(): bool {
@@ -162,7 +162,7 @@ class NormalizedField {
 		return $this->classes;
 	}
 
-	public function setClasses(array $classes) {
+	public function setClasses(ClassItem ...$classes) {
 		$this->classes = $classes;
 	}
 

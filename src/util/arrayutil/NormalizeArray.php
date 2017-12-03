@@ -14,8 +14,6 @@
  */
 namespace encog\util\arrayutil;
 
-require_once __DIR__ . "/NormalizedField.php";
-
 /**
  * This class is used to normalize an array. Sometimes you would like to
  * normalize an array, rather than an entire CSV file.
@@ -23,45 +21,38 @@ require_once __DIR__ . "/NormalizedField.php";
 class NormalizeArray {
 	/** @var NormalizedField */
 	private $field;
-	/** @var float */
-	private $normalizedHigh;
-	/** @var float */
-	private $normalizedLow;
 
 	public function __construct(float $low = -1.0, float $high = 1.0) {
-		$this->normalizedHigh = $high;
-		$this->normalizedLow = $low;
+		$this->field = new NormalizedField($high, $low);
 	}
 
 	public final function process(array $input): array {
-		$this->field = new NormalizedField($this->normalizedHigh, $this->normalizedLow);
-		$result = [];
 		foreach ($input as $value) {
 			$this->field->analyze($value);
 		}
 		foreach ($input as $value) {
 			$result[] = $this->field->normalize($value);
 		}
-		return $result;
+		return $result ?? [];
 	}
 
-	public final function getField() {
+	public final function getField(): NormalizedField {
 		return $this->field;
 	}
 
 	public final function getNormalizedHigh(): float {
-		return $this->normalizedHigh;
+		return $this->field->getNormalizedHigh();
 	}
 
 	public final function setNormalizedHigh(float $normalizedHigh) {
-		$this->normalizedHigh = $normalizedHigh;
+		$this->field->setNormalizedHigh($normalizedHigh);
 	}
 
 	public final function getNormalizedLow(): float {
-		return $this->normalizedLow;
+		return $this->field->getNormalizedLow();
 	}
 
 	public final function setNormalizedLow(float $normalizedLow) {
-		$this->normalizedLow = $normalizedLow;
+		$this->field->setNormalizedLow($normalizedLow);
 	}
 }
