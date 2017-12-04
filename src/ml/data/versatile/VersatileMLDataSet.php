@@ -22,10 +22,10 @@ use encog\ml\data\versatile\division\PerformDataDivision;
 use encog\ml\data\versatile\sources\VersatileDataSource;
 
 /**
- * The versatile dataset supports several advanced features. 1. it can directly
- * read and normalize from a CSV file. 2. It supports virtual time-boxing for
- * time series data (the data is NOT expanded in memory). 3. It can easily be
- * segmented into smaller datasets.
+ * The versatile dataset supports several advanced features.
+ *  1. It can directly read and normalize from a CSV file.
+ *  2. It supports virtual time-boxing for time series data (the data is NOT expanded in memory).
+ *  3. It can easily be segmented into smaller datasets.
  */
 class VersatileMLDataSet extends MatrixMLDataSet {
 	/** @var VersatileDataSource */
@@ -101,28 +101,26 @@ class VersatileMLDataSet extends MatrixMLDataSet {
 		$this->setCalculatedIdealSize($normalizedOutputColumns);
 		$this->setCalculatedInputSize($normalizedInputColumns);
 		$this->source->rewind();
-		$this->setData([]);
+		$empty = array_fill(0, $normalizedInputColumns+$normalizedOutputColumns, 0.0);
+		$this->setData(array_fill(0, $this->analyzed, $empty));
 		$row = 0;
 
 		while ($line = $this->source->readLine()) {
-			/** @var ColumnDefinition $column */
+			/** @var ColumnDefinition $input */
 			foreach ($this->helper->getInputColumns() as $input) {
-				$vector = [];
 				$column = $this->helper->normalizeToVector(
-					$input, $column ?? 0, $vector, true,
+					$input, $column ?? 0, $this->getData()[$row], true,
 					$line[$this->findIndex($input)]
 				);
-				$this->getData()[$row] = $vector;
 			}
-			/** @var ColumnDefinition $column */
+			/** @var ColumnDefinition $output */
 			foreach ($this->helper->getOutputColumns() as $output) {
-				$vector = [];
 				$column = $this->helper->normalizeToVector(
-					$output, $column ?? 0, $vector, true,
+					$output, $column ?? 0, $this->getData()[$row], false,
 					$line[$this->findIndex($output)]
 				);
-				$this->getData()[$row] = $vector;
 			}
+			$column = 0;
 			$row++;
 		}
 	}

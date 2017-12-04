@@ -68,7 +68,7 @@ class MatrixMLDataSet implements MLDataSet {
 			try {
 				yield $this->get($i);
 			} catch (RangeException $e) {
-				return;
+				break;
 			}
 		}
 	}

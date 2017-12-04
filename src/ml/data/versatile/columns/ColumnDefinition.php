@@ -71,7 +71,6 @@ class ColumnDefinition {
 		}
 		if ($this->type == new ColumnType(ColumnType::nominal)) {
 			$this->analyzeNominal($value);
-			return;
 		}
 	}
 

@@ -39,6 +39,15 @@ class MatrixMLDataSetTest extends TestCase {
 		$this->assertEquals(1, $ds->getCalculatedInputSize());
 		$this->assertEquals(1, $ds->getCalculatedIdealSize());
 		$this->assertEquals([], $ds->getMask());
+
+		$ds->setCalculatedInputSize(50);
+		$ds->setCalculatedIdealSize(10);
+		$ds->setData(range(1, 100, 1));
+		$ds->setMask(range(1, 100, 2));
+
+		$this->assertEquals(50, $ds->getCalculatedInputSize());
+		$this->assertEquals(10, $ds->getCalculatedIdealSize());
+		$this->assertEquals(range(1, 100, 2), $ds->getMask());
 	}
 
 	public function testGetRecordCount() {
@@ -80,11 +89,10 @@ class MatrixMLDataSetTest extends TestCase {
 	}
 
 	public function testIterator() {
-		$data = self::DATA; // Because PHPStorm thinks self::DATA[$k] is invalid syntax...
 		foreach (MatrixMLDataSet::createFromArray(self::DATA, 1, 1) as $k => $v) {
 			$pair = new BasicMLDataPair(
-				new BasicMLData([$data[$k][0]]),
-				new BasicMLData([$data[$k][1]])
+				new BasicMLData([self::DATA[$k][0]]),
+				new BasicMLData([self::DATA[$k][1]])
 			);
 			$this->assertEquals($pair->getInput(), $v->getInput());
 			$this->assertEquals($pair->getIdeal(), $v->getIdeal());

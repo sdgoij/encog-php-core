@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 
 class PerformDataDivisionTest extends TestCase {
 	public function testPerformDivision() {
-		$dataset = MatrixMLDataSet::createFromArray([[1,2],[3,4],[5,6],[7,8]], 1, 1);
+		$dataset = MatrixMLDataSet::createFromArray([[1,2],[3,4],[5,6],[7,8],[9,0]], 1, 1);
 		$divider = new PerformDataDivision(false, new LinearCongruentialRandom(1));
 
 		/** @var DataDivision[] $divisions */
@@ -34,7 +34,7 @@ class PerformDataDivisionTest extends TestCase {
 
 		$divider->perform($divisions, $dataset, 1, 1);
 
-		$this->assertEquals(2, $divisions[0]->getCount());
+		$this->assertEquals(3, $divisions[0]->getCount());
 		$this->assertEquals(2, $divisions[1]->getCount());
 
 		$div = $divisions[0]->getDataSet();
@@ -42,11 +42,42 @@ class PerformDataDivisionTest extends TestCase {
 		$this->assertEquals(2, $div->get(0)->getIdealArray()[0]);
 		$this->assertEquals(3, $div->get(1)->getInputArray()[0]);
 		$this->assertEquals(4, $div->get(1)->getIdealArray()[0]);
+		$this->assertEquals(5, $div->get(2)->getInputArray()[0]);
+		$this->assertEquals(6, $div->get(2)->getIdealArray()[0]);
 
 		$div = $divisions[1]->getDataSet();
+		$this->assertEquals(7, $div->get(0)->getInputArray()[0]);
+		$this->assertEquals(8, $div->get(0)->getIdealArray()[0]);
+		$this->assertEquals(9, $div->get(1)->getInputArray()[0]);
+		$this->assertEquals(0, $div->get(1)->getIdealArray()[0]);
+	}
+
+	public function testPerformShuffle() {
+		$dataset = MatrixMLDataSet::createFromArray([[1,2],[3,4],[5,6],[7,8]], 1, 1);
+		$divider = new PerformDataDivision(true, new LinearCongruentialRandom(1));
+
+		/** @var DataDivision[] $divisions */
+		$divisions[] = new DataDivision(0.5);
+		$divisions[] = new DataDivision(0.5);
+
+		$this->assertInstanceOf(LinearCongruentialRandom::class, $divider->getRandom());
+		$this->assertTrue($divider->isShuffle());
+
+		$divider->perform($divisions, $dataset, 1, 1);
+
+		$this->assertEquals(2, $divisions[0]->getCount());
+		$this->assertEquals(2, $divisions[1]->getCount());
+
+		$div = $divisions[0]->getDataSet();
 		$this->assertEquals(5, $div->get(0)->getInputArray()[0]);
 		$this->assertEquals(6, $div->get(0)->getIdealArray()[0]);
-		$this->assertEquals(7, $div->get(1)->getInputArray()[0]);
-		$this->assertEquals(8, $div->get(1)->getIdealArray()[0]);
+		$this->assertEquals(1, $div->get(1)->getInputArray()[0]);
+		$this->assertEquals(2, $div->get(1)->getIdealArray()[0]);
+
+		$div = $divisions[1]->getDataSet();
+		$this->assertEquals(7, $div->get(0)->getInputArray()[0]);
+		$this->assertEquals(8, $div->get(0)->getIdealArray()[0]);
+		$this->assertEquals(3, $div->get(1)->getInputArray()[0]);
+		$this->assertEquals(4, $div->get(1)->getIdealArray()[0]);
 	}
 }

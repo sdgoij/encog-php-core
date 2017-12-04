@@ -52,7 +52,7 @@ class PerformDataDivision {
 		$count = 0;
 		/** @var DataDivision $division */
 		foreach ($divisions as $division) {
-			$division->setCount((int)$division->getPercent()*$total);
+			$division->setCount((int)($division->getPercent()*$total));
 			$count += $division->getCount();
 		}
 		$remaining = $total - $count;
@@ -84,7 +84,7 @@ class PerformDataDivision {
 	}
 
 	private function performShuffle(array &$divisions, int $total) {
-		while ($total-- > 0) $this->virtualSwap($divisions, $total, $this->random->nextInt($total+1));
+		while ($total-- > 0) $this->virtualSwap($divisions, $total, $this->random->nextInt($total));
 	}
 
 	private function virtualSwap(array &$divisions, int $a, int $b) {
@@ -96,11 +96,11 @@ class PerformDataDivision {
 		foreach ($divisions as $division) {
 			$baseIndex += $division->getCount();
 			if (!$divA && $a < $baseIndex) {
-				$offsetA = $baseIndex - $division->getCount();
+				$offsetA = $a - ($baseIndex - $division->getCount());
 				$divA = $division;
 			}
 			if (!$divB && $b < $baseIndex) {
-				$offsetB = $baseIndex - $division->getCount();
+				$offsetB = $b - ($baseIndex - $division->getCount());
 				$divB = $division;
 			}
 		}

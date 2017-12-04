@@ -48,27 +48,27 @@ class NormalizationHelper {
 		return $this->sourceColumns;
 	}
 
-	public function setSourceColumns(array $sourceColumns) {
-		$this->sourceColumns = $sourceColumns;
+	public function setSourceColumns(ColumnDefinition ...$columns) {
+		$this->sourceColumns = $columns;
 	}
 
 	public function &getInputColumns(): array {
 		return $this->inputColumns;
 	}
 
-	public function setInputColumns(array $inputColumns) {
-		$this->inputColumns = $inputColumns;
+	public function setInputColumns(ColumnDefinition ...$columns) {
+		$this->inputColumns = $columns;
 	}
 
 	public function &getOutputColumns(): array {
 		return $this->outputColumns;
 	}
 
-	public function setOutputColumns(array $outputColumns) {
-		$this->outputColumns = $outputColumns;
+	public function setOutputColumns(ColumnDefinition ...$columns) {
+		$this->outputColumns = $columns;
 	}
 
-	public function getNormStrategy() {
+	public function getNormStrategy(): ?NormalizationStrategy {
 		return $this->normStrategy;
 	}
 
@@ -84,7 +84,7 @@ class NormalizationHelper {
 		$this->unknownValues[] = $value;
 	}
 
-	public function setUnknownValues(array $unknownValues) {
+	public function setUnknownValues(string ...$unknownValues) {
 		$this->unknownValues = $unknownValues;
 	}
 
@@ -202,7 +202,7 @@ class NormalizationHelper {
 
 	public function normalizeInputVector(array $lines, array &$data, bool $originalOrder) {
 		foreach ($this->inputColumns as $key => $column) {
-			$outputIndex = self::normalizeToVector($column, $outputIndex ?? 0, $data, true, $lines[
+			$outputIndex = $this->normalizeToVector($column, $outputIndex ?? 0, $data, true, $lines[
 				$originalOrder ? array_search($column, $this->sourceColumns) : $key
 			]);
 		}

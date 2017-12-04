@@ -58,11 +58,8 @@ class BasicNormalizationStrategy implements NormalizationStrategy {
 		return $this->findNormalizer($column, $isInput)->outputSize($column);
 	}
 
-	public function normalizeColumn(ColumnDefinition $column, bool $isInput,
-			string $value, array &$outputData, int $outputColumn): int {
-		return $this->findNormalizer($column, $isInput)->normalizeColumn(
-			$column, $value, $outputData, $outputColumn
-		);
+	public function normalizeColumn(ColumnDefinition $column, bool $isInput, string $value, array &$outputData, int $outputColumn): int {
+		return $this->findNormalizer($column, $isInput)->normalizeColumn($column, $value, $outputData, $outputColumn);
 	}
 
 	public function normalizeColumnDouble(ColumnDefinition $column, bool $isInput,
