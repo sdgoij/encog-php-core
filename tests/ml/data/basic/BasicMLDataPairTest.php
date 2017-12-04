@@ -18,6 +18,7 @@ use encog\EncogError;
 use encog\ml\data\basic\BasicMLData;
 use encog\ml\data\basic\BasicMLDataPair;
 use encog\ml\data\MLData;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class BasicMLDataPairTest extends TestCase {
@@ -80,7 +81,12 @@ class BasicMLDataPairTest extends TestCase {
 	}
 
 	public function testCreateCentroid() {
-		/** @var MLData $input */
+		$input = $this->createMock(BasicMLData::class);
+		$input->expects($this->once())
+			->method("clone");
+		(new BasicMLDataPair($input, null))->createCentroid();
+
+		/** @var MLData|MockObject $input */
 		$input = $this->createMock(MLData::class);
 		$this->expectException(EncogError::class);
 		(new BasicMLDataPair($input, null))->createCentroid();
