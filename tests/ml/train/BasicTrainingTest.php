@@ -16,8 +16,11 @@ namespace encog\test\ml\train;
 
 use encog\ml\MLMethod;
 use encog\ml\train\BasicTraining;
+use encog\ml\train\strategy\EndTraining;
+use encog\ml\train\strategy\Strategy;
 use encog\ml\TrainingImplementationType;
 use encog\neural\networks\training\propagation\TrainingContinuation;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class BasicTrainingTest extends TestCase {
@@ -27,21 +30,96 @@ class BasicTrainingTest extends TestCase {
 		$OnePass = new TrainingImplementationType(TrainingImplementationType::OnePass);
 		$Null = new TrainingImplementationType(null);
 
-		$this->assertEquals($Background, (new DummyTraining($Background))->getTrainingImplementationType());
-		$this->assertEquals($Iterative, (new DummyTraining($Iterative))->getTrainingImplementationType());
-		$this->assertEquals($OnePass, (new DummyTraining($OnePass))->getTrainingImplementationType());
-		$this->assertEquals($Null, (new DummyTraining())->getTrainingImplementationType());
+		/** @var BasicTraining[]|MockObject[] $trainers[] */
+		$trainers[] = $this->getMockForAbstractClass(BasicTraining::class, [$Background]);
+		$trainers[] = $this->getMockForAbstractClass(BasicTraining::class, [$Iterative]);
+		$trainers[] = $this->getMockForAbstractClass(BasicTraining::class, [$OnePass]);
+		$trainers[] = $this->getMockForAbstractClass(BasicTraining::class, [$Null]);
+
+		$this->assertEquals($Background, $trainers[0]->getTrainingImplementationType());
+		$this->assertEquals($Iterative, $trainers[1]->getTrainingImplementationType());
+		$this->assertEquals($OnePass, $trainers[2]->getTrainingImplementationType());
+		$this->assertEquals($Null, $trainers[3]->getTrainingImplementationType());
+	}
+
+	public function testAddStrategy() {
+		/** @var Strategy[]|MockObject[] $strategies */
+		$strategies[] = $this->createMock(Strategy::class);
+		$strategies[] = $this->createMock(Strategy::class);
+		$strategies[] = $this->createMock(Strategy::class);
+
+		/** @var BasicTraining|MockObject $trainer */
+		$trainer = $this->getMockForAbstractClass(BasicTraining::class);
+
+		$strategies[0]->expects($this->once())
+			->method("init")
+			->with($trainer);
+		$strategies[1]->expects($this->once())
+			->method("init")
+			->with($trainer);
+		$strategies[2]->expects($this->once())
+			->method("init")
+			->with($trainer);
+
+		$trainer->addStrategy($strategies[0]);
+		$trainer->addStrategy($strategies[1]);
+		$trainer->addStrategy($strategies[2]);
+
+		$this->assertCount(3, $trainer->getStrategies());
+	}
+
+	public function testIsTrainingDone() {
+		/** @var Strategy[]|MockObject[] $strategies */
+		$strategies[] = $this->createMock(Strategy::class);
+		$strategies[] = $this->createMock(EndTraining::class);
+		$strategies[] = $this->createMock(EndTraining::class);
+		$strategies[] = $this->createMock(EndTraining::class);
+
+		/** @var BasicTraining|MockObject $trainer */
+		$trainer = $this->getMockForAbstractClass(BasicTraining::class);
+		$trainer->addStrategy($strategies[0]);
+		$trainer->addStrategy($strategies[1]);
+		$trainer->addStrategy($strategies[2]);
+		$trainer->addStrategy($strategies[3]);
+
+		$strategies[1]->expects($this->once())
+			->method("shouldStop")
+			->willReturn(false);
+		$strategies[2]->expects($this->once())
+			->method("shouldStop")
+			->willReturn(true);
+		$strategies[3]->expects($this->never())
+			->method("shouldStop");
+
+		$this->assertTrue($trainer->isTrainingDone());
 	}
 
 	public function testIteration() {
-		$t = new DummyTraining();
-		$this->assertEquals(0, $t->getIteration());
+		/** @var BasicTraining|MockObject $trainer */
+		$trainer = $this->getMockForAbstractClass(BasicTraining::class);
+		$trainer->expects($this->exactly(6))
+			->method("doIteration");
 
-		$t->iteration();
-		$this->assertEquals(1, $t->getIteration());
+		/** @var Strategy|MockObject $strategy */
+		$strategy = $this->createMock(Strategy::class);
+		$strategy->expects($this->exactly(6))
+			->method("preIteration");
+		$strategy->expects($this->exactly(6))
+			->method("postIteration");
 
-		$t->iteration(2);
-		$this->assertEquals(3, $t->getIteration());
+		$trainer->addStrategy($strategy);
+		$trainer->iteration();
+
+		$this->assertEquals(1, $trainer->getIteration());
+
+		$trainer->iteration(4);
+		$this->assertEquals(5, $trainer->getIteration());
+
+		$trainer->setIteration(42);
+		$this->assertEquals(42, $trainer->getIteration());
+
+		$trainer->iteration();
+		$this->assertEquals(43, $trainer->getIteration());
 	}
 }
 

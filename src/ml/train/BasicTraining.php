@@ -50,8 +50,7 @@ abstract class BasicTraining implements MLTrain {
 		$strategy->init($this);
 	}
 
-	public function finishTraining() {
-	}
+	public function finishTraining() {}
 
 	public function getError(): float {
 		return $this->error;
