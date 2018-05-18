@@ -19,7 +19,7 @@
     "krakjoe/pthreads-polyfill": "^1.1"
   },
   "require-dev": {
-    "phpunit/phpunit": "^6.5"
+    "phpunit/phpunit": "^7"
   },
   "suggest": {
     "ext-pthreads": "Allows multi threaded training"
