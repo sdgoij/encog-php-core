@@ -9,7 +9,6 @@ Another issue is parallelism, the original Java code is designed to work multi-t
 ## TODO
 
  - Finish this readme, or don't
- - Debug neural\\{neat,som} packages (why, those are'nt even in the repository [yet])
  - A lot, see [encog-java-core](https://github.com/encog/encog-java-core)
  - Improve test coverage and verify test against encog-java-core
    - Contribute verified tests to upstream
