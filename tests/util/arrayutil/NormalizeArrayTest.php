@@ -28,7 +28,7 @@ class NormalizeArrayTest extends TestCase {
 		$field->expects($this->exactly(3))
 			->method("normalize")
 			->withConsecutive([1], [2], [3])
-			->willReturn(42, 42, 42);
+			->willReturn(42.0, 42.0, 42.0);
 
 		$normalizer = new NormalizeArray();
 		$this->injectFieldMock($normalizer, $field);

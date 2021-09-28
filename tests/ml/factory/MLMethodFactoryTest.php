@@ -28,10 +28,10 @@ class MLMethodFactoryTest extends TestCase {
 		$this->expectExceptionMessage("Unknown method type: TEST_FAIL");
 		$factory->create("TEST_FAIL", "", 2, 1);
 	}
-	public function setUp() {
+	public function setUp(): void {
 		Encog::getInstance()->reset()->registerPlugin(new DummyPlugin());
 	}
-	public function tearDown() {
+	public function tearDown(): void {
 		Encog::getInstance()->reset();
 		parent::tearDown();
 	}

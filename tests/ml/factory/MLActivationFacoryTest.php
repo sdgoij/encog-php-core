@@ -27,10 +27,10 @@ class MLActivationFactoryTest extends TestCase {
 		$this->assertInstanceOf(ActivationFunction::class, $factory->create("TEST_OK"));
 		$this->assertNull($factory->create("TEST_FAIL"));
 	}
-	public function setUp() {
+	public function setUp(): void {
 		Encog::getInstance()->reset()->registerPlugin(new DummyPlugin());
 	}
-	public function tearDown() {
+	public function tearDown(): void {
 		Encog::getInstance()->reset();
 		parent::tearDown();
 	}

@@ -56,7 +56,7 @@ class CSVDataSourceTest extends TestCase {
 		$source->readLine();
 	}
 
-	public function setUp() {
+	public function setUp(): void {
 		MemoryStream::put("test1.csv", "A,B,C\r\n0,0,0\r\n0,1,1\r\n1,1,0\r\n1,0,1");
 		MemoryStream::put("test2.csv", "0,0,0\r\n0,1,1\r\n1,1,0\r\n1,0,1");
 	}

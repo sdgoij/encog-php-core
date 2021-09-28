@@ -42,7 +42,7 @@ class CSVMLDataSetTest extends TestCase {
 		}
 	}
 
-	public function setUp() {
+	public function setUp(): void {
 		MemoryStream::put("foo.csv", "1,2,3\r\n2,3,4\r\n3,4,5");
 	}
 }

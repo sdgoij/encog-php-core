@@ -47,7 +47,7 @@ class GreedyTest extends TestCase {
 		);
 		$trainer->expects($this->exactly(3))->method("setError");
 		$trainer->expects($this->exactly(3))->method("getError")
-			->willReturn(1, 2, 3);
+			->willReturn(1.0, 2.0, 3.0);
 
 		$strategy = new Greedy();
 		$strategy->init($trainer);

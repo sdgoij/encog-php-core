@@ -63,7 +63,7 @@ class EncogLoggingTest extends TestCase {
 		$this->assertSame(0, EncogLogging::getCurrentLevel());
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		parent::tearDown();
 		Encog::reset();
 	}

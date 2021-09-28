@@ -129,7 +129,7 @@ class CSVReaderTest extends TestCase {
 		$this->assertEquals(3, $reader->getColumnCount());
 
 		$this->expectException(EncogError::class);
-		$this->expectExceptionMessageRegExp("/^Can't access column \[.*\] in a file that has only .* columns/");
+		$this->expectExceptionMessageMatches("/^Can't access column \[.*\] in a file that has only .* columns/");
 		$reader->get(3);
 	}
 
@@ -155,7 +155,7 @@ class CSVReaderTest extends TestCase {
 		$this->assertTrue($reader->next());
 
 		$this->expectException(EncogError::class);
-		$this->expectExceptionMessageRegExp("/failed to parse time string \(a,b,c\) at position/i");
+		$this->expectExceptionMessageMatches("/failed to parse time string \(a,b,c\) at position/i");
 		$reader->getDate(0);
 	}
 }

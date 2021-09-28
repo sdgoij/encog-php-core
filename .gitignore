@@ -2,5 +2,6 @@ composer.lock
 composer.phar
 .DS_Store
 .idea/
+.phpunit.result.cache
 cover*/
 vendor/

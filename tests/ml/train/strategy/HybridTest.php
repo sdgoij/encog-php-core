@@ -30,7 +30,7 @@ class HybridTest extends TestCase {
 		$trainer = $this->createMock(MLTrain::class);
 		$trainer->expects($this->exactly(12))
 			->method("getError")
-			->willReturn(1, ...range(2, 12));
+			->willReturn(1.0, ...range(2.0, 12.0));
 
 		$strategy = new Hybrid($secondary);
 		$strategy->init($trainer);

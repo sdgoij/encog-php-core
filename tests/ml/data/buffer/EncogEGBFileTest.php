@@ -85,7 +85,7 @@ class EncogEGBFileTest extends TestCase {
 	public function testOpenInvalidHeader() {
 		MemoryStream::put("open", "abc", "egb");
 		$this->expectException(BufferedDataError::class);
-		$this->expectExceptionMessageRegExp("/File is not a valid Encog binary file: .*/");
+		$this->expectExceptionMessageMatches("/File is not a valid Encog binary file: .*/");
 		(new EncogEGBFile(new SplFileInfo("egb://open")))->open();
 	}
 

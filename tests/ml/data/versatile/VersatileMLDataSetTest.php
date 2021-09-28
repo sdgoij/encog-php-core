@@ -70,21 +70,21 @@ class VersatileMLDataSetTest extends TestCase {
 		$a->expects($this->any())
 			->method("getType")
 			->willReturn(new ColumnType(ColumnType::continuous));
-		$a->expects($this->exactly(2))
+		$a->expects($this->exactly(2.0))
 			->method("getCount")
 			->willReturn(1);
-		$a->expects($this->exactly(2))
+		$a->expects($this->exactly(2.0))
 			->method("getMean")
-			->willReturn(1);
+			->willReturn(1.0);
 		$a->expects($this->once())
 			->method("setMean");
-		$a->expects($this->exactly(2))
+		$a->expects($this->exactly(2.0))
 			->method("getSd")
-			->willReturn(1);
-		$a->expects($this->exactly(3))
+			->willReturn(1.0);
+		$a->expects($this->exactly(3.0))
 			->method("setSd");
 
-		$b->expects($this->exactly(2))
+		$b->expects($this->exactly(2.0))
 			->method("getIndex")
 			->willReturn(-1, 1);
 		$b->expects($this->once())
@@ -96,21 +96,21 @@ class VersatileMLDataSetTest extends TestCase {
 		$b->expects($this->any())
 			->method("getType")
 			->willReturn(new ColumnType(ColumnType::continuous));
-		$b->expects($this->exactly(2))
+		$b->expects($this->exactly(2.0))
 			->method("getCount")
 			->willReturn(1);
-		$b->expects($this->exactly(2))
+		$b->expects($this->exactly(2.0))
 			->method("getMean")
-			->willReturn(1);
+			->willReturn(1.0);
 		$b->expects($this->once())
 			->method("setMean");
-		$b->expects($this->exactly(2))
+		$b->expects($this->exactly(2.0))
 			->method("getSd")
-			->willReturn(1);
-		$b->expects($this->exactly(3))
+			->willReturn(1.0);
+		$b->expects($this->exactly(3.0))
 			->method("setSd");
 
-		$c->expects($this->exactly(2))
+		$c->expects($this->exactly(2.0))
 			->method("getIndex")
 			->willReturn(-1, 2);
 		$c->expects($this->once())
@@ -122,18 +122,18 @@ class VersatileMLDataSetTest extends TestCase {
 		$c->expects($this->any())
 			->method("getType")
 			->willReturn(new ColumnType(ColumnType::continuous));
-		$c->expects($this->exactly(2))
+		$c->expects($this->exactly(2.0))
 			->method("getCount")
 			->willReturn(1);
-		$c->expects($this->exactly(2))
+		$c->expects($this->exactly(2.0))
 			->method("getMean")
-			->willReturn(1);
+			->willReturn(1.0);
 		$c->expects($this->once())
 			->method("setMean");
-		$c->expects($this->exactly(2))
+		$c->expects($this->exactly(2.0))
 			->method("getSd")
-			->willReturn(1);
-		$c->expects($this->exactly(3))
+			->willReturn(1.0);
+		$c->expects($this->exactly(3.0))
 			->method("setSd");
 
 		/** @var NormalizationHelper|MockObject $normalizer */
