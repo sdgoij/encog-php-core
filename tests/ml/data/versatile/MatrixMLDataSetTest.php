@@ -89,14 +89,6 @@ class MatrixMLDataSetTest extends TestCase {
 		$this->assertEquals($ds1->getMask(), $ds2->getMask());
 	}
 
-	// TODO 1) encog\test\ml\data\versatile\MatrixMLDataSetTest::testIterator
-	//   Trying to access array offset on value of type null
-	//     src/ml/data/versatile/MatrixMLDataSet.php:206
-	//     src/ml/data/versatile/MatrixMLDataSet.php:105
-	//     src/ml/data/versatile/MatrixMLDataSet.php:145
-	//     src/ml/data/versatile/MatrixMLDataSet.php:69
-  //     tests/ml/data/versatile/MatrixMLDataSetTest.php:101
-	// Ok in PHP 7.3 got broken in 7.4
 	public function testIterator() {
 		foreach (MatrixMLDataSet::createFromArray(self::DATA, 1, 1) as $k => $v) {
 			$pair = new BasicMLDataPair(
@@ -108,8 +100,6 @@ class MatrixMLDataSetTest extends TestCase {
 		}
 	}
 
-	// TODO 2) Expect RangeException got Throwable; Unexpected Exception: Trying to access array offset on value of type null
-  //   tests/ml/data/versatile/MatrixMLDataSetTest.php:127
 	public function testGetRecord() {
 		$dataset = MatrixMLDataSet::createFromArray(self::DATA, 1, 1);
 		$pair = BasicMLDataPair::createPair(1,1);

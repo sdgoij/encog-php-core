@@ -203,7 +203,7 @@ class MatrixMLDataSet implements MLDataSet {
 	}
 
 	private function lookupDataRow(int $index): array {
-		if (!isset($this->data[$index]) && !isset($this->data[$this->mask[$index]])) {
+		if (!isset($this->data[$index]) && !isset($this->data[$this->mask[$index] ?? null])) {
 			throw new RangeException("Index '$index' out of bounds.");
 		}
 		if ($this->mask) {
