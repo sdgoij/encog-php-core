@@ -100,7 +100,7 @@ class CSVDataCODEC implements DataSetCODEC {
 	public function prepareWrite(int $records, int $input, int $ideal) {
 		$this->input = $input;
 		$this->ideal = $ideal;
-		if (!$this->writer = @fopen($this->filename, "w")) {
+		if (!self::open($this->writer, $this->filename, "w")) {
 			throw new BufferedDataError("Unable to open '{$this->filename}'");
 		}
 	}
@@ -134,6 +134,15 @@ class CSVDataCODEC implements DataSetCODEC {
 		if ($this->writer) {
 			fclose($this->writer);
 			$this->writer = null;
+		}
+	}
+
+	private static function open(&$handle, $path, $mode): bool {
+		try {
+			$handle = fopen($path, $mode);
+			return true;
+		} catch (\Throwable $t) {
+			return false;
 		}
 	}
 }

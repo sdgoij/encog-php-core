@@ -77,12 +77,8 @@ class NormalizedFieldTest extends TestCase {
 			$this->assertEquals(2, $field->lookup("c"));
 			$this->assertNull($field->getEq());
 		} catch (TypeError $e) {
-			$this->assertEquals(
-				sprintf(
-					"Return value of %s::getEq() must be an instance of %s, null returned",
-					NormalizedField::class,
-					Equilateral::class
-				),
+			$this->assertStringMatchesFormat(
+				"%s::getEq()%s encog\mathutil\Equilateral, null returned",
 				$e->getMessage()
 			);
 		}

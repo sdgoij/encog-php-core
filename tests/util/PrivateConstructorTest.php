@@ -19,8 +19,8 @@ use ReflectionClass;
 trait PrivateConstructorTest {
 	abstract protected function getSubjectClassName(): string;
 
-	abstract public function assertEquals($expected, $actual, string $message = ''): void;
-	abstract public function assertTrue($condition, string $message = ''): void;
+	abstract static public function assertEquals($expected, $actual, string $message = ''): void;
+	abstract static public function assertTrue($condition, string $message = ''): void;
 
 	public function testPrivateConstructor() {
 		$r = new ReflectionClass($this->getSubjectClassName());

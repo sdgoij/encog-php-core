@@ -232,7 +232,7 @@ class TemporalMLDataSetTest extends TestCase {
 		try {
 			$temporal->generateInputData(0);
 		} catch (Throwable $e) {
-			$this->assertEquals("Undefined offset: -1", $e->getMessage());
+			$this->assertStringMatchesFormat("Undefined %s -1", $e->getMessage());
 		}
 
 		$this->assertEquals([1.0, 4.0, 7.0, 10.0, 13.0], $temporal->generateInputData(1)->getData()->toArray());
@@ -245,7 +245,7 @@ class TemporalMLDataSetTest extends TestCase {
 		try {
 			$temporal->generateInputData(7);
 		} catch (Throwable $e) {
-			$this->assertEquals("Undefined offset: 10", $e->getMessage());
+			$this->assertStringMatchesFormat("Undefined %s 10", $e->getMessage());
 		}
 
 		$this->expectExceptionMessage("Unsupported data type.");
@@ -273,7 +273,7 @@ class TemporalMLDataSetTest extends TestCase {
 			$temporal->generateOutputData(0);
 			$this->fail("here be dragons");
 		} catch (Throwable $e) {
-			$this->assertEquals("Undefined offset: -1", $e->getMessage());
+			$this->assertStringMatchesFormat("Undefined %s -1", $e->getMessage());
 		}
 
 		$this->assertEquals([3.0, 1.5, 3.0], $temporal->generateOutputData(1)->getData()->toArray());
