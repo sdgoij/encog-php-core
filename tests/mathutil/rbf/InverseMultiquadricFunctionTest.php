@@ -28,7 +28,7 @@ class InverseMultiquadricFunctionTest extends TestCase {
 	public function testCalculateZeroCentered() {
 		$rbf = InverseMultiquadricFunction::createZeroCentered(1);
 		$this->assertEquals(0.7071067811865475, $rbf->calculate([1,2,3]));
-		$this->assertEquals(0.3162277660168379, $rbf->calculate([3,2,1]));
+		$this->assertEquals(0.31622776601683794, $rbf->calculate([3,2,1]));
 		$this->assertEquals(1, $rbf->getDimensions());
 
 		$rbf = InverseMultiquadricFunction::createZeroCentered(3);

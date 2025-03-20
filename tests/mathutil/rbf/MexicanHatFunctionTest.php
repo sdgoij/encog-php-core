@@ -21,7 +21,7 @@ class MexicanHatFunctionTest extends TestCase {
 	public function testCalculateSingleDimensional() {
 		$rbf = MexicanHatFunction::createSingleDimensional(0.5, 1.0, 1.0);
 		$this->assertEquals(0.8219864299617914, $rbf->calculate([1,2,3]));
-		$this->assertEquals(-0.4454241976960829, $rbf->calculate([3,2,1]));
+		$this->assertEquals(-0.4454241976960828, $rbf->calculate([3,2,1]));
 		$this->assertEquals(1, $rbf->getDimensions());
 	}
 

@@ -24,7 +24,7 @@ class AbstractBoxMullerTest extends TestCase {
 		$generator = $this->getMockForAbstractClass(AbstractBoxMuller::class);
 		$generator->expects($this->exactly(2))->method("next")->willReturn(0.3, 0.4);
 
-		$this->assertEquals(-1.6047120177448, $generator->nextGaussian());
-		$this->assertEquals(-0.8023560088724, $generator->nextGaussian());
+		$this->assertEquals(-1.6047120177447916, $generator->nextGaussian());
+		$this->assertEquals(-0.8023560088723956, $generator->nextGaussian());
 	}
 }

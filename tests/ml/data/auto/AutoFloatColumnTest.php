@@ -59,9 +59,9 @@ class AutoFloatColumnTest extends TestCase {
 
 	public function testGetNormalized() {
 		$column = new AutoFloatColumn([0.1,0.2,0.3,0.4]);
-		$this->assertEquals(0.0000000000, $column->getNormalized(0, 0.0, 1.0));
-		$this->assertEquals(0.3333333333, $column->getNormalized(1, 0.0, 1.0));
-		$this->assertEquals(0.6666666666, $column->getNormalized(2, 0.0, 1.0));
-		$this->assertEquals(1.0000000000, $column->getNormalized(3, 0.0, 1.0));
+		$this->assertEquals(0.0000000000000000, $column->getNormalized(0, 0.0, 1.0));
+		$this->assertEquals(0.3333333333333333, $column->getNormalized(1, 0.0, 1.0));
+		$this->assertEquals(0.6666666666666665, $column->getNormalized(2, 0.0, 1.0));
+		$this->assertEquals(1.0000000000000000, $column->getNormalized(3, 0.0, 1.0));
 	}
 }

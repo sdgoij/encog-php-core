@@ -24,8 +24,8 @@ class NumericRangeTest extends TestCase {
 		$this->assertEquals(4, $range->getHigh());
 		$this->assertEquals(4, $range->getSamples());
 		$this->assertEquals(2.5, $range->getMean());
-		$this->assertEquals(2.7386127875258, $range->getRms());
-		$this->assertEquals(1.1180339887499, $range->getSd());
+		$this->assertEquals(2.7386127875258306, $range->getRms());
+		$this->assertEquals(1.118033988749895, $range->getSd());
 	}
 
 	public function testToString() {

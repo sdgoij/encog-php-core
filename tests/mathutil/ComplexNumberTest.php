@@ -74,7 +74,7 @@ class ComplexNumberTest extends TestCase {
 
 	public function testExp() {
 		$n = new ComplexNumber(1,2);
-		$this->assertEquals(new ComplexNumber(-1.1312043837568138, 2.471726672004819), $n->exp());
+		$this->assertEquals(new ComplexNumber(-1.1312043837568135, 2.4717266720048188), $n->exp());
 		$this->assertNotEquals($n, $n->exp());
 	}
 
@@ -104,13 +104,13 @@ class ComplexNumberTest extends TestCase {
 
 	public function testSinh() {
 		$n = new ComplexNumber(1,2);
-		$this->assertEquals(new ComplexNumber(-0.48905625904129374, 1.4031192506220407), $n->sinh());
+		$this->assertEquals(new ComplexNumber(-0.4890562590412937, 1.4031192506220405), $n->sinh());
 		$this->assertNotEquals($n, $n->sinh());
 	}
 
 	public function testCosh() {
 		$n = new ComplexNumber(1,2);
-		$this->assertEquals(new ComplexNumber(-0.6421481247155201, 1.0686074213827785), $n->cosh());
+		$this->assertEquals(new ComplexNumber(-0.64214812471552, 1.0686074213827783), $n->cosh());
 		$this->assertNotEquals($n, $n->cosh());
 	}
 

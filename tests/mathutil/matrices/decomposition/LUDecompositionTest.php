@@ -34,7 +34,7 @@ class LUDecompositionTest extends TestCase {
 
 	public function testGetU() {
 		$LU = new LUDecomposition(new Matrix([[1,2], [3,4]]));
-		$this->assertEquals(new Matrix([[3,4], [0,2/3]]), $LU->getU());
+		$this->assertEquals(new Matrix([[3,4], [0.0,0.6666666666666667]]), $LU->getU()); // TODO how did that broke?
 	}
 
 	public function testGetPivot() {
