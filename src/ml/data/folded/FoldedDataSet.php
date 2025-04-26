@@ -19,6 +19,7 @@ use encog\ml\data\MLData;
 use encog\ml\data\MLDataError;
 use encog\ml\data\MLDataPair;
 use encog\ml\data\MLDataSet;
+use Traversable;
 
 /**
  * A folded data set allows you to "fold" the data into several equal (or nearly
@@ -93,7 +94,7 @@ class FoldedDataSet implements MLDataSet {
 			: $this->currentFoldSize;
 	}
 
-	public function getIterator() {
+	public function getIterator(): Traversable {
 		for ($i = 0; $i < $this->currentFoldSize; $i++) {
 			yield $this->get($i);
 		}
@@ -119,13 +120,13 @@ class FoldedDataSet implements MLDataSet {
 		$this->dataset->getRecord($this->getCurrentFoldOffset()+$index, $pair);
 	}
 
-	public function openAdditional(): MLDataSet {
+	public function openAdditional(): FoldedDataSet {
 		$dataset = new static($this->dataset->openAdditional());
 		$dataset->setOwner($this);
 		return $dataset;
 	}
 
-	public function add(MLData $input, MLData $ideal = null) {
+	public function add(MLData $input, ?MLData $ideal = null) {
 		throw new MLDataError("Direct adds to the folded dataset are not supported.");
 	}
 

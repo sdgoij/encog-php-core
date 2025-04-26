@@ -40,7 +40,7 @@ abstract class BasicTraining implements MLTrain {
 	/** @var TrainingImplementationType */
 	private $implType;
 
-	public function __construct(TrainingImplementationType $type = null) {
+	public function __construct(?TrainingImplementationType $type = null) {
 		$this->implType = $type ?? new TrainingImplementationType(null);
 		$this->iteration = 0;
 	}

@@ -150,7 +150,7 @@ class Matrix {
 		return $result;
 	}
 
-	public function randomize(float $min, float $max, Random $random = null) {
+	public function randomize(float $min, float $max, ?Random $random = null) {
 		for ($r = 0; $r < $this->getRows(); $r++) {
 			for ($c = 0; $c < $this->getCols(); $c++) {
 				$this->matrix[$r][$c] = RangeRandomizer::randomFloat($min, $max, $random);

@@ -32,7 +32,7 @@ class MemoryDataLoaderTest extends TestCase {
 	public function testImport() {
 		/** @var MLDataSetCODEC|MockObject $codec */
 		$codec = $this->getMockBuilder(MLDataSetCODEC::class)
-			->setMethods(['getIdealSize', 'prepareRead', 'read'])
+			->onlyMethods(['getIdealSize', 'prepareRead', 'read'])
 			->disableOriginalConstructor()
 			->getMock();
 		$codec->expects($this->exactly(3))->method('getIdealSize')
@@ -43,7 +43,7 @@ class MemoryDataLoaderTest extends TestCase {
 
 		/** @var StatusReportable|MockObject $status */
 		$status = $this->getMockBuilder(NullStatusReportable::class)
-			->setMethods(['report'])->getMock();
+			->onlyMethods(['report'])->getMock();
 		$status->expects($this->atLeast(2))->method('report');
 
 		$loader = new MemoryDataLoader($this->createDataCODEC());

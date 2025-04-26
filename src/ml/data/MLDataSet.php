@@ -37,7 +37,7 @@ interface MLDataSet extends IteratorAggregate {
 	public function getRecordCount(): int;
 	public function getRecord(int $index, MLDataPair $pair);
 	public function openAdditional(): MLDataSet;
-	public function add(MLData $input, MLData $ideal = null);
+	public function add(MLData $input, ?MLData $ideal = null);
 	public function addPair(MLDataPair $pair);
 	public function close();
 	public function size(): int;

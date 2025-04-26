@@ -38,7 +38,7 @@ class FlatLayer {
 	/** @var FlatLayer */
 	private $contextFedBy;
 
-	public function __construct(ActivationFunction $af = null, int $count = 0,
+	public function __construct(?ActivationFunction $af = null, int $count = 0,
 			float $biasActivation = 1.0, float $dropoutRate = 0.0) {
 		$this->activation = $af ?? new ActivationLinear();
 		$this->biasActivation = $biasActivation;

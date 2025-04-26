@@ -19,13 +19,13 @@ namespace encog\mathutil\randomize\generate;
  * to generate the other types.
  */
 abstract class AbstractGenerateRandom implements GenerateRandom {
-	public function nextDouble(float $high = null, float $low = 0): float {
+	public function nextDouble(?float $high = null, float $low = 0): float {
 		return $high !== null
 			? $low + $this->bound($high, $low)
 			: $this->next();
 	}
 
-	public function nextInt(int $high = null, int $low = 0): int {
+	public function nextInt(?int $high = null, int $low = 0): int {
 		return $high !== null
 			? $low + (int)round($this->bound($high, $low))
 			: $this->nextLong();

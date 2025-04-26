@@ -20,5 +20,5 @@ namespace encog\ml;
  * as neural networks support this.  Support vector machines do not.
  */
 interface MLResettable extends MLMethod {
-	public function reset(int $seed = null);
+	public function reset(?int $seed = null);
 }

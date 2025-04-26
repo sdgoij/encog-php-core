@@ -91,7 +91,7 @@ class BasicMLDataSet implements MLDataSet {
 		return clone $this;
 	}
 
-	public function add(MLData $input, MLData $ideal = null) {
+	public function add(MLData $input, ?MLData $ideal = null) {
 		$this->addPair(new BasicMLDataPair($input, $ideal));
 	}
 

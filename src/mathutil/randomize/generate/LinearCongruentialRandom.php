@@ -34,7 +34,7 @@ class LinearCongruentialRandom extends AbstractBoxMuller {
 	private $increment;
 	private $seed;
 
-	public function __construct(int $seed = null, int $modulus = null,
+	public function __construct(?int $seed = null, ?int $modulus = null,
 			int $multiplier = self::DEFAULT_MULT, int $increment = self::DEFAULT_INC) {
 		if (null === $modulus) {
 			$modulus = pow(self::DEFAULT_MOD1, self::DEFAULT_MOD2);

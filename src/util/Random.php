@@ -34,7 +34,7 @@ class Random {
 	/** @var int */
 	private $seed;
 
-	public function __construct(int $seed = null) {
+	public function __construct(?int $seed = null) {
 		if ($seed === null) {
 			$seed = ++self::$seedUniquifier + time();
 		}
@@ -47,7 +47,7 @@ class Random {
 	}
 
 	protected function next(int $bits): int {
-		$this->seed = ($this->seed * self::MULTIPLIER + self::ADDEND) & self::MASK;
+		$this->seed = ((int)((int)($this->seed * self::MULTIPLIER) + self::ADDEND)) & self::MASK;
 		return Operator::urshift($this->seed, 48 - $bits);
 	}
 
@@ -59,7 +59,7 @@ class Random {
 		}
 	}
 
-	public function nextInt(int $bound = null): int {
+	public function nextInt(?int $bound = null): int {
 		return $bound ? $this->nextBoundInt($bound) : $this->next(32);
 	}
 

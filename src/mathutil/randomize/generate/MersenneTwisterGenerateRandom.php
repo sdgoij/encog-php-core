@@ -72,7 +72,7 @@ class MersenneTwisterGenerateRandom extends AbstractBoxMuller {
 		$this->sv[0] = $seed;
 
 		for ($this->mti = 1; $this->mti < self::N; $this->mti++) {
-			$this->sv[$this->mti] = (1812433253 * ($this->sv[$this->mti-1] ^
+			$this->sv[$this->mti] = (int)(1812433253 * ($this->sv[$this->mti-1] ^
 				Operator::urshift($this->sv[$this->mti-1], 30)) + $this->mti);
 		}
 	}
@@ -81,7 +81,7 @@ class MersenneTwisterGenerateRandom extends AbstractBoxMuller {
 		$length = count($seeds);
 		$this->setSeed(19650218);
 		for ($i = 1, $j = 0, $k = (self::N > $length ? self::N : $length)-1; $k > 0; $k--) {
-			$this->sv[$i] = ($this->sv[$i]^(($this->sv[$i-1]^Operator::urshift($this->sv[$i-1],30))*1664525))+$seeds[$j]+$j;
+			$this->sv[$i] = (int)((int)$this->sv[$i]^(($this->sv[$i-1]^(int)(Operator::urshift($this->sv[$i-1],30))*1664525)))+$seeds[$j]+$j;
 			if (++$i >= self::N) {
 				$this->sv[0] = $this->sv[self::N-1];
 				$i = 1;
@@ -89,7 +89,7 @@ class MersenneTwisterGenerateRandom extends AbstractBoxMuller {
 			if (++$j >= $length-1) $j = 0;
 		}
 		for ($k = self::N-1; $k > 0; $k--) {
-			$this->sv[$i] = ($this->sv[$i]^(($this->sv[$i-1]^Operator::urshift($this->sv[$i-1],30))*1566083941))-$i;
+			$this->sv[$i] = (int)(((int)$this->sv[$i])^(int)(((int)($this->sv[$i-1]^Operator::urshift($this->sv[$i-1],30))*1566083941)))-$i;
 			if (++$i >= self::N) {
 				$this->sv[0] = $this->sv[self::N-1];
 				$i = 1;

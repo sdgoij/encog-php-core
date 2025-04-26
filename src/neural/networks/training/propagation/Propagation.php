@@ -132,7 +132,7 @@ abstract class Propagation extends BasicTraining implements MLTrain, BatchSize,
 		parent::finishTraining();
 	}
 
-	public function report(array $gradients, float $error, Throwable $e = null) {
+	public function report(array $gradients, float $error, ?Throwable $e = null) {
 		if ($e === null) {
 			foreach ($gradients as $key => $gradient) {
 				$this->gradients[$key] += $gradient;

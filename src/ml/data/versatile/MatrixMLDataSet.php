@@ -20,6 +20,7 @@ use encog\ml\data\MLData;
 use encog\ml\data\MLDataPair;
 use encog\ml\data\MLDataSet;
 use RangeException;
+use Traversable;
 
 /**
  * The MatrixMLDataSet can use a large 2D matrix of doubles to internally hold
@@ -45,7 +46,7 @@ class MatrixMLDataSet implements MLDataSet {
 	private $data = null;
 	private $mask = null;
 
-	public static function createFromArray(array $data, int $input, int $ideal, array $mask = null): MatrixMLDataSet {
+	public static function createFromArray(array $data, int $input, int $ideal, ?array $mask = null): MatrixMLDataSet {
 		$dataset = new static();
 		$dataset->calculatedInputSize = $input;
 		$dataset->calculatedIdealSize = $ideal;
@@ -54,7 +55,7 @@ class MatrixMLDataSet implements MLDataSet {
 		return $dataset;
 	}
 
-	public static function createFromMatrixMLDataSet(MatrixMLDataSet $data, array $mask = null): MatrixMLDataSet {
+	public static function createFromMatrixMLDataSet(MatrixMLDataSet $data, ?array $mask = null): MatrixMLDataSet {
 		$dataset = new static();
 		$dataset->calculatedInputSize = $data->getCalculatedInputSize();
 		$dataset->calculatedIdealSize = $data->getCalculatedIdealSize();
@@ -63,7 +64,7 @@ class MatrixMLDataSet implements MLDataSet {
 		return $dataset;
 	}
 
-	public function getIterator() {
+	public function getIterator(): Traversable {
 		for ($i = 0; ; $i++) {
 			try {
 				yield $this->get($i);
@@ -129,7 +130,7 @@ class MatrixMLDataSet implements MLDataSet {
 		return $ds;
 	}
 
-	public function add(MLData $input, MLData $ideal = null) {}
+	public function add(MLData $input, ?MLData $ideal = null) {}
 	public function addPair(MLDataPair $pair) {}
 	public function close() {}
 

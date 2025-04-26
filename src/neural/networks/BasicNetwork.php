@@ -193,7 +193,7 @@ class BasicNetwork extends BasicML implements ContainsFlat, MLContext, MLRegress
 		return $this->winner($input);
 	}
 
-	public function reset(int $seed = null) {
+	public function reset(?int $seed = null) {
 		if ($seed !== null) {
 			(new ConsistentRandomizer(-1.0, 1.0, $seed))->randomize($this);
 		} else {

@@ -17,7 +17,7 @@ namespace encog\neural\networks\training\propagation;
 use Throwable;
 
 interface GradientWorkerOwner {
-	public function report(array $gradients, float $error, Throwable $e = null);
+	public function report(array $gradients, float $error, ?Throwable $e = null);
 	public function getL1(): float;
 	public function getL2(): float;
 }

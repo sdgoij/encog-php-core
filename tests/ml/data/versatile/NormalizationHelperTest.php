@@ -207,7 +207,7 @@ class NormalizationHelperTest extends TestCase {
 		$normalizer = $this->createMock(NormalizationStrategy::class);
 		$normalizer->expects($this->exactly(3))
 			->method("denormalizeColumn")
-			->withConsecutive(
+			->willReturnOnConsecutiveCalls(
 				[$columns[0], false, $data, 0],
 				[$columns[1], false, $data, 1],
 				[$columns[2], false, $data, 2]

@@ -15,7 +15,9 @@
 namespace encog\test\util\csv;
 
 final class MemoryStream {
-	public static function register(string $protocol, string $class = null, int $flags = 0): bool {
+	public $context; // uch.. PHP Deprecated:  Creation of dynamic property encog\test\util\csv\MemoryStream::$context is deprecated in /src/ml/data/buffer/EncogEGBFile.php on line 30
+
+	public static function register(string $protocol, ?string $class = null, int $flags = 0): bool {
 		if (!isset(self::$registered[$protocol])) {
 			self::$registered[$protocol] = stream_wrapper_register($protocol, $class ?? self::class, $flags);
 		}

@@ -20,7 +20,7 @@ use encog\util\Random;
  * A wrapper over encog\util\Random random number generator.
  */
 class BasicGenerateRandom extends AbstractGenerateRandom {
-	public function __construct(int $seed = null) {
+	public function __construct(?int $seed = null) {
 		$this->random = new Random($seed);
 	}
 

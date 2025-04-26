@@ -58,7 +58,7 @@ abstract class BasicRandomizer implements Randomizer {
 		}
 	}
 
-	public function randomizeArray(array &$values, int $start = 0, int $size = null) {
+	public function randomizeArray(array &$values, int $start = 0, ?int $size = null) {
 		if ($size === null) $size = count($values);
 		for ($i = $start; $i < $start+$size; $i++) {
 			$values[$i] = $this->randomizeFloat($values[$i]);

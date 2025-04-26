@@ -82,7 +82,7 @@ class TemporalMLDataSet extends BasicMLDataSet {
 		$this->startingPoint = null;
 	}
 
-	public function add(MLData $input, MLData $ideal = null) {
+	public function add(MLData $input, ?MLData $ideal = null) {
 		throw new TemporalError("Direct adds to the temporal dataset are not supported. "
 			. "Add TemporalPoint objects and call generate.");
 	}

@@ -21,5 +21,5 @@ use encog\ml\data\MLDataSet;
  */
 interface MLStateSequence extends MLMethod {
 	public function getStatesForSequence(MLDataSet $seq): array;
-	public function probability(MLDataSet $seq, array $states = null): float;
+	public function probability(MLDataSet $seq, ?array $states = null): float;
 }

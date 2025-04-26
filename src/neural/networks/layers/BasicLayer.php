@@ -59,7 +59,7 @@ use encog\neural\networks\BasicNetwork;
  * Output1Output = calculate(Output1Activation, OutputActivationFunction)
  */
 class BasicLayer extends FlatLayer implements Layer {
-	public static function create(int $neuronCount, ActivationFunction $af = null, bool $hasBias = true): BasicLayer {
+	public static function create(int $neuronCount, ?ActivationFunction $af = null, bool $hasBias = true): BasicLayer {
 		return new static($af ?? new ActivationSigmoid(), $neuronCount, $hasBias ? 1.0 : 0.0);
 	}
 

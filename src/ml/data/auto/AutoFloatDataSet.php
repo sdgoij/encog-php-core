@@ -129,7 +129,7 @@ class AutoFloatDataSet implements MLDataSet {
 		return clone $this;
 	}
 
-	public function add(MLData $input, MLData $ideal = null) {
+	public function add(MLData $input, ?MLData $ideal = null) {
 		throw new EncogError("Add's not supported by this dataset.");
 	}
 
@@ -178,19 +178,19 @@ class AutoFloatDataSet implements MLDataSet {
 				$this->index = 0;
 			}
 
-			public function current() {
+			public function current(): mixed {
 				return $this->subject->get($this->index);
 			}
 
-			public function next() {
+			public function next(): void {
 				$this->index++;
 			}
 
-			public function key() {
+			public function key(): mixed {
 				return $this->index;
 			}
 
-			public function valid() {
+			public function valid(): bool {
 				try {
 					$this->subject->get($this->index);
 				} catch (Throwable $e) {
@@ -199,7 +199,7 @@ class AutoFloatDataSet implements MLDataSet {
 				return true;
 			}
 
-			public function rewind() {
+			public function rewind(): void {
 				$this->index = 0;
 			}
 

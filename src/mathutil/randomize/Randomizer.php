@@ -27,7 +27,7 @@ interface Randomizer {
 	public function getRandom(): GenerateRandom;
 	public function setRandom(GenerateRandom $r);
 	public function randomize(MLMethod $method);
-	public function randomizeArray(array &$values, int $start = 0, int $size = null);
+	public function randomizeArray(array &$values, int $start = 0, ?int $size = null);
 	public function randomizeArray2D(array &$values);
 	public function randomizeFloat(float $value): float;
 	public function randomizeMatrix(Matrix $m);

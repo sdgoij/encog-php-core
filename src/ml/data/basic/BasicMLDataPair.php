@@ -30,7 +30,7 @@ use SplFixedArray;
  * ideal property should contain null.
  */
 class BasicMLDataPair implements MLDataPair {
-	public function __construct(MLData $input, MLData $ideal = null) {
+	public function __construct(MLData $input, ?MLData $ideal = null) {
 		$this->input = $input;
 		$this->ideal = $ideal;
 	}

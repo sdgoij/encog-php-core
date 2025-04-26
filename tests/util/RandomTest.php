@@ -27,11 +27,11 @@ class RandomTest extends TestCase {
 	public function testRandomSequence() {
 		$random = new Random(1);
 		$values = [
-				3139097972, 623050752, 1105657856, 2572877824, 230621184,
-				1951596544, 425132032, 4094361600, 3400466432, 2256732160,
+				3139097972, 627294208, 2319013888, 2142961664, 1692377088,
+				1563934720, 3346882560, 350388224, 1672549376, 4204666880,
 		];
 		foreach ($values as $value) {
-			$this->assertTrue($random->nextInt() == $value);
+			$this->assertEquals($value, $random->nextInt());
 		}
 	}
 

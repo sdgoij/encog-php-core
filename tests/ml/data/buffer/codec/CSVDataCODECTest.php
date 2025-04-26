@@ -108,7 +108,7 @@ class CSVDataCODECTest extends TestCase {
 		$codec->close();
 
 		/** @var CSVReader|MockObject $reader */
-		$reader = $this->getMockBuilder(CSVReader::class)->setMethods(['close'])
+		$reader = $this->getMockBuilder(CSVReader::class)->onlyMethods(['close'])
 			->disableOriginalConstructor()
 			->getMock();
 		$reader->expects($this->once())->method('close');

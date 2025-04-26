@@ -25,7 +25,7 @@ use encog\util\logging\EncogLogging;
  * ensures that any subclasses will be logged.
  */
 class EncogError extends RuntimeException {
-	public function __construct($message = "", $code = 0, Throwable $previous = null) {
+	public function __construct($message = "", $code = 0, ?Throwable $previous = null) {
 		parent::__construct($message, $code, $previous);
 		EncogLogging::log(EncogLogging::LEVEL_ERROR, $message);
 	}

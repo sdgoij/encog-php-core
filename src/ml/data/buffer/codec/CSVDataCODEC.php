@@ -139,7 +139,8 @@ class CSVDataCODEC implements DataSetCODEC {
 
 	private static function open(&$handle, $path, $mode): bool {
 		try {
-			$handle = fopen($path, $mode);
+			// TODO does this have unintended consequences? I mean, if theres no valid path (string or otherwise) it just has to fail..
+			$handle = @fopen($path, $mode);
 			return true;
 		} catch (\Throwable $t) {
 			return false;

@@ -17,7 +17,7 @@ namespace encog\mathutil\randomize\factory;
 use encog\util\Random;
 
 class BasicRandomFactory implements RandomFactory {
-	public function __construct(int $seed = null) {
+	public function __construct(?int $seed = null) {
 		$this->seeder = new Random($seed);
 	}
 

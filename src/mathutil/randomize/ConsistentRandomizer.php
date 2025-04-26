@@ -20,7 +20,7 @@ use encog\mathutil\randomize\generate\LinearCongruentialRandom;
  * A randomizer that takes a seed and will always produce consistent results.
  */
 class ConsistentRandomizer extends BasicRandomizer {
-	public function __construct(int $min, int $max, int $seed = null) {
+	public function __construct(int $min, int $max, ?int $seed = null) {
 		parent::__construct();
 		$this->random = new LinearCongruentialRandom($seed ?? 1000);
 		$this->seed = $seed;

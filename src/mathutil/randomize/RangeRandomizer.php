@@ -21,11 +21,11 @@ use encog\util\Random;
  * a specified range.
  */
 class RangeRandomizer extends BasicRandomizer {
-	public static function randomInt(int $min, int $max, Random $r = null): int {
+	public static function randomInt(int $min, int $max, ?Random $r = null): int {
 		return (int)self::randomFloat((float)$min, (float)$max+1, $r);
 	}
 
-	public static function randomFloat(float $min, float $max, Random $r = null): float {
+	public static function randomFloat(float $min, float $max, ?Random $r = null): float {
 		return ($max-$min) * ($r === null ? mt_rand()/mt_getrandmax() : $r->nextDouble()) + $min;
 	}
 

@@ -88,8 +88,8 @@ class KFoldCrossValidation {
 
 	private function allocateFolds(): array {
 		$size = $this->dataset->size();
-		$p = $size / $this->K;
-		$f = $size - $p * ($this->K-1);
+		$p = (int)($size / $this->K);
+		$f = (int)($size - $p * ($this->K-1));
 		$folds[] = array_fill(0, $f, 0);
 		for ($i = 1; $i < $this->K; $i++) {
 			$folds[] = array_fill(0, $p, 0);

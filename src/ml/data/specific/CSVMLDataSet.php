@@ -30,7 +30,7 @@ use encog\util\csv\CSVFormat;
  */
 class CSVMLDataSet extends BasicMLDataSet {
 	public function __construct(string $filename, int $input, int $ideal, bool $headers,
-			CSVFormat $format = null, bool $significance = false) {
+			?CSVFormat $format = null, bool $significance = false) {
 		parent::__construct();
 		$this->filename = $filename;
 		$this->format = $format ?? CSVFormat::English();

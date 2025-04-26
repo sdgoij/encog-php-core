@@ -39,7 +39,7 @@ use encog\ml\data\MLDataSet;
  */
 class EncoderTrainingFactory {
 	public static function generateTraining(int $inputs, bool $complement, float $inputMin = 0.0,
-			$inputMax = 1.0, float $outputMin = null, float $outputMax = null): MLDataSet {
+			$inputMax = 1.0, ?float $outputMin = null, ?float $outputMax = null): MLDataSet {
 		$outputMin = $outputMin ?? $inputMin;
 		$outputMax = $outputMax ?? $inputMax;
 		$input = array_fill(0, $inputs, array_fill(0, $inputs, 0.0));

@@ -23,6 +23,6 @@ interface GenerateRandom {
 	public function nextBoolean(): bool;
 	public function nextLong(): int;
 	public function nextFloat(): float;
-	public function nextDouble(float $high = null, float $low = 0): float;
-	public function nextInt(int $high = null, int $low = 0): int;
+	public function nextDouble(?float $high = null, float $low = 0): float;
+	public function nextInt(?int $high = null, int $low = 0): int;
 }

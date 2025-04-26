@@ -39,7 +39,7 @@ class TemporalDataDescription {
 			bool $predict,
 			float $low = 0.0,
 			float $high = 0.0,
-			ActivationFunction $activation = null
+			?ActivationFunction $activation = null
 	) {
 		$this->type = $type;
 		$this->input = $input;

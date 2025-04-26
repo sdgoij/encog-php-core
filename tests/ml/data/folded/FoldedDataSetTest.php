@@ -68,7 +68,7 @@ class FoldedDataSetTest extends TestCase {
 
 	public function testClose() {
 		/** @var MLDataSet|MockObject $dataset */
-		$dataset = $this->getMockBuilder(BasicMLDataSet::class)->setMethods(['close', 'getRecordCount'])->getMock();
+		$dataset = $this->getMockBuilder(BasicMLDataSet::class)->onlyMethods(['close', 'getRecordCount'])->getMock();
 		$dataset->expects($this->atLeastOnce())->method('getRecordCount')->will($this->returnValue(1));
 		$dataset->expects($this->once())->method('close');
 		(new FoldedDataSet($dataset))->close();

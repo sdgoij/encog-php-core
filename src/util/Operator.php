@@ -15,7 +15,7 @@
 namespace encog\util;
 
 final class Operator {
-	public static function urshift($a, $b) {
+	public static function urshift(int $a, int $b): int {
 		if ($b >= 32 || $b < -32) {
 			$m = (int)($b / 32);
 			$b -= $m * 32;

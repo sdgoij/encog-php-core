@@ -36,7 +36,7 @@ class BasicMLSequenceSet implements MLSequenceSet {
 		return $seq;
 	}
 
-	public static function createFromArray(array $input, array $ideal = null): MLSequenceSet {
+	public static function createFromArray(array $input, ?array $ideal = null): MLSequenceSet {
 		$seq = new static();
 		$seq->current = new BasicMLDataSet($input, $ideal);
 		$seq->sequences[] = $seq->current;
@@ -100,7 +100,7 @@ class BasicMLSequenceSet implements MLSequenceSet {
 		return clone $this;
 	}
 
-	public function add(MLData $input, MLData $ideal = null) {
+	public function add(MLData $input, ?MLData $ideal = null) {
 		$this->current->add($input, $ideal);
 	}
 

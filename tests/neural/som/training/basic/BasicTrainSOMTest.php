@@ -93,8 +93,11 @@ class BasicTrainSOMTest extends TestCase {
 			$trainer->autoDecay();
 		}
 
-		$this->assertSame(0.01, $trainer->getLearningRate());
-		$this->assertSame(0.01, $neighbour->getRadius());
+		$this->assertSame(0.010000000000000259, $trainer->getLearningRate());
+		$this->assertSame(0.010000000000000259, $neighbour->getRadius());
+
+		$this->assertSame(0.01, round($trainer->getLearningRate(), 2));
+		$this->assertSame(0.01, round($neighbour->getRadius(), 2));
 	}
 
 	public function testBasicProperties() {

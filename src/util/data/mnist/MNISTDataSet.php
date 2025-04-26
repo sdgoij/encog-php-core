@@ -71,7 +71,7 @@ class MNISTDataSet implements MLDataSet {
 		return clone $this;
 	}
 
-	public function add(MLData $input, MLData $ideal = null) {
+	public function add(MLData $input, ?MLData $ideal = null) {
 		throw new MLDataError("Direct adds to the MNIST dataset are not supported.");
 	}
 

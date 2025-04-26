@@ -64,7 +64,7 @@ class NguyenWidrowRandomizer extends BasicRandomizer {
 
 	const MESSAGE = "This type of randomization is not supported by Nguyen-Widrow";
 
-	public function randomizeArray(array &$values, int $start = 0, int $size = null) {
+	public function randomizeArray(array &$values, int $start = 0, ?int $size = null) {
 		throw new EncogError(self::MESSAGE);
 	}
 

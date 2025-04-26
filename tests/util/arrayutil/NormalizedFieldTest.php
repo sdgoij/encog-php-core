@@ -94,7 +94,7 @@ class NormalizedFieldTest extends TestCase {
 		$this->assertEquals(sprintf($format, "abc", 0.0, 0.0),
 			NormalizedField::createNamedAction("abc", new NormalizationAction(NormalizationAction::Ignore)));
 		$this->assertEquals(sprintf($format, "", 3.0, -2.0), new NormalizedField(1, 0, 3, -2));
-		$this->assertEquals(sprintf($format, "", INF, -INF), new NormalizedField(1, 0));
+		$this->assertEquals(sprintf($format, "", -INF, INF), new NormalizedField(1, 0));
 	}
 
 	public function testAnalyze() {

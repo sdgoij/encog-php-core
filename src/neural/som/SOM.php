@@ -72,7 +72,7 @@ class SOM implements MLClassification, MLError, MLResettable {
 		return $this->weights->getRows();
 	}
 
-	public function reset(int $seed = null) {
+	public function reset(?int $seed = null) {
 		$this->weights->randomize(-1.0, 1.0, $seed ? new Random($seed) : null);
 	}
 

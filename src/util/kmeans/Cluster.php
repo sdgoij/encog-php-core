@@ -18,7 +18,7 @@ namespace encog\util\kmeans;
  * A cluster.
  */
 class Cluster {
-	public function __construct(CentroidFactory $data = null) {
+	public function __construct(?CentroidFactory $data = null) {
 		if ($data !== null) {
 			$this->centroid = $data->createCentroid();
 			$this->contents[] = $data;
