@@ -40,11 +40,11 @@ class CSVReader {
 		return new DateTimeImmutable($str);
 	}
 
-	public static function createFromFileName(string $filename, bool $headers, $format): CSVReader {
+	public static function createFromFileName(string $filename, bool $headers, CSVFormat|string $format): CSVReader {
 		return new static(@fopen($filename, 'r'), $headers, $format);
 	}
 
-	public function __construct($reader, bool $headers, $format) {
+	public function __construct($reader, bool $headers, CSVFormat|string $format) {
 		if (!$reader || !is_resource($reader)) {
 			throw new InvalidArgumentException("\$reader is not a valid stream resource.");
 		}
