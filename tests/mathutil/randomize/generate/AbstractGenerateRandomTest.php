@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,6 +33,6 @@ class AbstractGenerateRandomTest extends TestCase {
 		$generator = $this->getMockForAbstractClass(AbstractBoxMuller::class);
 		$generator->expects($this->once())->method("next")->willReturn(0.5);
 
-		$this->assertSame(1, $generator->nextInt(1.0, 0.0));
+		$this->assertSame(1, $generator->nextInt(1, 0));
 	}
 }

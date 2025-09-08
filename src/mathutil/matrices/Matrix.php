@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -252,7 +253,7 @@ class Matrix {
 	public function sum(): int {
 		for ($s = 0, $r = 0; $r < $this->getRows(); $r++) {
 			for ($c = 0; $c < $this->getCols(); $c++) {
-				$s += $this->matrix[$r][$c];
+				$s += (int)$this->matrix[$r][$c];
 			}
 		}
 		return $s;

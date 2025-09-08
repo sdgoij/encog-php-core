@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +27,7 @@ use SplFileObject;
 class EncogEGBFileTest extends TestCase {
 	public function testOpenFile() {
 		$this->markTestIncomplete("Return value for SplFileInfo::openFile() cannot be generated: The parent constructor was not called: the object is in an invalid state");
-		/** @var $file MockObject|SplFileInfo */
+		/** @var MockObject|SplFileInfo */
 		$file = $this->getMockBuilder(SplFileInfo::class)->disableOriginalConstructor()->getMock();
 		$file->expects($this->once())->method("openFile");
 		new EncogEGBFile($file);
@@ -62,7 +63,7 @@ class EncogEGBFileTest extends TestCase {
 		$this->expectExceptionMessage("Unable to truncate file.");
 		$this->expectException(BufferedDataError::class);
 
-		/** @var $file MockObject|SplFileInfo */
+		/** @var MockObject|SplFileInfo */
 		$file = $this->getMockBuilder(SplFileObject::class)->setConstructorArgs(["php://output"])->getMock();
 		$file->expects($this->once())->method('ftruncate')->willReturn(false);
 		(new EncogEGBFile($file))->create(1, 1);

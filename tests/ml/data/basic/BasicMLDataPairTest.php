@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -81,6 +82,7 @@ class BasicMLDataPairTest extends TestCase {
 	}
 
 	public function testCreateCentroid() {
+		/** @var MLData|MockObject */
 		$input = $this->createMock(BasicMLData::class);
 		$input->expects($this->once())
 			->method("clone");

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -81,8 +82,8 @@ class BasicNormalizationStrategyTest extends TestCase {
 		$strategy = new BasicNormalizationStrategy(0.0, 1.0, 0.0, 1.0);
 		$column = new ColumnDefinition("a", new ColumnType(ColumnType::continuous));
 		$column->setOwner(new NormalizationHelper());
-		$column->analyze(10.0);
-		$column->analyze(0.0);
+		$column->analyze("10.0");
+		$column->analyze("0.0");
 
 		$this->assertEquals(10.0, $column->getHigh());
 		$this->assertEquals(0.0, $column->getLow());

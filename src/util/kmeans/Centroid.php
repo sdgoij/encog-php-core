@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +19,7 @@ namespace encog\util\kmeans;
  * A centroid.
  */
 interface Centroid {
-	public function add($element);
-	public function remove($element);
-	public function distance($element): float;
+    public function add($element);
+    public function remove($element);
+    public function distance($element): float;
 }

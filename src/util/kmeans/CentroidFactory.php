@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,5 +19,5 @@ namespace encog\util\kmeans;
  * An object that can create centroids.
  */
 interface CentroidFactory {
-	public function createCentroid(): Centroid;
+    public function createCentroid(): Centroid;
 }

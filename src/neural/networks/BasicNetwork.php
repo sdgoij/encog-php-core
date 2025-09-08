@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -195,7 +196,7 @@ class BasicNetwork extends BasicML implements ContainsFlat, MLContext, MLRegress
 
 	public function reset(?int $seed = null) {
 		if ($seed !== null) {
-			(new ConsistentRandomizer(-1.0, 1.0, $seed))->randomize($this);
+			(new ConsistentRandomizer(-1, 1, $seed))->randomize($this);
 		} else {
 			$this->getRandomizer()->randomize($this);
 		}

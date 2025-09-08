@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +19,7 @@ use encog\mathutil\matrices\Matrix;
 use encog\mathutil\randomize\BasicRandomizer;
 use encog\mathutil\randomize\generate\AbstractBoxMuller;
 use encog\ml\MLEncodable;
+use encog\neural\networks\BasicNetwork;
 use encog\util\simple\EncogUtility;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -41,6 +43,7 @@ class BasicRandomizerTest extends TestCase {
 		/** @var BasicRandomizer|MockObject $randomizer */
 		$randomizer = $this->getMockForAbstractClass(BasicRandomizer::class);
 		{
+			/** @var BasicNetwork */
 			$network = EncogUtility::simpleFeedForward(2, 3, 3, 1, false);
 			$sorted = range(0, $network->encodedArrayLength() - 1);
 			$randomized = [];

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -65,7 +66,7 @@ class CSVFormat {
 	}
 
 	public function format(float $v, int $d): string {
-		return str_replace(".", $this->getDecimal(), round($v, $d));
+		return str_replace(".", $this->getDecimal(), "".round($v, $d));
 	}
 
 	public function parse(string $str): float {
