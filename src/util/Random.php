@@ -52,11 +52,10 @@ class Random {
 		return $this->seed >> (48 - $bits);
 	}
 
-	public function nextBytes(array &$bytes) {
+	public function nextBytes(array &$bytes): void {
 		foreach ($bytes as $k => $v) {
-			for ($rand = $this->nextInt(), $n = min(count($bytes)-$k, 4); $n--> 0; $rand >>= 8) {
-				$bytes[$k] = $rand % 256;
-			}
+			$rand = $this->nextInt(); // 32-bit random
+			$bytes[$k] = $rand % 256; // lowest byte
 		}
 	}
 
