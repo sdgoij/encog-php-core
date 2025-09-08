@@ -20,6 +20,7 @@ use encog\ml\data\MLDataError;
 use encog\ml\data\MLDataPair;
 use encog\ml\data\MLDataSet;
 use encog\util\arrayutil\NormalizeArray;
+use Iterator;
 use Throwable;
 
 class MNISTDataSet implements MLDataSet {
@@ -33,7 +34,7 @@ class MNISTDataSet implements MLDataSet {
 		$this->reader = clone $this->reader;
 	}
 
-	public function getIterator() {
+	public function getIterator(): Iterator {
 		for ($i = 0, $m = count($this->reader); $i < $m; $i++) {
 			try {
 				yield $this->get($i);

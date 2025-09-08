@@ -15,6 +15,7 @@
 namespace encog\util\data\mnist;
 
 use Countable;
+use Iterator;
 use IteratorAggregate;
 
 /**
@@ -89,14 +90,14 @@ class MNISTReader implements Countable, IteratorAggregate {
 		return $this->imageRecordSize;
 	}
 
-	public function getIterator() {
+	public function getIterator(): Iterator {
 		do {
 			yield $this->current();
 		} while ($this->next());
 		$this->index = 0;
 	}
 
-	public function count() {
+	public function count(): int {
 		return $this->size;
 	}
 
