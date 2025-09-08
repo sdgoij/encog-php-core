@@ -49,7 +49,7 @@ class Random {
 
 	protected function next(int $bits): int {
 		$this->seed = ((int)((int)($this->seed * self::MULTIPLIER) + self::ADDEND)) & self::MASK;
-		return Operator::urshift($this->seed, 48 - $bits);
+		return $this->seed >> (48 - $bits);
 	}
 
 	public function nextBytes(array &$bytes) {
