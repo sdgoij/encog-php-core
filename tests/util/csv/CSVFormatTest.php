@@ -46,6 +46,9 @@ class CSVFormatTest extends TestCase {
 	}
 
 	public function testGetDecimalCharacter() {
+		if (PHP_OS_FAMILY === 'Windows') {
+			$this->markTestSkipped('Locale test (currently) not supported on Windows');
+		}
 		$defaultLocale = setlocale(LC_NUMERIC, "0");
 
 		if (!@setlocale(LC_NUMERIC, "en_US")) {
