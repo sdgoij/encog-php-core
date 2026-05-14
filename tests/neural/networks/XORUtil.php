@@ -15,6 +15,7 @@ declare(strict_types=1);
  */
 namespace encog\test\neural\networks;
 
+use encog\EncogError;
 use encog\ml\data\basic\BasicMLData;
 use encog\ml\data\basic\BasicMLDataSet;
 use encog\ml\data\MLDataSet;
@@ -23,6 +24,7 @@ use encog\neural\networks\BasicNetwork;
 use encog\neural\networks\layers\BasicLayer;
 use encog\neural\networks\structure\NetworkCODEC;
 use encog\util\simple\EncogUtility;
+use TypeError;
 
 class XORUtil {
 	const INPUT = [[0.0,0.0],[1.0,0.0],[0.0,1.0],[1.0,1.0]];
@@ -47,6 +49,7 @@ class XORUtil {
 	public static function createTrainedNetwork(): BasicNetwork {
 		$weights = [25.427193285452972,-26.92000502099534,20.76598054603445,-12.921266548020219,-0.9223427050161919,-1.0588373209475093,-3.80109620509867,3.1764938777876837,80.98981535707951,-75.5552829139118,37.089976176012634,74.85166823997326,75.20561368661059,-37.18307123471437,-21.044949631177417,43.81815044327334,9.648991753485689];
 		$network = EncogUtility::simpleFeedForward(2, 4, 0, 1, false);
+		if (!$network instanceof BasicNetwork) throw new TypeError("expected BasicNetwork");
 		NetworkCODEC::arrayToNetwork($weights, $network);
 		return $network;
 	}
@@ -54,6 +57,7 @@ class XORUtil {
 	public static function createUnTrainedNetwork(): BasicNetwork {
 		$weights = [-0.427193285452972,0.92000502099534,-0.76598054603445,-0.921266548020219,-0.9223427050161919,-0.0588373209475093,-0.80109620509867,3.1764938777876837,0.98981535707951,-0.5552829139118,0.089976176012634,0.85166823997326,0.20561368661059,0.18307123471437,0.044949631177417,0.81815044327334,0.648991753485689];
 		$network = EncogUtility::simpleFeedForward(2, 4, 0, 1, false);
+		if (!$network instanceof BasicNetwork) throw new TypeError("expected BasicNetwork");
 		NetworkCODEC::arrayToNetwork($weights, $network);
 		return $network;
 	}

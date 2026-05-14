@@ -111,6 +111,7 @@ class RandomTest extends TestCase {
 			$this->assertTrue($f >= 0 && $f < $bound);
 			$i = $j = 0;
 			while ($i < self::NCALLS && ($j = $r->nextInt($bound)) == $f) {
+				// @phpstan-ignore greaterOrEqual.alwaysTrue
 				$this->assertTrue($j >= 0 && $j < $bound);
 				$i++;
 			}

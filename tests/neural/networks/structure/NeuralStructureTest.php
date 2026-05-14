@@ -85,6 +85,7 @@ class NeuralStructureTest extends TestCase {
 		$structure->addLayer(BasicLayer::create(1));
 		$structure->finalizeStructure();
 		$this->assertCount(0, $structure->getLayers());
+		// @phpstan-ignore method.alreadyNarrowedType
 		$this->assertNotNull($structure->getNetwork());
 
 		$this->expectException(NeuralNetworkError::class);
@@ -95,6 +96,7 @@ class NeuralStructureTest extends TestCase {
 	public function testRequireFlat() {
 		$structure = new NeuralStructure(new BasicNetwork());
 		$structure->setFlat(new FlatNetwork());
+		// @phpstan-ignore method.alreadyNarrowedType
 		$this->assertNotNull($structure->requireFlat());
 		$this->expectException(NeuralNetworkError::class);
 		$this->expectExceptionMessage("Must call finalizeStructure before using this network.");

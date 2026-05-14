@@ -67,7 +67,7 @@ class TemporalMLDataSet extends BasicMLDataSet {
 	private $inputNeuronCount = 0;
 	/** @var int */
 	private $outputNeuronCount = 0;
-	/** @var DateTimeInterface */
+	/** @var DateTimeInterface|null */
 	private $startingPoint;
 	/** @var TimeUnit */
 	private $sequenceGranularity;

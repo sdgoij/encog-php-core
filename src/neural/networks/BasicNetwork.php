@@ -241,6 +241,7 @@ class BasicNetwork extends BasicML implements ContainsFlat, MLContext, MLRegress
 		for ($i = 0; $i < $this->getLayerCount(); $i++) {
 			if ($i > 0) {
 				$result .= "->";
+				// @phpstan-ignore if.alwaysTrue
 				if ($af = $this->getActivation($i)) {
 					$result .= $af->getFactoryCode();
 					$result .= "->";

@@ -54,7 +54,6 @@ class TrainingContinuationTest extends TestCase {
 		$continuation = new TrainingContinuation();
 		$continuation->setTrainingType("abc");
 		$this->assertEquals("abc", $continuation->getTrainingType());
-		$this->expectException(TypeError::class);
-		(new TrainingContinuation())->getTrainingType();
+		$this->assertEquals((new TrainingContinuation())->getTrainingType(), "");
 	}
 }

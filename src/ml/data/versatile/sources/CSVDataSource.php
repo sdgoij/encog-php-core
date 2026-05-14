@@ -23,7 +23,7 @@ use encog\util\csv\CSVReader;
  * Allow a CSV file to serve as a source for the versatile data set.
  */
 class CSVDataSource implements VersatileDataSource {
-	/** @var CSVReader */
+	/** @var CSVReader|null */
 	private $reader;
 	/** @var string */
 	private $file;

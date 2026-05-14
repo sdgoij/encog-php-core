@@ -28,7 +28,7 @@ class EncogEGBFileTest extends TestCase {
 	public function testOpenFile() {
 		$this->markTestIncomplete("Return value for SplFileInfo::openFile() cannot be generated: The parent constructor was not called: the object is in an invalid state");
 		/** @var MockObject|SplFileInfo */
-		$file = $this->getMockBuilder(SplFileInfo::class)->disableOriginalConstructor()->getMock();
+		$file = $this->getMockBuilder(SplFileInfo::class)->disableOriginalConstructor()->getMock(); // @phpstan-ignore deadCode.unreachable
 		$file->expects($this->once())->method("openFile");
 		new EncogEGBFile($file);
 

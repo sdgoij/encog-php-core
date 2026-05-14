@@ -50,13 +50,11 @@ class VersatileMLDataSetTest extends TestCase {
 				["c", 2],
 			]);
 
-		/**
-		 * @var ColumnDefinition|MockObject $a
-		 * @var ColumnDefinition|MockObject $b
-		 * @var ColumnDefinition|MockObject $c
-		 */
+		/** @var ColumnDefinition|MockObject */
 		$a = $this->createMock(ColumnDefinition::class);
+		/** @var ColumnDefinition|MockObject */
 		$b = $this->createMock(ColumnDefinition::class);
+		/** @var ColumnDefinition|MockObject */
 		$c = $this->createMock(ColumnDefinition::class);
 
 		$a->expects($this->exactly(2))

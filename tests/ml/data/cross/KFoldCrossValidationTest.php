@@ -32,6 +32,7 @@ class KFoldCrossValidationTest extends TestCase {
 		$random = new LinearCongruentialRandom();
 		$KFold->setRandom($random);
 
+		// @phpstan-ignore identical.alwaysFalse
 		$this->assertTrue($random === $KFold->getRandom());
 		$this->assertFalse($KFold === clone $KFold);
 	}

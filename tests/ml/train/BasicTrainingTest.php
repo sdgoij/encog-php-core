@@ -31,11 +31,13 @@ class BasicTrainingTest extends TestCase {
 		$OnePass = new TrainingImplementationType(TrainingImplementationType::OnePass);
 		$Null = new TrainingImplementationType(null);
 
-		/** @var BasicTraining[]|MockObject[] $trainers[] */
-		$trainers[] = $this->getMockForAbstractClass(BasicTraining::class, [$Background]);
-		$trainers[] = $this->getMockForAbstractClass(BasicTraining::class, [$Iterative]);
-		$trainers[] = $this->getMockForAbstractClass(BasicTraining::class, [$OnePass]);
-		$trainers[] = $this->getMockForAbstractClass(BasicTraining::class, [$Null]);
+		/** @var BasicTraining[]|MockObject[] */
+		$trainers = [
+			$this->getMockForAbstractClass(BasicTraining::class, [$Background]),
+			$this->getMockForAbstractClass(BasicTraining::class, [$Iterative]),
+			$this->getMockForAbstractClass(BasicTraining::class, [$OnePass]),
+			$this->getMockForAbstractClass(BasicTraining::class, [$Null]),
+		];
 
 		$this->assertEquals($Background, $trainers[0]->getTrainingImplementationType());
 		$this->assertEquals($Iterative, $trainers[1]->getTrainingImplementationType());
@@ -45,9 +47,11 @@ class BasicTrainingTest extends TestCase {
 
 	public function testAddStrategy() {
 		/** @var Strategy[]|MockObject[] $strategies */
-		$strategies[] = $this->createMock(Strategy::class);
-		$strategies[] = $this->createMock(Strategy::class);
-		$strategies[] = $this->createMock(Strategy::class);
+		$strategies = [
+			$this->createMock(Strategy::class),
+			$this->createMock(Strategy::class),
+			$this->createMock(Strategy::class),
+		];
 
 		/** @var BasicTraining|MockObject $trainer */
 		$trainer = $this->getMockForAbstractClass(BasicTraining::class);
@@ -71,10 +75,12 @@ class BasicTrainingTest extends TestCase {
 
 	public function testIsTrainingDone() {
 		/** @var Strategy[]|MockObject[] $strategies */
-		$strategies[] = $this->createMock(Strategy::class);
-		$strategies[] = $this->createMock(EndTraining::class);
-		$strategies[] = $this->createMock(EndTraining::class);
-		$strategies[] = $this->createMock(EndTraining::class);
+		$strategies = [
+			$this->createMock(Strategy::class),
+			$this->createMock(EndTraining::class),
+			$this->createMock(EndTraining::class),
+			$this->createMock(EndTraining::class),
+		];
 
 		/** @var BasicTraining|MockObject $trainer */
 		$trainer = $this->getMockForAbstractClass(BasicTraining::class);
@@ -127,8 +133,8 @@ class BasicTrainingTest extends TestCase {
 class DummyTraining extends BasicTraining {
 	protected function doIteration() {}
 	public function canContinue(): bool { return $this->canContinue; }
-	public function pause(): TrainingContinuation { return null; }
+	public function pause(): TrainingContinuation { return new TrainingContinuation; }
 	public function resume(TrainingContinuation $state) {}
-	public function getMethod(): MLMethod { return null; }
+	public function getMethod(): MLMethod { return new class implements MLMethod {}; }
 	public $canContinue = true;
 }

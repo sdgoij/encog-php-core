@@ -26,6 +26,7 @@ use encog\EncogError;
  * Read and parse CSV format files.
  */
 class CSVReader {
+    // @phpstan-ignore property.unusedType
 	private $format;
 	private $reader;
 	private $columns = [];
@@ -45,7 +46,7 @@ class CSVReader {
 		return new static(@fopen($filename, 'r'), $headers, $format);
 	}
 
-	public function __construct($reader, bool $headers, CSVFormat|string $format) {
+	final public function __construct($reader, bool $headers, CSVFormat|string $format) {
 		if (!$reader || !is_resource($reader)) {
 			throw new InvalidArgumentException("\$reader is not a valid stream resource.");
 		}

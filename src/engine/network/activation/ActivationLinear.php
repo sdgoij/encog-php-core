@@ -26,6 +26,7 @@ use SplFixedArray;
  * function that scales between 0 and 1 or -1 and 1 should be used.
  */
 class ActivationLinear implements ActivationFunction {
+    final public function __construct() {}
 	public function activationFunction(SplFixedArray $values, int $start, int $size) {}
 	public function derivativeFunction(float $b, float $a): float { return 1.0; }
 	public function hasDerivative(): bool { return true; }

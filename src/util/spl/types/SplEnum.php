@@ -18,8 +18,10 @@ namespace encog\util\spl\types;
 if (!extension_loaded("spl_types")) {
 	abstract class SplEnum extends SplType {
 		public function getConstList(bool $includeDefault = false): array {
+			return [];
 		}
 	}
 } else {
+	/** @disregard Undefined type 'SplEnum' */
 	abstract class SplEnum extends \SplEnum {}
 }

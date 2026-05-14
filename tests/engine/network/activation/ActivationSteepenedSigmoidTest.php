@@ -61,6 +61,7 @@ class ActivationSteepenedSigmoidTest extends TestCase {
 
 	public function testParams() {
 		$activation = new ActivationSteepenedSigmoid();
+		// @phpstan-ignore method.resultUnused
 		$activation->setParam(0, 1);
 
 		$this->assertEquals([], $activation->getParamNames());

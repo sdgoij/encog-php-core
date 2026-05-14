@@ -28,7 +28,7 @@ class RBF1d implements Func {
 		return new static($rbf);
 	}
 
-	public function __construct(RadialBasisFunction $rbf) {
+	final public function __construct(RadialBasisFunction $rbf) {
 		$this->rbf = $rbf;
 	}
 

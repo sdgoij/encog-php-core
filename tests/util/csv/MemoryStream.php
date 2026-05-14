@@ -84,7 +84,7 @@ final class MemoryStream {
 	public function stream_write(string $data): int {
 		$length = strlen($data);
 		$left = substr($this->data, 0, $this->position);
-		$right = substr($this->data, $this->position+$length) ?? "";
+		$right = substr($this->data, $this->position+$length);
 		$this->data = $left . $data . $right;
 		$this->position += $length;
 		return $length;

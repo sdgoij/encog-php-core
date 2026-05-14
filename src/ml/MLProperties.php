@@ -23,6 +23,6 @@ interface MLProperties extends MLMethod {
 	public function getPropertyDouble(string $name): float;
 	public function getPropertyLong(string $name): int;
 	public function getPropertyString(string $name): string;
-	public function setProperty(string $name, $value);
+	public function setProperty(string $name, mixed $value);
 	public function updateProperties();
 }

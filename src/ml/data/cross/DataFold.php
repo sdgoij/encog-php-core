@@ -25,7 +25,7 @@ class DataFold {
 	private $validation;
 	/** @var MLMethod */
 	private $method;
-	/** @var float */
+	/** @var float|null */
 	private $score;
 
 	public function __construct(MatrixMLDataSet $training, MatrixMLDataSet $validation) {

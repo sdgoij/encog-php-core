@@ -44,6 +44,8 @@ abstract class BasicRBF implements RadialBasisFunction {
 		return $rbf;
 	}
 
+	final public function __construct() {}
+
 	public function &getCenters(): array {
 		return $this->centers;
 	}

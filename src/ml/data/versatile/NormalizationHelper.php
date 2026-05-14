@@ -38,7 +38,7 @@ class NormalizationHelper {
 	private $outputColumns = [];
 	/** @var NormalizationStrategy */
 	private $normStrategy;
-	/** @var CSVFormat */
+	/** @var CSVFormat|null */
 	private $format;
 	/** @var string[] */
 	private $unknownValues = [];

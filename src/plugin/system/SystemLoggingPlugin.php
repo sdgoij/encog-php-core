@@ -84,7 +84,4 @@ class SystemLoggingPlugin implements EncogPluginLogging1 {
 
 	/** @var int */
 	private $currentLevel = EncogLogging::LEVEL_DISABLE;
-
-	/** @var bool */
-	private $logConsole = false;
 }

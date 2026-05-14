@@ -420,7 +420,8 @@ class BasicNetworkTest extends TestCase {
 		$network->reset();
 
 		$flat = $network->getFlat();
-		$this->assertNotNull($flat);
+		// @phpstan-ignore method.alreadyNarrowedType
+		$this->assertNotNull($flat); 
 
 		$output = $flat->getLayerOutput();
 		$this->assertEquals(-1.0, $output[5]);
@@ -439,6 +440,7 @@ class BasicNetworkTest extends TestCase {
 		$network->setLayerBiasActivation(1, -1);
 
 		$flat = $network->getFlat();
+		// @phpstan-ignore method.alreadyNarrowedType
 		$this->assertNotNull($flat);
 
 		$output = $flat->getLayerOutput();

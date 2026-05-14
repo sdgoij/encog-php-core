@@ -59,6 +59,7 @@ class NormalizedFieldTest extends TestCase {
 		$this->assertEquals(0, $field->lookup("a"));
 		$this->assertEquals(1, $field->lookup("b"));
 		$this->assertEquals(2, $field->lookup("c"));
+		// @phpstan-ignore method.alreadyNarrowedType
 		$this->assertNotNull($field->getEq());
 
 		try {
@@ -76,6 +77,7 @@ class NormalizedFieldTest extends TestCase {
 			$this->assertEquals(0, $field->lookup("a"));
 			$this->assertEquals(1, $field->lookup("b"));
 			$this->assertEquals(2, $field->lookup("c"));
+			// @phpstan-ignore method.impossibleType
 			$this->assertNull($field->getEq());
 		} catch (TypeError $e) {
 			$this->assertStringMatchesFormat(
@@ -161,7 +163,7 @@ class NormalizedFieldTest extends TestCase {
 
 	public function testRoundTrip() {
 		$this->markTestSkipped("Failed asserting that 0.8999999999999999 matches expected 0.9");
-		$field = new NormalizedField(1.0, 0.0, 10.0, 0.0);
+		$field = new NormalizedField(1.0, 0.0, 10.0, 0.0); // @phpstan-ignore deadCode.unreachable
 		foreach (range(0.0, 10.0, 0.1) as $value) {
 			$this->assertEquals($value, $field->denormalize($field->normalize($value)));
 		}
@@ -187,6 +189,7 @@ class NormalizedFieldTest extends TestCase {
 		$this->assertSame($eq, $field->getEq());
 
 		$this->expectException(TypeError::class);
+		// @phpstan-ignore method.resultUnused
 		(new NormalizedField(1.0, 0.0))->getEq();
 	}
 }

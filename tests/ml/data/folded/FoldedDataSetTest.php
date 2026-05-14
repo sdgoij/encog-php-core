@@ -36,6 +36,7 @@ class FoldedDataSetTest extends TestCase {
 		$this->expectExceptionMessage("Cannot fold empty dataset.");
 		$this->expectException(MLDataError::class);
 
+		// @phpstan-ignore method.resultUnused
 		(new FoldedDataSet(new BasicMLDataSet()))->getDataSet();
 	}
 

@@ -28,6 +28,7 @@ class ActivationLinearTest extends TestCase {
 
 	public function testActivationFunction() {
 		$data = SplFixedArray::fromArray([-1.0, 0.0, 1.0, 42, M_PI, M_2_SQRTPI, M_E]);
+		// @phpstan-ignore method.resultUnused
 		(new ActivationLinear())->activationFunction($data, 0, count($data));
 		$this->assertEquals(-1, $data[0]);
 		$this->assertEquals(0, $data[1]);
@@ -60,6 +61,7 @@ class ActivationLinearTest extends TestCase {
 
 	public function testParams() {
 		$tanh = new ActivationLinear();
+		// @phpstan-ignore method.resultUnused
 		$tanh->setParam(0, 1);
 
 		$this->assertEquals([], $tanh->getParamNames());

@@ -44,11 +44,13 @@ class MatrixMLDataSet implements MLDataSet {
 	private $calculatedIdealSize = -1;
 	private $lagWindowSize = 0;
 	private $leadWindowSize = 0;
-	private $data = null;
-	private $mask = null;
+	/** @var array */
+	private $data;
+	/** @var array|null */
+	private $mask;
 
 	public static function createFromArray(array $data, int $input, int $ideal, ?array $mask = null): MatrixMLDataSet {
-		$dataset = new static();
+		$dataset = new self();
 		$dataset->calculatedInputSize = $input;
 		$dataset->calculatedIdealSize = $ideal;
 		$dataset->data = $data;
@@ -57,7 +59,7 @@ class MatrixMLDataSet implements MLDataSet {
 	}
 
 	public static function createFromMatrixMLDataSet(MatrixMLDataSet $data, ?array $mask = null): MatrixMLDataSet {
-		$dataset = new static();
+		$dataset = new self();
 		$dataset->calculatedInputSize = $data->getCalculatedInputSize();
 		$dataset->calculatedIdealSize = $data->getCalculatedIdealSize();
 		$dataset->data = $data->getData();

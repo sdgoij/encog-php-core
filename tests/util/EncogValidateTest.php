@@ -29,6 +29,7 @@ class EncogValidateTest extends TestCase {
 			XORUtil::createThreeLayerNetwork(),
 			XORUtil::createDataSet()
 		);
+		// @phpstan-ignore method.alreadyNarrowedType
 		$this->assertTrue(true);
 	}
 

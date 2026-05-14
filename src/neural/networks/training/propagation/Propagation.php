@@ -44,7 +44,7 @@ abstract class Propagation extends BasicTraining implements MLTrain, BatchSize,
 	/** @var Random */
 	protected $dropoutRandomSource;
 
-	/** @var float */
+	/** @var float|null */
 	private $dropoutRate;
 
 	/** @var FlatNetwork */
@@ -130,6 +130,7 @@ abstract class Propagation extends BasicTraining implements MLTrain, BatchSize,
 			}
 			$this->finalized = true;
 		}
+		// @phpstan-ignore staticMethod.resultUnused
 		parent::finishTraining();
 	}
 

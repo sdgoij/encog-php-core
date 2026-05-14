@@ -41,7 +41,7 @@ class MersenneTwisterGenerateRandom extends AbstractBoxMuller {
 	const M                = 397;
 	const N                = 624;
 
-	/** @var int[2] */
+	/** @var int[] */
 	private $mag01 = [];
 
 	/** @var int */
@@ -50,7 +50,7 @@ class MersenneTwisterGenerateRandom extends AbstractBoxMuller {
 	/** @var SplFixedArray */
 	private $sv;
 
-	/** @param int|int[] $seed */
+	/** @param int|int[]|mixed $seed */
 	public function __construct($seed = null) {
 		if ($seed === null) {
 			$seed = time();

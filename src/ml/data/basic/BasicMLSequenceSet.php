@@ -157,7 +157,7 @@ class BasicMLSequenceSet implements MLSequenceSet {
 		return $it;
 	}
 
-	private function __construct() {
+	final private function __construct() {
 	}
 
 	/** @var MLDataSet[] */

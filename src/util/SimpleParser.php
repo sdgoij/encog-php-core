@@ -66,6 +66,7 @@ class SimpleParser {
 		return "";
 	}
 
+	/** @phpstan-impure */
 	public function advance() {
 		if ($this->position < strlen($this->line)) {
 			$this->position++;
@@ -84,10 +85,12 @@ class SimpleParser {
 		return $this->position >= strlen($this->line);
 	}
 
+	/** @phpstan-impure */
 	public function eatWhiteSpace() {
 		while (!$this->eol() && $this->isWhiteSpace()) $this->advance();
 	}
 
+	/** @phpstan-impure */
 	public function readChar(): string {
 		$char = "";
 		if (!$this->eol()) {

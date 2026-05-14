@@ -109,7 +109,7 @@ class FlatNetwork {
 		return $network;
 	}
 
-	public function __construct(int $input = 0, int $hidden1 = 0, int $hidden2 = 0, int $output = 0, bool $tanh = false) {
+	final public function __construct(int $input = 0, int $hidden1 = 0, int $hidden2 = 0, int $output = 0, bool $tanh = false) {
 		$activation = $tanh ? new ActivationTANH() : new ActivationSigmoid();
 		$linear = new ActivationLinear();
 		$this->connectionLimit = 0.0;

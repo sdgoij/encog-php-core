@@ -70,9 +70,7 @@ class BiPolarMLData implements MLData {
 	}
 
 	public function setData(SplFixedArray $values) {
-		$this->data = SplFixedArray::fromArray(
-			BiPolarUtil::fromDoubleArray($values->toArray())
-		);
+		$this->data = BiPolarUtil::fromDoubleArray($values->toArray());
 	}
 
 	public function setDataAt(int $index, float $value) {

@@ -111,6 +111,6 @@ class SystemActivationPlugin implements EncogPluginService1 {
 		throw new EncogPluginError();
 	}
 
-	/** @var string[] */
+	/** @var array<string, string|null> */
 	private $classes = [];
 }

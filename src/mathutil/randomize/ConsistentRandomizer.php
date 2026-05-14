@@ -24,7 +24,6 @@ class ConsistentRandomizer extends BasicRandomizer {
 	public function __construct(int $min, int $max, ?int $seed = null) {
 		parent::__construct();
 		$this->random = new LinearCongruentialRandom($seed ?? 1000);
-		$this->seed = $seed;
 		$this->min = $min;
 		$this->max = $max;
 	}
@@ -33,7 +32,6 @@ class ConsistentRandomizer extends BasicRandomizer {
 		return $this->random->nextDouble($this->max, $this->min);
 	}
 
-	private $seed;
-	private $min;
-	private $max;
+	private int $min;
+	private int $max;
 }

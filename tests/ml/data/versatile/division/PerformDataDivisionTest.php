@@ -26,9 +26,8 @@ class PerformDataDivisionTest extends TestCase {
 		$dataset = MatrixMLDataSet::createFromArray([[1,2],[3,4],[5,6],[7,8],[9,0]], 1, 1);
 		$divider = new PerformDataDivision(false, new LinearCongruentialRandom(1));
 
-		/** @var DataDivision[] $divisions */
-		$divisions[] = new DataDivision(0.5);
-		$divisions[] = new DataDivision(0.5);
+		/** @var DataDivision[] */
+		$divisions = [new DataDivision(0.5), new DataDivision(0.5)];
 
 		$this->assertInstanceOf(LinearCongruentialRandom::class, $divider->getRandom());
 		$this->assertFalse($divider->isShuffle());
@@ -57,9 +56,8 @@ class PerformDataDivisionTest extends TestCase {
 		$dataset = MatrixMLDataSet::createFromArray([[1,2],[3,4],[5,6],[7,8]], 1, 1);
 		$divider = new PerformDataDivision(true, new LinearCongruentialRandom(1));
 
-		/** @var DataDivision[] $divisions */
-		$divisions[] = new DataDivision(0.5);
-		$divisions[] = new DataDivision(0.5);
+		/** @var DataDivision[] */
+		$divisions = [new DataDivision(0.5), new DataDivision(0.5)];
 
 		$this->assertInstanceOf(LinearCongruentialRandom::class, $divider->getRandom());
 		$this->assertTrue($divider->isShuffle());

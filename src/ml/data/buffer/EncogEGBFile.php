@@ -175,7 +175,7 @@ class EncogEGBFile {
 		return $size;
 	}
 
-	/** @var SplFileObject */
+	/** @var SplFileObject|null */
 	private $file;
 
 	/** @var int */

@@ -143,9 +143,7 @@ class BasicTrainSOM extends BasicTraining implements LearningRate {
 	) {
 		$this->autoDecayRadius = ($endRadius - $startRadius) / $plannedIterations;
 		$this->autoDecayRate = ($endRate - $startRate) / $plannedIterations;
-		$this->startRadius = $startRadius;
 		$this->endRadius = $endRadius;
-		$this->startRate = $startRate;
 		$this->endRate = $endRate;
 
 		$this->setParams($startRate, $startRadius);
@@ -264,10 +262,10 @@ class BasicTrainSOM extends BasicTraining implements LearningRate {
 	private $autoDecayRate = 0.0, $autoDecayRadius = 0.0;
 
 	/** @var float */
-	private $startRate, $endRate;
+	private $endRate;
 
 	/** @var float */
-	private $startRadius, $endRadius;
+	private $endRadius;
 
 	/** @var float */
 	private $learningRate;

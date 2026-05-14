@@ -19,6 +19,7 @@ use encog\ml\data\basic\BasicMLDataPair;
 use encog\ml\data\MLDataPair;
 use encog\ml\data\MLDataSet;
 use Iterator;
+use Traversable;
 
 /**
  * A CODEC that works with the MLDataSet class.
@@ -26,10 +27,10 @@ use Iterator;
 class MLDataSetCODEC implements DataSetCODEC {
 	/** @var MLDataSet */
 	private $data;
-	/** @var Iterator */
+	/** @var Iterator|null */
 	private $iterator;
-	private $input;
-	private $ideal;
+	private int $input;
+	private int $ideal;
 
 	public function __construct(MLDataSet $data) {
 		$this->input = $data->getInputSize();
@@ -64,6 +65,7 @@ class MLDataSetCODEC implements DataSetCODEC {
 	}
 
 	public function prepareRead() {
+		// @phpstan-ignore assign.propertyType
 		$this->iterator = $this->data->getIterator();
 	}
 

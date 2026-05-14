@@ -25,6 +25,7 @@ use encog\util\kmeans\Centroid;
  */
 class BasicMLDataCentroid implements Centroid {
 	public function __construct(BasicMLData $value) {
+		// @phpstan-ignore assign.propertyType
 		$this->value = $value->clone();
 		$this->size = 1;
 	}
@@ -33,7 +34,7 @@ class BasicMLDataCentroid implements Centroid {
 		$this->value = clone $this->value;
 	}
 
-	public function add($element) {
+	public function add(mixed $element) {
 		if (!$element instanceof MLData) {
 			throw new InvalidArgumentException();
 		}
@@ -44,7 +45,7 @@ class BasicMLDataCentroid implements Centroid {
 		$this->size++;
 	}
 
-	public function remove($element) {
+	public function remove(mixed $element) {
 		if (!$element instanceof MLData) {
 			throw new InvalidArgumentException();
 		}
@@ -55,7 +56,7 @@ class BasicMLDataCentroid implements Centroid {
 		$this->size--;
 	}
 
-	public function distance($element): float {
+	public function distance(mixed $element): float {
 		if (!$element instanceof MLData) {
 			throw new InvalidArgumentException();
 		}

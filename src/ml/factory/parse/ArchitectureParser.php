@@ -119,7 +119,7 @@ final class ArchitectureParser {
 			if ($parser->peek() == "\"") {
 				if ($quoted) {
 					$parser->advance();
-					if ($parser->peek() == "\"") {
+					if ($parser->peek() === "\"") {
 						$result .= $parser->readChar();
 					} else {
 						break;

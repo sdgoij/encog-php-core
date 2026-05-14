@@ -35,11 +35,11 @@ class CSVDataCODEC implements DataSetCODEC {
 	private $ideal = -1;
 	private $headers = false;
 	private $significance = false;
-	/** @var CSVReader */
+	/** @var CSVReader|null */
 	private $reader;
 	private $writer;
 
-	public function __construct() {
+	final public function __construct() {
 		$this->format = CSVFormat::English();
 	}
 

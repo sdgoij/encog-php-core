@@ -17,12 +17,15 @@ namespace encog\util\spl\types;
 
 if (!extension_loaded("spl_types")) {
 	abstract class SplType {
+	    // @phpstan-ignore constructor.unusedParameter
 		public function __construct($value, bool $strict = false) {
 			$this->value = $value;
 		}
 		const __default = null;
+		// @phpstan-ignore property.onlyWritten
 		private $value;
 	}
 } else {
+    /** @disregard Undefined type 'SplEnum' */
 	abstract class SplType extends \SplType {}
 }

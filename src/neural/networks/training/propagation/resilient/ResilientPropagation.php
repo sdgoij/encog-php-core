@@ -15,7 +15,6 @@ declare(strict_types=1);
  */
 namespace encog\neural\networks\training\propagation\resilient;
 
-use encog\mathutil\EncogMath;
 use encog\ml\data\MLDataSet;
 use encog\neural\networks\ContainsFlat;
 use encog\neural\networks\training\propagation\Propagation;
@@ -69,8 +68,6 @@ class ResilientPropagation extends Propagation {
 	/** @var SplFixedArray */
 	private $lastDelta;
 	/** @var float */
-	private $zeroTolerance;
-	/** @var float */
 	private $maxStep;
 	/** @var RPROPType */
 	private $type;
@@ -88,7 +85,6 @@ class ResilientPropagation extends Propagation {
 		$this->lastDelta = new SplFixedArray($numWeights);
 		$this->lastWeightChange = new SplFixedArray($numWeights);
 		$this->updateValues = new SplFixedArray($numWeights);
-		$this->zeroTolerance = RPROPConst::DEFAULT_ZERO_TOLERANCE;
 		$this->maxStep = $maxStep;
 
 		foreach ($this->updateValues as $key => $value) {
@@ -161,8 +157,8 @@ class ResilientPropagation extends Propagation {
 			throw new TrainingError("Unknown RPROP type: {$this->type}");
 		} while (0);
 
-		$this->lastWeightChange[$index] = $weight;
-		return $weight;
+		// @phpstan-ignore variable.undefined
+		return $this->lastWeightChange[$index] = $weight;
 	}
 
 	public function updateWeightPlus(array $gradients, array &$lastGradient, int $index): float {
@@ -179,7 +175,7 @@ class ResilientPropagation extends Propagation {
 			$this->updateValues[$index] = $delta;
 			$weight = -$this->lastWeightChange[$index];
 			$lastGradient[$index] = 0.0;
-		} else if ($change == 0) {
+		} else {
 			$weight = ($gradients[$index] <=> 0) * $this->updateValues[$index];
 			$lastGradient[$index] = $gradients[$index];
 		}
@@ -212,7 +208,7 @@ class ResilientPropagation extends Propagation {
 				$weight = -$this->lastWeightChange[$index];
 			}
 			$lastGradient[$index] = 0.0;
-		} else if ($change == 0) {
+		} else {
 			$weight = ($gradients[$index] <=> 0) * $this->updateValues[$index];
 			$lastGradient[$index] = $gradients[$index];
 		}
@@ -247,7 +243,7 @@ class ResilientPropagation extends Propagation {
 			$this->updateValues[$index] = $delta;
 			$weight = -$this->lastWeightChange[$index];
 			$lastGradient[$index] = 0.0;
-		} else if ($change == 0) {
+		} else {
 			$weight = ($gradients[$index] <=> 0) * $delta;
 			$lastGradient[$index] = $gradients[$index];
 		}
@@ -274,6 +270,6 @@ class ResilientPropagation extends Propagation {
 	}
 
 	public function setUpdateValues(array $values) {
-		$this->updateValues = $values;
+		$this->updateValues = SplFixedArray::fromArray($values);
 	}
 }

@@ -1,0 +1,13 @@
+parameters:
+    level: 5
+    paths:
+        - src
+        - tests
+    #reportMaybes: true
+    inferPrivatePropertyTypeFromConstructor: true
+    treatPhpDocTypesAsCertain: false
+    excludePaths:
+        - tests\ml\data\folded\FoldedDataSetTest.php
+    ignoreErrors:
+        -
+            identifier: varTag.nativeType

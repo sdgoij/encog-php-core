@@ -62,6 +62,7 @@ class ActivationTANHTest extends TestCase {
 
 	public function testParams() {
 		$tanh = new ActivationTANH();
+		// @phpstan-ignore method.resultUnused
 		$tanh->setParam(0, 1);
 
 		$this->assertEquals([], $tanh->getParamNames());

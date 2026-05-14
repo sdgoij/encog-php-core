@@ -33,7 +33,7 @@ use SplFixedArray;
  * real-number portion of the complex number.
  */
 class BasicMLComplexData implements MLComplexData {
-	public function __construct($data) {
+	final public function __construct(mixed $data) {
 		if (is_array($data) || $data instanceof SplFixedArray && count($data)) {
 			foreach ($data as $k => $v) {
 				if (!$v instanceof ComplexNumber) {

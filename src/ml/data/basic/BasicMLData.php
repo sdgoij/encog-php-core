@@ -27,7 +27,7 @@ use SplFixedArray;
  * Basic implementation of the MLData interface that stores the data in an array.
  */
 class BasicMLData implements Countable, MLData {
-	public function __construct($data = null) {
+	final public function __construct($data = null) {
 		if (is_int($data)) {
 			$data = new SplFixedArray($data);
 		}

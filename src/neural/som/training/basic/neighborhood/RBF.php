@@ -51,7 +51,7 @@ class RBF implements Func {
 		return $rbf;
 	}
 
-	public function __construct(RBFType $type, array $size) {
+	final public function __construct(RBFType $type, array $size) {
 		$this->rbf = self::fromType($type, count($size));
 		$this->size = $size;
 		$this->calculateDisplacement();

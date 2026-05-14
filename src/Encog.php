@@ -73,7 +73,7 @@ final class Encog {
 	 */
 	const DEFAULT_DOUBLE_EQUAL = 0.0000000000001;
 
-	/** @var Encog */
+	/** @var Encog|null */
 	private static $instance;
 
 	/** @var RandomFactory */
@@ -82,11 +82,8 @@ final class Encog {
 	/** @var EncogPluginBase[] */
 	private $plugins;
 
-	/** @var EncogPluginLogging1 */
+	/** @var EncogPluginBase */
 	private $loggingPlugin;
-
-	/** @var array */
-	private $properties = [];
 
 	/** @var EncogShutdownTask[] */
 	private $shutdownTasks = [];
@@ -99,10 +96,6 @@ final class Encog {
 		$this->registerPlugin(new SystemLoggingPlugin());
 		$this->registerPlugin(new SystemActivationPlugin());
 		$this->registerPlugin(new SystemMethodsPlugin());
-		$this->properties = [
-			self::ENCOG_FILE_VERSION => self::FILE_VERSION,
-			self::ENCOG_VERSION => self::VERSION,
-		];
 	}
 
 	public static function getInstance(): Encog {
@@ -149,6 +142,9 @@ final class Encog {
 	}
 
 	public function getLoggingPlugin(): EncogPluginLogging1 {
+		if (!$this->loggingPlugin instanceof EncogPluginLogging1) {
+			throw new EncogError("this should not happen!");
+		}
 		return $this->loggingPlugin;
 	}
 

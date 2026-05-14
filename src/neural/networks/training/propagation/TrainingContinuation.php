@@ -21,7 +21,8 @@ class TrainingContinuation {
 	public function getContents(): array {
 		return $this->contents;
 	}
-	public function get(string $name) {
+	/** @throws InvalidArgumentException */
+	public function get(string $name): mixed {
 		if (!isset($this->contents[$name])) {
 			throw new InvalidArgumentException("Object '$name' not found.");
 		}
@@ -30,7 +31,7 @@ class TrainingContinuation {
 	public function put(string $index, array $list) {
 		$this->contents[$index] = $list;
 	}
-	public function set(string $index, $object) {
+	public function set(string $index, mixed $object) {
 		$this->contents[$index] = $object;
 	}
 	public function getTrainingType(): string {
@@ -39,6 +40,6 @@ class TrainingContinuation {
 	public function setTrainingType(string $type) {
 		$this->type = $type;
 	}
-	private $contents;
-	private $type;
+	private $contents = [];
+	private $type = "";
 }

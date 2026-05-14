@@ -31,7 +31,7 @@ use SplFixedArray;
  * ideal property should contain null.
  */
 class BasicMLDataPair implements MLDataPair {
-	public function __construct(MLData $input, ?MLData $ideal = null) {
+	final public function __construct(MLData $input, ?MLData $ideal = null) {
 		$this->input = $input;
 		$this->ideal = $ideal;
 	}
@@ -39,7 +39,9 @@ class BasicMLDataPair implements MLDataPair {
 	public function __toString() {
 		return sprintf("[%s:Input:%s,Ideal:%s,Significance:%f]",
 				__CLASS__,
+				// @phpstan-ignore argument.type
 				$this->getInput(),
+				// @phpstan-ignore argument.type
 				$this->getIdeal(),
 				$this->getSignificance()
 		);
@@ -107,6 +109,6 @@ class BasicMLDataPair implements MLDataPair {
 	/** @var MLData */
 	private $input;
 
-	/** @var MLData */
+	/** @var MLData|null */
 	private $ideal;
 }

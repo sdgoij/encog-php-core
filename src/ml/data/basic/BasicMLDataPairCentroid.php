@@ -23,10 +23,11 @@ use encog\util\kmeans\Centroid;
  */
 class BasicMLDataPairCentroid implements Centroid {
 	public function __construct(BasicMLDataPair $pair) {
+		// @phpstan-ignore assign.propertyType
 		$this->value = $pair->getInput()->clone();
 	}
 
-	public function add($element) {
+	public function add(mixed $element) {
 		if (!$element instanceof BasicMLDataPair) {
 			throw new InvalidArgumentException();
 		}
@@ -37,7 +38,7 @@ class BasicMLDataPairCentroid implements Centroid {
 		}
 	}
 
-	public function remove($element) {
+	public function remove(mixed $element) {
 		if (!$element instanceof BasicMLDataPair) {
 			throw new InvalidArgumentException();
 		}
@@ -48,7 +49,7 @@ class BasicMLDataPairCentroid implements Centroid {
 		}
 	}
 
-	public function distance($element): float {
+	public function distance(mixed $element): float {
 		if (!$element instanceof BasicMLDataPair) {
 			throw new InvalidArgumentException();
 		}

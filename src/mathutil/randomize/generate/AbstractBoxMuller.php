@@ -25,7 +25,7 @@ abstract class AbstractBoxMuller extends AbstractGenerateRandom {
 	/** @var bool */
 	private $useLast = false;
 
-	/** @var int */
+	/** @var float */
 	private $y2;
 
 	public function nextGaussian(): float {

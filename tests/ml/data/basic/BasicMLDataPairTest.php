@@ -34,6 +34,7 @@ class BasicMLDataPairTest extends TestCase {
 			BasicMLData::class,
 			BasicMLData::class,
 			1.0);
+		// @phpstan-ignore cast.string
 		$this->assertEquals($expect, (string)BasicMLDataPair::createPair(2,1));
 	}
 

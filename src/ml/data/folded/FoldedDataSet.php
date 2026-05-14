@@ -48,7 +48,7 @@ class FoldedDataSet implements MLDataSet {
 	/** @var FoldedDataSet */
 	private $owner;
 
-	public function __construct(MLDataSet $dataset, int $folds = 1) {
+	final public function __construct(MLDataSet $dataset, int $folds = 1) {
 		$this->dataset = $dataset;
 		$this->fold($folds);
 	}

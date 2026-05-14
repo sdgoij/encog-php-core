@@ -52,7 +52,7 @@ class Matrix {
 		return new static($matrix);
 	}
 
-	public function __construct(array $data) {
+	final public function __construct(array $data) {
 		if (!isset($data[0]) || !is_array($data[0])) {
 			$data[0] = [];
 		}

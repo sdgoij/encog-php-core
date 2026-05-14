@@ -62,6 +62,7 @@ class ActivationSigmoidTest extends TestCase {
 
 	public function testParams() {
 		$tanh = new ActivationSigmoid();
+		// @phpstan-ignore method.resultUnused
 		$tanh->setParam(0, 1);
 
 		$this->assertEquals([], $tanh->getParamNames());
